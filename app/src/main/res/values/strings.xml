@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">KalariLab</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="message_need_permission">Please give premission to open camera</string>
+    <string name="message_permission">Please give a premission to open Camera</string>
+    <string name="title_go_to_setting">Go to settings</string>
+    <string name="play_stop">Stop</string>
+</resources>
