@@ -616,6 +616,7 @@ public abstract class CameraVideoFragment extends android.app.Fragment {
         }
         // Stop recording
         mMediaRecorder.stop();
+
         mMediaRecorder.reset();
     }
 

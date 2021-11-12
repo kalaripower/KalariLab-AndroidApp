@@ -2,9 +2,11 @@ package com.example.kalarilab;
 
 import android.hardware.camera2.CameraAccessException;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.VideoView;
@@ -23,9 +25,9 @@ import butterknife.Unbinder;
  * create an instance of this fragment.
  */
 
-public class CameraFragment extends CameraVideoFragment {
+public class CameraFragment extends CameraVideoFragment implements View.OnClickListener {
 
-
+    private ImageButton returnKey;
     @BindView(R.id.mTextureView)
     com.example.imageclassificationlivefeed.AutoFitTextureView mTextureView;
     @BindView(R.id.mRecordVideo)
@@ -56,6 +58,7 @@ public class CameraFragment extends CameraVideoFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -64,6 +67,8 @@ public class CameraFragment extends CameraVideoFragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_camera, container, false);
         unbinder = ButterKnife.bind(this, view);
+        returnKey = (ImageButton) view.findViewById(R.id.returnKey);
+        returnKey.setOnClickListener(this);
         return view;
     }
 
@@ -107,6 +112,22 @@ public class CameraFragment extends CameraVideoFragment {
                 mVideoView.start();
                 mPlayVideo.setVisibility(View.GONE);
                 break;
+
+
+
+        }
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.returnKey:
+               resetPlayer();
+               returnKey.setVisibility(View.GONE);
+                break;
+
+
+
         }
     }
 
@@ -125,17 +146,27 @@ public class CameraFragment extends CameraVideoFragment {
         mVideoView.requestFocus();
         mVideoView.setVideoPath(mOutputFilePath);
         mVideoView.seekTo(100);
+        returnKey.setVisibility(View.VISIBLE);
         mVideoView.setOnCompletionListener(mp -> {
-            // Reset player
-            mVideoView.setVisibility(View.GONE);
-            mTextureView.setVisibility(View.VISIBLE);
-            mPlayVideo.setVisibility(View.GONE);
-            mRecordVideo.setImageResource(R.drawable.rec);
+          setMediaForRecordVideo();
         });
     }
+
+    private void resetPlayer() {
+        // Reset player
+        Log.d("brokeHere", "brokeHere");
+        mVideoView.setVisibility(View.GONE);
+        mTextureView.setVisibility(View.VISIBLE);
+        mPlayVideo.setVisibility(View.GONE);
+        mRecordVideo.setImageResource(R.drawable.rec);
+    }
+
     @Override
     public void onDestroyView() {
         super.onDestroyView();
         unbinder.unbind();
     }
+
+
+
 }
