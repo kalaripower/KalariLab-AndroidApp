@@ -6,4 +6,62 @@
     <string name="message_permission">Please give a premission to open Camera</string>
     <string name="title_go_to_setting">Go to settings</string>
     <string name="play_stop">Stop</string>
+    <string name="dialog_permission_title" translatable="false">Grant Permissions</string>
+    <string name="dialog_permission_message" translatable="false">This app needs permission to use this feature. You can grant them in app settings.</string>
+    <string name="go_to_settings" translatable="false">GOTO SETTINGS</string>
+    <string name="error_gif" translatable="false">x or y bound size should be at least %1$dpx and file size should be no more than %2$sM</string>
+    <string name="button_sure_default">Ok</string>
+    <string name="button_sure">Ok(%1$d)</string>
+    <string name="write_post_or_a_question">Write a post or ask a question.</string>
+    <string-array name="occupations">
+        <item>Student</item>
+        <item>Tutor</item>
+        <item>Tutor and Student</item>
+    </string-array>
+    <string-array name="warnings">
+        <item>Full Name Is Required!</item>
+        <item>Email Is Required!</item>
+        <item>Please Provide Valid Email!</item>
+        <item>Password Is Required!</item>
+        <item>Password is short!</item>
+        <item>Sorry we can not find an account with this email address!
+        Please try again, or create a new account.</item>
+        <item>The password is incorrect!</item>
+        <item>Username is required!</item>
+        <item>Please provide your school name</item>
+    </string-array>
+    <string-array name="messages">
+        <item>Check your e-mail to verify your account</item>
+        <item>Check your e-mail to reset Your password</item>
+        <item>This e-mail is already connected to an account!</item>
+        <item>Checking username...</item>
+        <item>Sorry..Username is already taken!</item>
+        <item>is available.</item>
+        <item>Resend verification message.</item>
+    </string-array>
+    <string-array name="genders">
+        <item>Male</item>
+        <item>Female</item>
+        <item>Other</item>
+    </string-array>
+    <string name="already_have_account">Already have an account?</string>
+    <string name="email_field">Email</string>
+    <string name="password_field">Password</string>
+    <string name="Log_in">Log in</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="register">Create Account</string>
+    <string name="full_name">Name</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="student">Student</string>
+    <string name="teacher">Teacher</string>
+    <string name="register_success">User has been registered successfully!</string>
+    <string name="register_fail">Failed to register! please try again!</string>
+    <string name="ok">OK.</string>
+    <string name="username">Username</string>
+    <string name="ASCII" translatable="false"> !"#$%\'()*+,-./0123456789:;=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~</string>
+    <string name="next">Next</string>
+    <string name="otherOptionsForSignUp">Sign up with one of the following options.</string>
+    <string name="otherOptionsForLogIn">Log In with one of the following options.</string>
+    <string name="dontHaveAnAccount">Don\'t have an account?</string>
+
 </resources>

@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LogIn"
+    android:background="@color/KalariLabMain">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/editTextEmail"
+        android:layout_marginTop="@dimen/returnButton_marginTop"
+
+        >
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/return_button"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Log_in"
+            android:textSize="40dp"
+            android:textColor="@color/white"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"/>
+    </LinearLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/editTextEmail"
+        android:layout_marginTop="@dimen/text_marginTop"
+        android:textSize="@dimen/text_size"
+        android:text="@string/otherOptionsForLogIn"
+        android:textColor="@color/text_input_box_hint"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:layout_marginTop="@dimen/otherAuthOptionButton_marginTop"
+            android:background="@color/KalariLabMain"
+            android:src="@drawable/google_auth"
+            >
+
+
+        </ImageButton>
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:layout_marginTop="@dimen/otherAuthOptionButton_marginTop"
+            android:background="@color/KalariLabMain"
+            android:src="@drawable/facebook_auth"
+            >
+
+        </ImageButton>
+
+
+    </LinearLayout>
+
+
+
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/editTextEmail"
+        style="@style/LoggingTextInputLayoutStyle"
+        android:layout_marginTop="@dimen/LoggingEmail_inputBox_marginTop"
+        android:digits="@string/ASCII"
+        android:hint="@string/email_field"
+        android:importantForAutofill="no"
+        android:inputType="textEmailAddress"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            style="@style/LoggingTextInputLayoutStyle"
+            android:layout_width="match_parent"
+
+            android:layout_height="match_parent" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/editTextPassword"
+        android:layout_below="@+id/editTextEmail"
+        android:layout_marginTop="20dp"
+        android:hint="@string/password_field"
+        android:inputType="textPassword"
+        android:importantForAutofill="no"
+        android:digits="@string/ASCII"
+        style="@style/LoggingTextInputLayoutStyle"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            style="@style/LoggingTextInputLayoutStyle"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.google.android.material.button.MaterialButton
+
+        android:id="@+id/LogIn"
+        style="@style/registerButtonStyle"
+        android:text="@string/Log_in"
+        android:layout_below="@+id/editTextPassword"
+        app:cornerRadius="15dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/LogIn"
+        android:layout_centerHorizontal="true"
+        android:text="@string/already_have_account"
+        android:textColor="@color/text_input_box_hint"/>
+
+
+    <com.google.android.material.button.MaterialButton
+
+        android:id="@+id/goToLogIn"
+        style="@style/goToSignInButtonStyle"
+        android:text="@string/sign_up"
+        android:layout_below="@id/LogIn"
+
+
+        />
+
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleLarge"
+        android:visibility="gone"
+        android:layout_centerInParent="true"/>
+
+</RelativeLayout>

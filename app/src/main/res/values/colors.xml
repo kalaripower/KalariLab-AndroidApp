@@ -7,4 +7,9 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="KalariLabMain">#101010</color>
+    <color name="KalariLAbSecondary">#ce262f</color>
+    <color name="colorOnMain">#171717</color>
+    <color name="darkGrey">#545454</color>
+    <color name="secondaryFont">#aaa8a8</color>
 </resources>

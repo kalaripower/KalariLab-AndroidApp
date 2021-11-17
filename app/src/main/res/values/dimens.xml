@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="logging_inputBox_height">70dp</dimen>
+    <dimen name="logging_inputBox_width">380dp</dimen>
+
+
+    <dimen name="LoggingEmail_inputBox_marginTop">330dp</dimen>
+
+
+
+    <dimen name="logging_inputBox_marginTop">20dp</dimen>
+    <dimen name="logging_inputBox_ems">10</dimen>
+    <dimen name="logging_inputBox_textSize">20dp</dimen>
+    <dimen name="logging_inputBox_boxStrokeWidth">2dp</dimen>
+    <dimen name="logging_inputBox_boxRadius">15dp</dimen>
+
+
+    <dimen name="registerButton_width">380dp</dimen>
+    <dimen name="registerButton_marginTop">20dp</dimen>
+    <dimen name="registerButton_height">70dp</dimen>
+    <dimen name="registerButton_textSize">20dp</dimen>
+
+
+    <dimen name="logging_textSize">20dp</dimen>
+
+
+    <dimen name="goToSignInButton_marginTop">10dp</dimen>
+
+
+
+    <dimen name="otherAuthOptionButton_height"> 70dp</dimen>
+    <dimen name="otherAuthOptionButton_width"> 170dp</dimen>
+    <dimen name="otherAuthOptionButton_marginTop"> 180dp</dimen>
+    <dimen name="otherAuthOptionButton_boxRadius"> 15dp</dimen>
+
+    <dimen name="boxStrokeWidth">2dp</dimen>
+    <dimen name="text_size"> 17dp</dimen>
+    <dimen name="text_marginTop">130dp</dimen>
+
+
+    <dimen name="returnButton_marginTop"> 10dp</dimen>
+
+
+
+
+
+
+</resources>

@@ -19,7 +19,6 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
-import android.widget.Spinner;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.database.DataSnapshot;
@@ -45,16 +44,16 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register2);
+        setContentView(R.layout.activity_register);
         Resources res = getResources();
-        goToSignIn = findViewById(R.id.goToSignIn);
+        goToSignIn = findViewById(R.id.goToLogIn);
        // occupationSpinner = findViewById(R.id.ocupationSpiner);
         fullName = findViewById(R.id.fullName);
         username = findViewById(R.id.editTextUsername);
         email = findViewById(R.id.editTextEmail);
         password = findViewById(R.id.editTextPassword);
         progressBar = findViewById(R.id.progressBar);
-        goToPersonalInfo = findViewById(R.id.goToPersonalInfo);
+        goToPersonalInfo = findViewById(R.id.register);
         messages = getResources().getStringArray(R.array.messages);
     //    messagesAdapter = new CustomAdapter(messages);
         usernameNotTaken = new AtomicBoolean(false);
@@ -82,11 +81,11 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.goToSignIn:
+            case R.id.goToLogIn:
                 startActivity(new Intent(this, Login.class));
 
                 break;
-            case R.id.goToPersonalInfo:
+            case R.id.register:
                 registerUser();
                 break;
         }
