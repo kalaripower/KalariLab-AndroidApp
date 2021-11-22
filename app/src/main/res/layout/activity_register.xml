@@ -11,7 +11,7 @@
    <LinearLayout
        android:layout_width="match_parent"
        android:layout_height="wrap_content"
-       android:layout_alignStart="@id/fullName"
+       android:layout_alignStart="@id/editTextFullNameParent"
        android:layout_marginTop="@dimen/returnButton_marginTop"
 
        >
@@ -32,7 +32,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@id/fullName"
+        android:layout_alignStart="@id/editTextFullNameParent"
         android:layout_marginTop="@dimen/text_marginTop"
         android:textSize="@dimen/text_size"
         android:text="@string/otherOptionsForSignUp"
@@ -68,26 +68,26 @@
 </LinearLayout>
 
 
-
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/fullName"
+        android:id="@+id/editTextFullNameParent"
+        style="@style/LoggingTextInputLayoutStyle"
         android:layout_marginTop="330dp"
-        android:importantForAutofill="no"
         android:hint="@string/full_name"
-        style="@style/LoggingTextInputLayoutStyle">
+        android:importantForAutofill="no">
 
         <com.google.android.material.textfield.TextInputEditText
+            style="@style/LoggingTextInputLayoutStyle"
+            android:id="@+id/editTextFullName"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-                style="@style/LoggingTextInputLayoutStyle"/>
+            android:layout_height="match_parent" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editTextEmail"
+        android:id="@+id/editTextEmailParent"
         style="@style/LoggingTextInputLayoutStyle"
-        android:layout_below="@+id/fullName"
+        android:layout_below="@+id/editTextFullNameParent"
         android:layout_marginTop="20dp"
         android:digits="@string/ASCII"
         android:hint="@string/email_field"
@@ -97,16 +97,16 @@
 
         <com.google.android.material.textfield.TextInputEditText
             style="@style/LoggingTextInputLayoutStyle"
+            android:id="@+id/editTextEmail"
             android:layout_width="match_parent"
-
             android:layout_height="match_parent" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editTextPassword"
-        android:layout_below="@+id/editTextEmail"
+        android:id="@+id/editTextPasswordParent"
+        android:layout_below="@+id/editTextEmailParent"
         android:layout_marginTop="20dp"
         android:hint="@string/password_field"
         android:inputType="textPassword"
@@ -118,7 +118,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-
+            android:id="@+id/editTextPassword"
             style="@style/LoggingTextInputLayoutStyle"/>
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -128,7 +128,7 @@
 
         android:id="@+id/register"
         style="@style/registerButtonStyle"
-        android:layout_below="@+id/editTextPassword"
+        android:layout_below="@+id/editTextPasswordParent"
         app:cornerRadius="15dp" />
 
 <TextView
@@ -142,7 +142,7 @@
 
     <com.google.android.material.button.MaterialButton
 
-        android:id="@+id/goToLogIn"
+        android:id="@+id/goToSignIn"
         style="@style/goToSignInButtonStyle"
         app:cornerRadius="15dp"
 

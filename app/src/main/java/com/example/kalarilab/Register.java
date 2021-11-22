@@ -11,7 +11,6 @@ import android.content.IntentFilter;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.Editable;
-import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.View;
@@ -21,6 +20,7 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -28,123 +28,99 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-
 public class Register extends AppCompatActivity implements View.OnClickListener {
 
   //  private DatabaseReference reference;
-    private Button goToSignIn, goToPersonalInfo;
-    private EditText fullName, email, password, username;
+    private Button goToSignIn;
+    private EditText fullnameEntry, emailEntry, passwordEntry;
     private ProgressBar progressBar;
-    private String[] warnings , messages;
-  //  private CustomAdapter messagesAdapter, warningsAdapter;
-    private static final String TAG = "REGISTER";
-    private AtomicBoolean usernameNotTaken ;
+    private TextInputLayout fullnameEntryParent, emailEntryParent, passwordEntryParent;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        init();
         Resources res = getResources();
-        goToSignIn = findViewById(R.id.goToLogIn);
-       // occupationSpinner = findViewById(R.id.ocupationSpiner);
-        fullName = findViewById(R.id.fullName);
-        username = findViewById(R.id.editTextUsername);
-        email = findViewById(R.id.editTextEmail);
-        password = findViewById(R.id.editTextPassword);
+        goToSignIn = findViewById(R.id.goToSignIn);
+        fullnameEntry = findViewById(R.id.editTextFullName);
+        emailEntry = findViewById(R.id.editTextEmail);
+        passwordEntry = findViewById(R.id.editTextPassword);
         progressBar = findViewById(R.id.progressBar);
-        goToPersonalInfo = findViewById(R.id.register);
-        messages = getResources().getStringArray(R.array.messages);
-    //    messagesAdapter = new CustomAdapter(messages);
-        usernameNotTaken = new AtomicBoolean(false);
+        emailEntryParent =findViewById(R.id.editTextEmailParent);
+        passwordEntryParent = findViewById(R.id.editTextPasswordParent);
+        fullnameEntryParent = findViewById(R.id.editTextFullNameParent);
 
 
 
-        fullName.setOnClickListener(this);
-        email.setOnClickListener(this);
-        password.setOnClickListener(this);
-        progressBar.setOnClickListener(this);
         goToSignIn.setOnClickListener(this);
-        goToPersonalInfo.setOnClickListener(this);
-        username.addTextChangedListener(watcher);
 
-        InputFilter[] filterArray = new InputFilter[1];
-        filterArray[0] = new InputFilter.LengthFilter(25);
-        username.setFilters(filterArray);
-        fullName.setFilters(filterArray);
 
-        finishAfterRegistrationCompletion();
+
+
+
 
 
     }
+
+    
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.goToLogIn:
-                startActivity(new Intent(this, Login.class));
+            case R.id.goToSignIn:
+               moveToSignInActivity();
 
                 break;
             case R.id.register:
-                registerUser();
+                refactorInfo();
                 break;
         }
     }
+    private void moveToSignInActivity() {
+        Intent intent = new Intent(this, LogIn.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(intent);
+    }
 
-    private void registerUser() {
-        final String fullName = this.fullName.getText().toString().trim();
-        final String email = this.email.getText().toString().trim();
-        final String password = this.password.getText().toString().trim();
-        final String username = this.username.getText().toString().trim();
-       // final String occupation = occupationSpinner.getSelectedItem().toString();
-        warnings = getResources().getStringArray(R.array.warnings);
-       // warningsAdapter = new CustomAdapter(warnings);
+
+    private void refactorInfo() {
+        final String fullName = this.fullnameEntry.getText().toString().trim();
+        final String email = this.emailEntry.getText().toString().trim();
+        final String password = this.passwordEntry.getText().toString().trim();
 
 
         if (fullName.isEmpty()) {
-            this.fullName.setError(warningsAdapter.getItem(0).toString());
-            this.fullName.requestFocus();
-            return;
+           fullnameEntryParent.setBoxStrokeColor(getResources().getColor(R.color.red));
+           return;
         }
-        if (username.isEmpty()) {
-            this.username.setError(warningsAdapter.getItem(7).toString());
-            this.username.requestFocus();
-            return;
-        }
-
-
 
         if (email.isEmpty()) {
-            this.email.setError(warningsAdapter.getItem(1).toString());
-            this.email.requestFocus();
+            emailEntryParent.setBoxStrokeColor(getResources().getColor(R.color.red));
+
             return;
         }
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            this.email.setError(warningsAdapter.getItem(2).toString());
-            this.email.requestFocus();
+            emailEntryParent.setBoxStrokeColor(getResources().getColor(R.color.red));
+
             return;
         }
         if (password.isEmpty()) {
-            this.password.setError(warningsAdapter.getItem(3).toString());
-            this.password.requestFocus();
+           passwordEntryParent.setBoxStrokeColor(getResources().getColor(R.color.red));
+
             return;
         }
         if (password.length() < 6) {
-            this.password.setError(warningsAdapter.getItem(4).toString());
-            this.password.requestFocus();
+             passwordEntryParent.setBoxStrokeColor(getResources().getColor(R.color.red));
+
             return;
 
-        }
-        while (!this.usernameNotTaken.get()){
-            return;
-        }
-       if (this.usernameNotTaken.get()){
+
            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             progressBar.setVisibility(View.VISIBLE);
             checkIfValid(email, password, fullName, username, occupation);
-        }
-      
+
 
 
 

@@ -10,7 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@id/editTextEmail"
+        android:layout_alignStart="@id/editTextEmailParent"
         android:layout_marginTop="@dimen/returnButton_marginTop"
 
         >
@@ -18,7 +18,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="10dp"
-            android:src="@drawable/return_button"/>
+            android:src="@drawable/return_button"
+            android:id="@+id/backButton"
+            />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -31,7 +33,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@id/editTextEmail"
+        android:layout_alignStart="@id/editTextEmailParent"
         android:layout_marginTop="@dimen/text_marginTop"
         android:textSize="@dimen/text_size"
         android:text="@string/otherOptionsForLogIn"
@@ -44,6 +46,7 @@
         <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:id="@+id/signInGmail"
             android:layout_weight="0.5"
             android:layout_marginTop="@dimen/otherAuthOptionButton_marginTop"
             android:background="@color/KalariLabMain"
@@ -56,6 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.5"
+            android:id="@+id/signInFacebook"
             android:layout_marginTop="@dimen/otherAuthOptionButton_marginTop"
             android:background="@color/KalariLabMain"
             android:src="@drawable/facebook_auth"
@@ -71,7 +75,7 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editTextEmail"
+        android:id="@+id/editTextEmailParent"
         style="@style/LoggingTextInputLayoutStyle"
         android:layout_marginTop="@dimen/LoggingEmail_inputBox_marginTop"
         android:digits="@string/ASCII"
@@ -83,6 +87,7 @@
         <com.google.android.material.textfield.TextInputEditText
             style="@style/LoggingTextInputLayoutStyle"
             android:layout_width="match_parent"
+            android:id="@+id/editTextEmail"
 
             android:layout_height="match_parent" />
 
@@ -90,8 +95,8 @@
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editTextPassword"
-        android:layout_below="@+id/editTextEmail"
+        android:id="@+id/editTextPasswordParent"
+        android:layout_below="@+id/editTextEmailParent"
         android:layout_marginTop="20dp"
         android:hint="@string/password_field"
         android:inputType="textPassword"
@@ -103,6 +108,7 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:id="@+id/editTextPassword"
 
             style="@style/LoggingTextInputLayoutStyle"/>
 
@@ -113,8 +119,8 @@
 
         android:id="@+id/LogIn"
         style="@style/registerButtonStyle"
+        android:layout_below="@+id/editTextPasswordParent"
         android:text="@string/Log_in"
-        android:layout_below="@+id/editTextPassword"
         app:cornerRadius="15dp" />
 
     <TextView
@@ -128,10 +134,10 @@
 
     <com.google.android.material.button.MaterialButton
 
-        android:id="@+id/goToLogIn"
+        android:id="@+id/goToSignIn"
         style="@style/goToSignInButtonStyle"
-        android:text="@string/sign_up"
         android:layout_below="@id/LogIn"
+        android:text="@string/sign_up"
 
 
         />
