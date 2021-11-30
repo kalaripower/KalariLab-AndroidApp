@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "101293919003",
+    "project_id": "kalarilab-1638111946090",
+    "storage_bucket": "kalarilab-1638111946090.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:101293919003:android:289bf14dc775e0d676a1be",
+        "android_client_info": {
+          "package_name": "com.example.kalarilab"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "101293919003-95e8s54cs9349qcrekah3j8m1t43dc6b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCAN0ADW9GymwrC6uPEe-OcG-b_SCtpTKw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "101293919003-95e8s54cs9349qcrekah3j8m1t43dc6b.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -24,7 +24,7 @@
     <dimen name="logging_textSize">20dp</dimen>
 
 
-    <dimen name="goToSignInButton_marginTop">10dp</dimen>
+    <dimen name="goToSignInOrUpButton_marginTop">15dp</dimen>
 
 
 

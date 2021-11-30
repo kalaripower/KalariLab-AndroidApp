@@ -1,82 +1,119 @@
 package com.example.kalarilab;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.res.Resources;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Patterns;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
-import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
-import com.google.firebase.database.ValueEventListener;
 
 public class Register extends AppCompatActivity implements View.OnClickListener {
 
-  //  private DatabaseReference reference;
+    private static final String TAG = "authDebug" ;
     private Button goToSignIn;
     private EditText fullnameEntry, emailEntry, passwordEntry;
     private ProgressBar progressBar;
     private TextInputLayout fullnameEntryParent, emailEntryParent, passwordEntryParent;
+    private ImageButton signInGmail, signInFacebook;
+    private GoogleSignInClient mGoogleSignInClient;
+    private final static int  RC_SIGN_IN = 123;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         init();
-        Resources res = getResources();
-        goToSignIn = findViewById(R.id.goToSignIn);
+
+
+    }
+
+    private void init() {
+        goToSignIn = findViewById(R.id.goToSignUp);
         fullnameEntry = findViewById(R.id.editTextFullName);
         emailEntry = findViewById(R.id.editTextEmail);
         passwordEntry = findViewById(R.id.editTextPassword);
         progressBar = findViewById(R.id.progressBar);
-        emailEntryParent =findViewById(R.id.editTextEmailParent);
+        emailEntryParent = findViewById(R.id.editTextEmailParent);
         passwordEntryParent = findViewById(R.id.editTextPasswordParent);
         fullnameEntryParent = findViewById(R.id.editTextFullNameParent);
-
+        signInGmail = findViewById(R.id.signInGmail);
+        signInFacebook = findViewById(R.id.signInFacebook);
 
 
         goToSignIn.setOnClickListener(this);
+        signInGmail.setOnClickListener(this);
+        signInFacebook.setOnClickListener(this);
 
+        configureGoogleRequest();
+        finishAfterRegistrationCompletion();
 
+    fullnameEntryParent.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+            if(hasFocus) emailEntryParent.setBoxStrokeColor(getResources().getColor(R.color.KalariLAbSecondary));
+            else {
+                emailEntryParent.setBoxStrokeColor(getResources().getColor(R.color.darkGrey));
+            }
+        }
 
+    });
+    emailEntryParent.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+            if(hasFocus) emailEntryParent.setBoxStrokeColor(getResources().getColor(R.color.KalariLAbSecondary));
+            else {
+                emailEntryParent.setBoxStrokeColor(getResources().getColor(R.color.darkGrey));
+            }
+        }
 
+    });
+    passwordEntryParent.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        @Override
+        public void onFocusChange(View v, boolean hasFocus) {
+            if(hasFocus) emailEntryParent.setBoxStrokeColor(getResources().getColor(R.color.KalariLAbSecondary));
+            else {
+                emailEntryParent.setBoxStrokeColor(getResources().getColor(R.color.darkGrey));
+            }
+        }
 
-
-
+    });
     }
 
-    
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.goToSignIn:
-               moveToSignInActivity();
+            case R.id.goToSignUp:
+                moveToSignInActivity();
 
                 break;
             case R.id.register:
-                refactorInfo();
+                checkInfo();
+                break;
+            case R.id.signInGmail:
+                signUpViaGmail();
                 break;
         }
     }
+
     private void moveToSignInActivity() {
         Intent intent = new Intent(this, LogIn.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -84,15 +121,15 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
     }
 
 
-    private void refactorInfo() {
+    private void checkInfo() {
         final String fullName = this.fullnameEntry.getText().toString().trim();
         final String email = this.emailEntry.getText().toString().trim();
         final String password = this.passwordEntry.getText().toString().trim();
 
 
         if (fullName.isEmpty()) {
-           fullnameEntryParent.setBoxStrokeColor(getResources().getColor(R.color.red));
-           return;
+            fullnameEntryParent.setBoxStrokeColor(getResources().getColor(R.color.red));
+            return;
         }
 
         if (email.isEmpty()) {
@@ -106,146 +143,109 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
             return;
         }
         if (password.isEmpty()) {
-           passwordEntryParent.setBoxStrokeColor(getResources().getColor(R.color.red));
+            passwordEntryParent.setBoxStrokeColor(getResources().getColor(R.color.red));
 
             return;
         }
         if (password.length() < 6) {
-             passwordEntryParent.setBoxStrokeColor(getResources().getColor(R.color.red));
+            passwordEntryParent.setBoxStrokeColor(getResources().getColor(R.color.red));
+
 
             return;
+        }
 
-
-           getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                   WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             progressBar.setVisibility(View.VISIBLE);
-            checkIfValid(email, password, fullName, username, occupation);
+            checkIfValid(email, password, fullName);
+
+
+        }
 
 
 
+        private void checkIfValid ( final String email, final String password,
+        final String fullName){
+
+                        progressBar.setVisibility(View.GONE);
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            createSession();
+            moveToMainActivity();
+
+
+
+        }
+    private void moveToMainActivity() {
+        Intent intent = new Intent(Register.this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(intent);
+    }
+
+
+    private void createSession() {
+        SessionManagement sessionManagement = new SessionManagement(Register.this);
+        sessionManagement.saveSession("#TestTest");
 
     }
 
-    private void checkIfValid(final String email, final String password,
-                              final String fullName, final String username, final String occupation) {
-        reference = FirebaseDatabase.getInstance().getReference();
-        Query userQuery = reference.child("Users").orderByChild("email").equalTo(email);
-        userQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    progressBar.setVisibility(View.GONE);
-                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                    notifyUserEmailTaken();
-                } else {
-                    progressBar.setVisibility(View.GONE);
-                    passInfoToNextActivity(email, password, fullName, username, occupation);
-                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
 
 
+
+    private void configureGoogleRequest(){
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+    }
+    private void signUpViaGmail() {
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
     }
 
-    private void passInfoToNextActivity(String email, String password, String fullname, String username, String occupation) {
-        Intent passInfo = new Intent(Register.this,PersonalInfo.class);
-        passInfo.putExtra("email", email);
-        passInfo.putExtra("password", password);
-        passInfo.putExtra("fullname", fullname);
-        passInfo.putExtra("username", username);
-        passInfo.putExtra("occupation", occupation);
-        startActivity(passInfo);
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            // The Task returned from this call is always completed, no need to attach
+            // a listener.
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleSignInResult(task);
+
+        }
     }
 
-    private void notifyUserEmailTaken() {
-        new MaterialAlertDialogBuilder(Register.this)
-                .setTitle("Sign up" + "...")
-                .setMessage(messagesAdapter.getItem(2).toString())
-                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
+
+    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+        try {
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+
+            // Signed in successfully, show authenticated UI.
+            progressBar.setVisibility(View.GONE);
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            createSession();
+            moveToMainActivity();
+
+        } catch (ApiException e) {
+            // The ApiException status code indicates the detailed failure reason.
+            // Please refer to the GoogleSignInStatusCodes class reference for more information.
+        }
+    }
+
+
+    private void finishAfterRegistrationCompletion () {
+            BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
+                @Override
+                public void onReceive(Context context, Intent intent) {
+                    String action = intent.getAction();
+                    if (action.equals("finish_activity")) {
+                        finish();
                     }
-                }).show();
-    }
-
-
-
-    TextWatcher watcher = new TextWatcher() {
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            checkIfUsernameTaken();
-
+                }
+            };
+            registerReceiver(broadcastReceiver, new IntentFilter("finish_activity"));
         }
 
-        @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) { }
-
-        @Override
-        public void afterTextChanged(Editable s) {
-            checkIfUsernameTaken();
-
-        }
-
-    };
-
-
-
-    private void checkIfUsernameTaken() {
-        final String username = '@' + this.username.getText().toString().trim();
-        Query usernameQuery = FirebaseDatabase.getInstance().getReference().child("Users").orderByChild("username").equalTo(username);
-        usernameQuery.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    usernameNotTaken.set(false);
-                    notifyUsernameTaken();
-                    usernameNotTaken.set(false);
-
-                }else{
-                    usernameNotTaken.set(true);
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
 
     }
-
-
-    private void notifyUsernameTaken() {
-        this.username.setError(messagesAdapter.getItem(4).toString());
-        this.username.requestFocus();
-
-    }
-
-    private void finishAfterRegistrationCompletion() {
-        BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context context, Intent intent) {
-                String action = intent.getAction();
-                if(action.equals("finish_activity")){
-                    finish();
-                }
-            }
-        };
-        registerReceiver(broadcastReceiver, new IntentFilter("finish_activity"));
-    }
-
-
-}

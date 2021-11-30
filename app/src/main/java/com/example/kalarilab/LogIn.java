@@ -13,11 +13,25 @@ import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.common.api.ApiException;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.Locale;
 
+
+
 public class LogIn extends AppCompatActivity implements View.OnClickListener {
+
+
+
+
+
+
 
     private Button logInButt, goToSignUpButton;
     private ImageButton signInGmail, signInFacebook;
@@ -25,11 +39,14 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
     private EditText emailEntry, passwordEntry;
     private TextInputLayout emailEntryParent, passwordEntryParent;
     private ProgressBar progressBar;
+    private GoogleSignInClient mGoogleSignInClient;
+    private final static int  RC_SIGN_IN = 123;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
+
         init();
 
 
@@ -37,7 +54,7 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
 
     public void init() {
         logInButt = findViewById(R.id.LogIn);
-        goToSignUpButton = findViewById(R.id.goToSignIn);
+        goToSignUpButton = findViewById(R.id.goToSignUp);
         signInGmail = findViewById(R.id.signInGmail);
         signInFacebook = findViewById(R.id.signInFacebook);
         backButt = findViewById(R.id.backButton);
@@ -46,6 +63,8 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
         emailEntryParent = findViewById(R.id.editTextEmailParent);
         passwordEntryParent = findViewById(R.id.editTextPasswordParent);
         progressBar = findViewById(R.id.progressBar);
+        configureGoogleRequest();
+
 
         logInButt.setOnClickListener(this);
         goToSignUpButton.setOnClickListener(this);
@@ -63,6 +82,16 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
 
         });
 
+        passwordEntryParent.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus) emailEntryParent.setBoxStrokeColor(getResources().getColor(R.color.KalariLAbSecondary));
+                else {
+                    emailEntryParent.setBoxStrokeColor(getResources().getColor(R.color.darkGrey));
+                }
+            }
+
+        });
     }
 
     @Override
@@ -72,11 +101,11 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
                 checkEnteredInfo();
 
                 break;
-            case R.id.goToSignIn:
+            case R.id.goToSignUp:
                 moveToSignUpActivity();
                 break;
             case R.id.signInGmail:
-
+                signInViaGmail();
 
                 break;
             case R.id.signInFacebook:
@@ -86,6 +115,12 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
 
     }
 
+    private void configureGoogleRequest(){
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+    }
 
     private void checkEnteredInfo() {
         final String email = this.emailEntry.getText().toString().trim().toLowerCase(Locale.ROOT);
@@ -114,9 +149,11 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void logIn(String email, String password) {
-        createSession();
+        progressBar.setVisibility(View.GONE);
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         moveToMainActivity();
     }
+
     private void moveToMainActivity() {
         Intent intent = new Intent(LogIn.this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
@@ -139,6 +176,8 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
 
 
 
+
+
     //The following method handles sessions on the current device
 
     @Override
@@ -148,6 +187,7 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void checkSession(){
+
         SessionManagement sessionManagement = new SessionManagement(LogIn.this);
         if(sessionManagement.returnSession() != "") {
             startActivity(new Intent(LogIn.this, MainActivity.class));
@@ -157,4 +197,40 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
 
 
     }
+    private void signInViaGmail() {
+        Intent signInIntent = mGoogleSignInClient.getSignInIntent();
+        startActivityForResult(signInIntent, RC_SIGN_IN);
+    }
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Result returned from launching the Intent from GoogleSignInClient.getSignInIntent(...);
+        if (requestCode == RC_SIGN_IN) {
+            // The Task returned from this call is always completed, no need to attach
+            // a listener.
+            Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
+            handleSignInResult(task);
+
+        }
+    }
+
+    private void handleSignInResult(Task<GoogleSignInAccount> completedTask) {
+        try {
+            GoogleSignInAccount account = completedTask.getResult(ApiException.class);
+
+            // Signed in successfully, show authenticated UI.
+            progressBar.setVisibility(View.GONE);
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            createSession();
+            moveToMainActivity();
+
+        } catch (ApiException e) {
+            // The ApiException status code indicates the detailed failure reason.
+            // Please refer to the GoogleSignInStatusCodes class reference for more information.
+        }
+    }
+
+
+
 }

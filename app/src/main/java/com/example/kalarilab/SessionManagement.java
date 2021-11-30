@@ -3,7 +3,9 @@ package com.example.kalarilab;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-public class SessionManagement {
+import java.io.Serializable;
+
+public class SessionManagement implements Serializable {
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     String SHARED_PREF_NAME = "session";

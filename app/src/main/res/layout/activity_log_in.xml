@@ -128,14 +128,14 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/LogIn"
         android:layout_centerHorizontal="true"
-        android:text="@string/already_have_account"
-        android:textColor="@color/text_input_box_hint"/>
+        android:text="@string/dontHaveAnAccount"
+        android:textColor="@color/text_input_box_hint" />
 
 
     <com.google.android.material.button.MaterialButton
 
-        android:id="@+id/goToSignIn"
-        style="@style/goToSignInButtonStyle"
+        android:id="@+id/goToSignUp"
+        style="@style/goToSignInOrUpButtonStyle"
         android:layout_below="@id/LogIn"
         android:text="@string/sign_up"
 
