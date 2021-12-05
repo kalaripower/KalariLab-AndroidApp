@@ -2,13 +2,13 @@ package com.example.kalarilab;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,12 +35,12 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
 
     private Button logInButt, goToSignUpButton;
     private ImageButton signInGmail, signInFacebook;
-    private ImageView backButt;
     private EditText emailEntry, passwordEntry;
     private TextInputLayout emailEntryParent, passwordEntryParent;
     private ProgressBar progressBar;
     private GoogleSignInClient mGoogleSignInClient;
     private final static int  RC_SIGN_IN = 123;
+    public SessionManagement sessionManagement;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,19 +57,19 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
         goToSignUpButton = findViewById(R.id.goToSignUp);
         signInGmail = findViewById(R.id.signInGmail);
         signInFacebook = findViewById(R.id.signInFacebook);
-        backButt = findViewById(R.id.backButton);
         emailEntry = findViewById(R.id.editTextEmail);
         passwordEntry = findViewById(R.id.editTextPassword);
         emailEntryParent = findViewById(R.id.editTextEmailParent);
         passwordEntryParent = findViewById(R.id.editTextPasswordParent);
         progressBar = findViewById(R.id.progressBar);
+        sessionManagement = new SessionManagement(LogIn.this);
+
         configureGoogleRequest();
 
 
         logInButt.setOnClickListener(this);
         goToSignUpButton.setOnClickListener(this);
         signInGmail.setOnClickListener(this);
-        backButt.setOnClickListener(this);
 
         emailEntryParent.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -162,16 +162,19 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
 
 
     private void createSession() {
-        SessionManagement sessionManagement = new SessionManagement(LogIn.this);
         sessionManagement.saveSession("#TestTest");
 
     }
 
 
     private void moveToSignUpActivity() {
+        Log.d("DebugMoveToSignUp", "S");
         Intent intent = new Intent(LogIn.this, Register.class);
+        Log.d("DebugMoveToSignUp", "S1");
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
+        Log.d("DebugMoveToSignUp", "S2");
+
     }
 
 
@@ -188,7 +191,6 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
 
     private void checkSession(){
 
-        SessionManagement sessionManagement = new SessionManagement(LogIn.this);
         if(sessionManagement.returnSession() != "") {
             startActivity(new Intent(LogIn.this, MainActivity.class));
         }else {

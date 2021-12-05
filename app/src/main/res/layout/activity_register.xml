@@ -8,27 +8,23 @@
     android:background="@color/KalariLabMain">
 
 
-   <LinearLayout
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:layout_alignStart="@id/editTextFullNameParent"
-       android:layout_marginTop="@dimen/returnButton_marginTop"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@id/editTextFullNameParent"
+        android:layout_marginTop="@dimen/returnButton_marginTop"
 
-       >
-       <ImageView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_marginEnd="10dp"
-           android:src="@drawable/return_button"/>
-       <TextView
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:text="@string/sign_up"
-           android:textSize="40dp"
-           android:textColor="@color/white"
-           android:layout_marginLeft="10dp"
-           android:textStyle="bold"/>
-   </LinearLayout>
+        >
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sign_up"
+            android:textSize="40dp"
+            android:textColor="@color/white"
+            android:layout_marginLeft="10dp"
+            android:textStyle="bold"/>
+    </LinearLayout>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -38,34 +34,35 @@
         android:text="@string/otherOptionsForSignUp"
         android:textColor="@color/text_input_box_hint"/>
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-  >
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.5"
-        android:layout_marginTop="@dimen/otherAuthOptionButton_marginTop"
-        android:background="@color/KalariLabMain"
-        android:src="@drawable/google_auth"
-        >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/otherAuthOptionButton_marginTop"
+            android:layout_weight="0.5"
+            android:id="@+id/signInGmail"
+            android:background="@color/KalariLabMain"
+            android:src="@drawable/google_auth">
 
 
-    </ImageButton>
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="0.5"
-        android:layout_marginTop="@dimen/otherAuthOptionButton_marginTop"
-        android:background="@color/KalariLabMain"
-        android:src="@drawable/facebook_auth"
-        >
+        </ImageButton>
 
-    </ImageButton>
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/otherAuthOptionButton_marginTop"
+            android:layout_weight="0.5"
+            android:background="@color/KalariLabMain"
+            android:id="@+id/signInFacebook"
+            android:src="@drawable/facebook_auth">
+
+        </ImageButton>
 
 
-</LinearLayout>
+    </LinearLayout>
 
 
     <com.google.android.material.textfield.TextInputLayout
@@ -93,7 +90,7 @@
         android:hint="@string/email_field"
         android:importantForAutofill="no"
         android:inputType="textEmailAddress"
-       >
+        >
 
         <com.google.android.material.textfield.TextInputEditText
             style="@style/LoggingTextInputLayoutStyle"
@@ -131,18 +128,18 @@
         android:layout_below="@+id/editTextPasswordParent"
         app:cornerRadius="15dp" />
 
-<TextView
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_below="@id/register"
-    android:layout_centerHorizontal="true"
-    android:text="@string/already_have_account"
-    android:textColor="@color/text_input_box_hint"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/register"
+        android:layout_centerHorizontal="true"
+        android:text="@string/already_have_account"
+        android:textColor="@color/text_input_box_hint"/>
 
 
     <com.google.android.material.button.MaterialButton
 
-        android:id="@+id/goToSignUp"
+        android:id="@+id/goToSignIn"
         style="@style/goToSignInOrUpButtonStyle"
         app:cornerRadius="15dp"
 
