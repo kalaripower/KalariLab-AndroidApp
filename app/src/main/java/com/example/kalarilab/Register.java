@@ -34,6 +34,8 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         private TextInputLayout fullnameEntryParent, emailEntryParent, passwordEntryParent;
         private ImageButton signInGmailBtn, signInFacebookBtn;
         private GoogleSignInClient mGoogleSignInClient;
+        public SessionManagement sessionManagement;
+
         private final static int RC_SIGN_IN = 123;
 
 
@@ -60,6 +62,8 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                 fullnameEntryParent = findViewById(R.id.editTextFullNameParent);
                 signInGmailBtn = findViewById(R.id.signInGmail);
                 signInFacebookBtn = findViewById(R.id.signInFacebook);
+                sessionManagement = new SessionManagement(Register.this);
+
                 Log.d("DebugMoveToSignUp", "S5");
 
                 goToSignInBtn.setOnClickListener(this);
@@ -113,7 +117,6 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                 switch (v.getId()) {
                         case R.id.goToSignIn:
                                 moveToSignInActivity();
-
                                 break;
                         case R.id.register:
                                 checkInfo();
@@ -131,7 +134,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         }
 
         private void moveToProfileInfoActivity() {
-                Intent intent = new Intent(this, ProfileInfoActivity.class);
+                Intent intent = new Intent(Register.this, ProfileInfoActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
         }
@@ -140,6 +143,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                 final String fullName = this.fullnameEntry.getText().toString().trim();
                 final String email = this.emailEntry.getText().toString().trim();
                 final String password = this.passwordEntry.getText().toString().trim();
+                Log.d("SignUpDebug", "S0");
 
 
                 if (fullName.isEmpty()) {
@@ -173,31 +177,32 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                         WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 progressBar.setVisibility(View.VISIBLE);
                 checkIfValid(email, password, fullName);
-
+                Log.d("SignUpDebug", "S1");
 
         }
 
 
         private void checkIfValid(final String email, final String password,
                                   final String fullName) {
+                Log.d("SignUpDebug", "S2");
 
                 progressBar.setVisibility(View.GONE);
                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 createSession();
                 moveToProfileInfoActivity();
+                Log.d("SignUpDebug", "S3");
 
 
         }
 
-//    private void moveToMainActivity() {
-//        Intent intent = new Intent(Register.this, MainActivity.class);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-//        startActivity(intent);
-//    }
+    private void moveToMainActivity() {
+        Intent intent = new Intent(Register.this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(intent);
+    }
 
 
         private void createSession() {
-                SessionManagement sessionManagement = new SessionManagement(Register.this);
                 sessionManagement.saveSession("#TestTest");
 
         }
@@ -238,7 +243,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                         progressBar.setVisibility(View.GONE);
                         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                         createSession();
-                        moveToProfileInfoActivity();
+                        moveToMainActivity();
 
                 } catch (ApiException e) {
                         // The ApiException status code indicates the detailed failure reason.

@@ -15,11 +15,13 @@
     <dimen name="logging_inputBox_boxRadius">15dp</dimen>
 
 
-    <dimen name="registerButton_width">380dp</dimen>
-    <dimen name="registerButton_marginTop">20dp</dimen>
-    <dimen name="registerButton_height">70dp</dimen>
-    <dimen name="registerButton_textSize">20dp</dimen>
+    <dimen name="button_width">380dp</dimen>
+    <dimen name="button_marginTop">20dp</dimen>
+    <dimen name="button_height">70dp</dimen>
+    <dimen name="button_textSize">20dp</dimen>
 
+    <dimen name="profileNameFragmentHeadline_textSize">40dp</dimen>
+    <dimen name="profileNameFragmentSecondHeadline_textSize">30dp</dimen>
 
     <dimen name="logging_textSize">20dp</dimen>
 

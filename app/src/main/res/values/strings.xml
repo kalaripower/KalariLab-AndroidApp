@@ -6,12 +6,16 @@
     <string name="message_permission">Please give a premission to open Camera</string>
     <string name="title_go_to_setting">Go to settings</string>
     <string name="play_stop">Stop</string>
+    <string name="back">back</string>
     <string name="dialog_permission_title" translatable="false">Grant Permissions</string>
     <string name="dialog_permission_message" translatable="false">This app needs permission to use this feature. You can grant them in app settings.</string>
     <string name="go_to_settings" translatable="false">GOTO SETTINGS</string>
     <string name="error_gif" translatable="false">x or y bound size should be at least %1$dpx and file size should be no more than %2$sM</string>
     <string name="button_sure_default">Ok</string>
     <string name="button_sure">Ok(%1$d)</string>
+    <string name="continueS">Continue</string>
+    <string name="what_is_your_name">What\'s your name?</string>
+    <string name="so_that_we_know_how_to_call_you">So that we know how to call you.</string>
     <string name="write_post_or_a_question">Write a post or ask a question.</string>
     <string-array name="occupations">
         <item>Student</item>

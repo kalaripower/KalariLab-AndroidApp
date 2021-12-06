@@ -24,13 +24,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import java.util.Locale;
 
 
-
 public class LogIn extends AppCompatActivity implements View.OnClickListener {
-
-
-
-
-
 
 
     private Button logInButt, goToSignUpButton;
@@ -42,17 +36,22 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
     private final static int  RC_SIGN_IN = 123;
     public SessionManagement sessionManagement;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
-
         init();
 
 
     }
 
+
+
     public void init() {
+        sessionManagement = new SessionManagement(LogIn.this);
+        Log.d("checkSession", sessionManagement.returnSession() + "Penis");
+
         logInButt = findViewById(R.id.LogIn);
         goToSignUpButton = findViewById(R.id.goToSignUp);
         signInGmail = findViewById(R.id.signInGmail);
@@ -151,6 +150,7 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
     private void logIn(String email, String password) {
         progressBar.setVisibility(View.GONE);
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        createSession();
         moveToMainActivity();
     }
 
@@ -168,12 +168,13 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
 
 
     private void moveToSignUpActivity() {
-        Log.d("DebugMoveToSignUp", "S");
+        Log.d("DebugMoveToSignUp", "S3");
+
         Intent intent = new Intent(LogIn.this, Register.class);
-        Log.d("DebugMoveToSignUp", "S1");
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        Log.d("DebugMoveToSignUp", "S3");
         startActivity(intent);
-        Log.d("DebugMoveToSignUp", "S2");
+        Log.d("DebugMoveToSignUp", "S44");
 
     }
 
@@ -181,20 +182,26 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
 
 
 
-    //The following method handles sessions on the current device
 
     @Override
     protected void onStart() {
         super.onStart();
         checkSession();
+
     }
+
+    //The following method handles sessions on the current device
 
     private void checkSession(){
 
         if(sessionManagement.returnSession() != "") {
+            Log.d("checkSession", "LoggedAlready");
+
             startActivity(new Intent(LogIn.this, MainActivity.class));
+
         }else {
-            //Do nothing.
+            Log.d("checkSession", "Did not log in");
+
         }
 
 
