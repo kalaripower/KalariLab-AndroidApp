@@ -1,4 +1,7 @@
 package com.example.kalarilab;
+
+import android.util.Log;
+
 public class LinkedList {
 
     private Node head = null;
@@ -22,6 +25,15 @@ public class LinkedList {
 
     public Node nextNode(Node current) {
         return current.getNext();
+    }
+
+    public void print(){
+        Node current = this.head;
+        while (current.getNext() != null) {
+            Log.d("LinkedListDebug", current.toString());
+            current = current.getNext();
+        }
+
     }
 
 

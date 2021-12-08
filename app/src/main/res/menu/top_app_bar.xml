@@ -9,7 +9,7 @@
         android:icon="@drawable/return_arrow"
         android:title="@string/back"
 
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 
 
 

@@ -14,11 +14,12 @@
 
         <com.google.android.material.appbar.MaterialToolbar
             android:id="@+id/topAppBar"
+            app:title=""
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             app:menu="@menu/top_app_bar"
             android:layoutDirection="rtl"
-
+            android:elevation="4dp"
             style="@style/Widget.MaterialComponents.Toolbar.Primary"
             />
 
@@ -28,13 +29,12 @@
     </com.google.android.material.appbar.AppBarLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:layout_below="@id/topAppBarParent"
         android:id="@+id/continueBtn"
         style="@style/continueButtonStyle"
+        android:layout_below="@id/topAppBarParent"
         android:layout_centerHorizontal="true"
-        app:cornerRadius="15dp"
-android:layout_marginTop="15dp"
-        />
+        android:layout_marginTop="15dp"
+        app:cornerRadius="15dp" />
 
 
 </RelativeLayout>

@@ -28,10 +28,10 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
 
 
         private static final String TAG = "authDebug";
-        private Button goToSignInBtn;
-        private EditText fullnameEntry, emailEntry, passwordEntry;
+        private Button goToSignInBtn, registerBtn;
+        private EditText  emailEntry, passwordEntry;
         private ProgressBar progressBar;
-        private TextInputLayout fullnameEntryParent, emailEntryParent, passwordEntryParent;
+        private TextInputLayout emailEntryParent, passwordEntryParent;
         private ImageButton signInGmailBtn, signInFacebookBtn;
         private GoogleSignInClient mGoogleSignInClient;
         public SessionManagement sessionManagement;
@@ -44,49 +44,31 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                 super.onCreate(savedInstanceState);
                 setContentView(R.layout.activity_register);
                 init();
-                Log.d("DebugMoveToSignUp", "S4");
 
 
         }
 
         private void init() {
-                Log.d("DebugMoveToSignUp", "S3");
 
+                registerBtn = findViewById(R.id.register);
                 goToSignInBtn = findViewById(R.id.goToSignIn);
-                fullnameEntry = findViewById(R.id.editTextFullName);
                 emailEntry = findViewById(R.id.editTextEmail);
                 passwordEntry = findViewById(R.id.editTextPassword);
                 progressBar = findViewById(R.id.progressBar);
                 emailEntryParent = findViewById(R.id.editTextEmailParent);
                 passwordEntryParent = findViewById(R.id.editTextPasswordParent);
-                fullnameEntryParent = findViewById(R.id.editTextFullNameParent);
                 signInGmailBtn = findViewById(R.id.signInGmail);
                 signInFacebookBtn = findViewById(R.id.signInFacebook);
                 sessionManagement = new SessionManagement(Register.this);
 
-                Log.d("DebugMoveToSignUp", "S5");
-
                 goToSignInBtn.setOnClickListener(this);
-                Log.d("DebugMoveToSignUp", "S6");
                 signInGmailBtn.setOnClickListener(this);
-                Log.d("DebugMoveToSignUp", "S7");
                 signInFacebookBtn.setOnClickListener(this);
-                Log.d("DebugMoveToSignUp", "S8");
-
+                registerBtn.setOnClickListener(this);
                 configureGoogleRequest();
                 finishAfterRegistrationCompletion();
 
-                fullnameEntryParent.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-                        @Override
-                        public void onFocusChange(View v, boolean hasFocus) {
-                                if (hasFocus)
-                                        emailEntryParent.setBoxStrokeColor(getResources().getColor(R.color.KalariLAbSecondary));
-                                else {
-                                        emailEntryParent.setBoxStrokeColor(getResources().getColor(R.color.darkGrey));
-                                }
-                        }
 
-                });
                 emailEntryParent.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                         @Override
                         public void onFocusChange(View v, boolean hasFocus) {
@@ -140,16 +122,11 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         }
 
         private void checkInfo() {
-                final String fullName = this.fullnameEntry.getText().toString().trim();
                 final String email = this.emailEntry.getText().toString().trim();
                 final String password = this.passwordEntry.getText().toString().trim();
-                Log.d("SignUpDebug", "S0");
 
 
-                if (fullName.isEmpty()) {
-                        fullnameEntryParent.setBoxStrokeColor(getResources().getColor(R.color.red));
-                        return;
-                }
+
 
                 if (email.isEmpty()) {
                         emailEntryParent.setBoxStrokeColor(getResources().getColor(R.color.red));
@@ -168,29 +145,24 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                 }
                 if (password.length() < 6) {
                         passwordEntryParent.setBoxStrokeColor(getResources().getColor(R.color.red));
-
-
                         return;
                 }
 
                 getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                         WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 progressBar.setVisibility(View.VISIBLE);
-                checkIfValid(email, password, fullName);
-                Log.d("SignUpDebug", "S1");
+                checkIfValid(email, password);
 
         }
 
 
-        private void checkIfValid(final String email, final String password,
-                                  final String fullName) {
-                Log.d("SignUpDebug", "S2");
-
+        private void checkIfValid(final String email, final String password
+                                  ) {
                 progressBar.setVisibility(View.GONE);
                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                createSession();
+                //createSession();
                 moveToProfileInfoActivity();
-                Log.d("SignUpDebug", "S3");
+                finish();
 
 
         }

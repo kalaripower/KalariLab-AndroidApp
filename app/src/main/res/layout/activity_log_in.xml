@@ -14,13 +14,7 @@
         android:layout_marginTop="@dimen/returnButton_marginTop"
 
         >
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="10dp"
-            android:src="@drawable/return_arrow"
-            android:id="@+id/backButton"
-            />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

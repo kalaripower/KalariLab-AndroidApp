@@ -168,13 +168,10 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
 
 
     private void moveToSignUpActivity() {
-        Log.d("DebugMoveToSignUp", "S3");
 
         Intent intent = new Intent(LogIn.this, Register.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        Log.d("DebugMoveToSignUp", "S3");
         startActivity(intent);
-        Log.d("DebugMoveToSignUp", "S44");
 
     }
 
@@ -195,13 +192,11 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
     private void checkSession(){
 
         if(sessionManagement.returnSession() != "") {
-            Log.d("checkSession", "LoggedAlready");
 
             startActivity(new Intent(LogIn.this, MainActivity.class));
 
         }else {
-            Log.d("checkSession", "Did not log in");
-
+            // Machen sie nicht bitte
         }
 
 

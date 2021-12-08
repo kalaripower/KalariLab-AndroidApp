@@ -11,7 +11,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@id/editTextFullNameParent"
+        android:layout_alignStart="@id/editTextEmailParent"
         android:layout_marginTop="@dimen/returnButton_marginTop"
 
         >
@@ -28,7 +28,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@id/editTextFullNameParent"
+        android:layout_alignStart="@id/editTextEmailParent"
         android:layout_marginTop="@dimen/text_marginTop"
         android:textSize="@dimen/text_size"
         android:text="@string/otherOptionsForSignUp"
@@ -65,27 +65,13 @@
     </LinearLayout>
 
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editTextFullNameParent"
-        style="@style/LoggingTextInputLayoutStyle"
-        android:layout_marginTop="330dp"
-        android:hint="@string/full_name"
-        android:importantForAutofill="no">
 
-        <com.google.android.material.textfield.TextInputEditText
-            style="@style/LoggingTextInputLayoutStyle"
-            android:id="@+id/editTextFullName"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-
-    </com.google.android.material.textfield.TextInputLayout>
 
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/editTextEmailParent"
         style="@style/LoggingTextInputLayoutStyle"
-        android:layout_below="@+id/editTextFullNameParent"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="330dp"
         android:digits="@string/ASCII"
         android:hint="@string/email_field"
         android:importantForAutofill="no"
