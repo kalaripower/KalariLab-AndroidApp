@@ -67,4 +67,10 @@
     <string name="otherOptionsForSignUp">Sign up with one of the following options.</string>
     <string name="otherOptionsForLogIn">Log In with one of the following options.</string>
     <string name="dontHaveAnAccount">Don\'t have an account?</string>
+    <string name="whereWereYouBorn">Where were you born?</string>
+    <string name="dateOfBirth">Date of birth.</string>
+    <string name="whatIsYourGender">What is your gender?</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="other">Other</string>
 </resources>

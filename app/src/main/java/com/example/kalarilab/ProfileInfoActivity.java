@@ -16,19 +16,19 @@ import android.widget.Button;
 public class ProfileInfoActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button continueBtn;
-    private androidx.appcompat.widget.Toolbar toolbar;
+   private androidx.appcompat.widget.Toolbar toolbar;
     private LinkedList list;
     private Node currentNode ;
-    private FragmentManager manager;
-    private FragmentTransaction transaction;
-    private  Fragment profileNameFragment;
+
+    private Fragment profileNameFragment, ageFragment, genderFragment, avatarFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_info);
         init();
         runFragment(currentNode);
-        Log.d("profileInfoDebug", "s3");
+
+
 
 
 
@@ -38,13 +38,14 @@ public class ProfileInfoActivity extends AppCompatActivity implements View.OnCli
     private void init() {
         list = new LinkedList();
         profileNameFragment = new ProfileNameFragment();
+        ageFragment = new AgeFragment();
         continueBtn = findViewById(R.id.continueBtn);
+        genderFragment = new GenderFragment();
+        avatarFragment = new AvatarFragment();
         toolbar = findViewById(R.id.topAppBar);
 
 
-        manager = getSupportFragmentManager();
 
-        transaction = manager.beginTransaction();
         fragmentsLinking();
 
 
@@ -73,26 +74,30 @@ public class ProfileInfoActivity extends AppCompatActivity implements View.OnCli
     }
 
     private void runFragment(Node node) {
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
 
-
-        transaction.add(R.id.container, node.getValue());
-        Log.d("profileInfoDebug", "S1");
-
+        transaction.replace(R.id.container, node.getValue());
         transaction.addToBackStack(null);
-        Log.d("profileInfoDebug", "S3");
 
         transaction.commit();
-        Log.d("profileInfoDebug", "S4");
 
 
 
 
     }
+//    private void closeCurrentFragment() {
+//
+//        this.getSupportFragmentManager().popBackStackImmediate();
+//    }
 
     private void fragmentsLinking() {
+        list.insert(new Node(avatarFragment));
+        list.insert(new Node(genderFragment));
+        list.insert(new Node(ageFragment));
         list.insert(new Node(profileNameFragment));
+
         currentNode = list.getHead();
-        Log.d("LinkedListDebug",  list.getHead().toString());
     }
 
 
@@ -110,6 +115,8 @@ public class ProfileInfoActivity extends AppCompatActivity implements View.OnCli
         if (currentNode.getNext() != null) {
             currentNode = currentNode.getNext();
             runFragment(currentNode);
+            Log.d("continueDebug","s1");
+
         }
         else
         {

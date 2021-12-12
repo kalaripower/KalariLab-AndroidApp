@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="600dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/KalariLabMain"
+    tools:context=".GenderFragment">
+
+    <!-- TODO: Update blank fragment layout -->
+    <TextView
+        android:id="@+id/headLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="@string/whatIsYourGender"
+        android:layout_marginStart="20dp"
+        android:textColor="@color/white"
+        android:textSize="@dimen/FragmentHeadline_textSize" />
+
+    <com.google.android.material.button.MaterialButton
+
+        android:id="@+id/male"
+        style="@style/genderBoxStyle"
+        android:layout_marginTop="40dp"
+        android:layout_below="@+id/headLine"
+        android:text="@string/male"
+        app:icon="@drawable/male"
+        app:iconPadding="@dimen/genderBox_iconPadding" />
+
+    <com.google.android.material.button.MaterialButton
+
+        android:id="@+id/female"
+        style="@style/genderBoxStyle"
+        android:layout_below="@+id/male"
+        android:text="@string/female"
+        app:icon="@drawable/female"
+        app:iconPadding="@dimen/genderBox_iconPadding" />
+    <com.google.android.material.button.MaterialButton
+
+        android:id="@+id/other"
+        style="@style/genderBoxStyle"
+        android:layout_below="@+id/female"
+        app:icon="@drawable/non_binary"
+        app:iconPadding="@dimen/genderBox_iconPadding"
+        android:text="@string/other"
+        />
+
+
+</RelativeLayout>

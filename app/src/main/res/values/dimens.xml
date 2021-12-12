@@ -20,10 +20,11 @@
     <dimen name="button_height">70dp</dimen>
     <dimen name="button_textSize">20dp</dimen>
 
-    <dimen name="profileNameFragmentHeadline_textSize">40dp</dimen>
-    <dimen name="profileNameFragmentSecondHeadline_textSize">30dp</dimen>
+    <dimen name="FragmentHeadline_textSize">40sp</dimen>
+    <dimen name="profileNameFragmentSecondHeadline_textSize">20sp</dimen>
 
-    <dimen name="logging_textSize">20dp</dimen>
+    <dimen name="logging_textSize">20sp</dimen>
+    <dimen name="profileInfo_fragment_height">380dp</dimen>
 
 
     <dimen name="goToSignInOrUpButton_marginTop">15dp</dimen>
@@ -36,13 +37,19 @@
     <dimen name="otherAuthOptionButton_boxRadius"> 15dp</dimen>
 
     <dimen name="boxStrokeWidth">2dp</dimen>
-    <dimen name="text_size"> 17dp</dimen>
+    <dimen name="text_size"> 17sp</dimen>
     <dimen name="text_marginTop">130dp</dimen>
 
 
     <dimen name="returnButton_marginTop"> 10dp</dimen>
 
 
+
+    <dimen name="genderBox_height">150dp</dimen>
+    <dimen name="genderBox_width">150dp</dimen>
+    <dimen name="genderBox_textSize">23dp</dimen>
+    <dimen name="genderBox_iconSize">35dp</dimen>
+    <dimen name="genderBox_iconPadding">5dp</dimen>
 
 
 

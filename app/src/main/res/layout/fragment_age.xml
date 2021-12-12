@@ -4,39 +4,27 @@
     android:layout_width="match_parent"
     android:layout_height="@dimen/profileInfo_fragment_height"
     android:background="@color/KalariLabMain"
-    tools:context=".ProfileNameFragment">
+    tools:context=".AgeFragment">
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
         android:id="@+id/headLine"
-        android:layout_width="396dp"
-        android:layout_height="82dp"
-        android:layout_alignStart="@+id/editTextfullNameParent"
-        android:layout_marginStart="0dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="5dp"
-        android:text="@string/what_is_your_name"
+        android:layout_alignStart="@id/editTextAgeParent"
+        android:text="@string/whereWereYouBorn"
         android:textColor="@color/white"
         android:textSize="@dimen/FragmentHeadline_textSize" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/headLine"
-        android:layout_alignStart="@id/editTextfullNameParent"
-        android:text="@string/so_that_we_know_how_to_call_you"
-        android:textColor="@color/darkGrey"
-        android:textSize="@dimen/profileNameFragmentSecondHeadline_textSize"/>
-
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editTextfullNameParent"
+        android:id="@+id/editTextAgeParent"
         style="@style/LoggingTextInputLayoutStyle"
         android:digits="@string/ASCII"
-        android:hint="@string/full_name"
-        android:importantForAutofill="no"
+        android:hint="@string/dateOfBirth"
         android:inputType="textEmailAddress"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="300dp"
-
         >
 
         <com.google.android.material.textfield.TextInputEditText
