@@ -58,6 +58,8 @@
     <string name="sign_up">Sign Up</string>
     <string name="student">Student</string>
     <string name="teacher">Teacher</string>
+    <string name="facebook_app_id">4325643354229855</string>
+    <string name="fb_login_protocol_scheme">fb4325643354229855</string>
     <string name="register_success">User has been registered successfully!</string>
     <string name="register_fail">Failed to register! please try again!</string>
     <string name="ok">OK.</string>
