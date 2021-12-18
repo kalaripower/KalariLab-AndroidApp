@@ -75,4 +75,6 @@
     <string name="male">Male</string>
     <string name="female">Female</string>
     <string name="other">Other</string>
+    <string name="sign_out">sign out</string>
+    <string name="progress">Progress</string>
 </resources>

@@ -6,10 +6,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -18,10 +20,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener   {
 
-    private ImageButton pressRecord;
+
     private Button signOutButton;
     private GoogleSignInClient mGoogleSignInClient;
-    SessionManagement sessionManagement;
+    private SessionManagement sessionManagement;
+    private Fragment progressFragment;
+
 
 
     @Override
@@ -29,20 +33,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
-
-
+        runFragments();
         configureGoogleRequest();
 
+
+
+    }
+
+    private void runFragments() {
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+
+        transaction.add(R.id.container,progressFragment);
+        transaction.addToBackStack(null);
+
+        transaction.commit();
 
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.recButton:
-                moveToVideoRecorderActivity();
-                break;
-            case R.id.signOutButt:
+
+            case R.id.signOutBtn:
                 signOut();
                 break;
 
@@ -51,14 +64,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void init(){
-        pressRecord = findViewById(R.id.recButton);
-        signOutButton = findViewById(R.id.signOutButt);
-
-        pressRecord.setOnClickListener(this);
+        signOutButton = findViewById(R.id.signOutBtn);
+        progressFragment = new PTS_ClassProgress();
         signOutButton.setOnClickListener(this);
         sessionManagement = new SessionManagement(MainActivity.this);
 
     }
+
+
+
     private void configureGoogleRequest(){
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestEmail()
@@ -104,6 +118,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         broadcastIntent.setAction("com.package.ACTION_LOGOUT");
         sendBroadcast(broadcastIntent);
     }
+
 
 
 }

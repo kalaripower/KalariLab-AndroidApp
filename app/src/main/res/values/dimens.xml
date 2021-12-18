@@ -50,8 +50,15 @@
     <dimen name="genderBox_textSize">23dp</dimen>
     <dimen name="genderBox_iconSize">35dp</dimen>
     <dimen name="genderBox_iconPadding">5dp</dimen>
-
-
+    <dimen name="progressCard_height">200dp</dimen>
+    <dimen name="progressCard_width">150dp</dimen>
+    <dimen name="progressCard_elevation">50dp</dimen>
+    <dimen name="cardsText_size">15sp</dimen>
+    <dimen name="cardsText_startMargin">5dp</dimen>
+    <dimen name="progressCard_indicatorSize">100dp</dimen>
+    <dimen name="progressCard_trackThickness">10dp</dimen>
+    <dimen name="progressCard_trackRadius">15dp</dimen>
+    <dimen name="cardText_marginTop">3dp</dimen>
 
 
 </resources>

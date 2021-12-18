@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".PTS_ClassProgress"
+    android:background="@color/KalariLabMain"
+    >
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/progressCard"
+        android:layout_width="@dimen/progressCard_width"
+        android:layout_height="@dimen/progressCard_height"
+        android:layout_centerInParent="true"
+        app:cardBackgroundColor="@color/white"
+        app:cardElevation="@dimen/progressCard_elevation">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/cardsText_startMargin"
+            android:text="@string/progress"
+            android:textAppearance="?attr/textAppearanceHeadline6"
+            android:textColor="@color/darkerGrey"
+            android:textSize="@dimen/cardsText_size"
+            android:layout_marginTop="@dimen/cardText_marginTop"
+
+            />
+
+        <com.google.android.material.progressindicator.CircularProgressIndicator
+            android:id="@+id/progressCircleDeterminate"
+            style="@style/Widget.MaterialComponents.CircularProgressIndicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:indicatorSize="@dimen/progressCard_indicatorSize"
+            android:layout_gravity="center"
+            app:indicatorColor="@color/KalariLAbSecondary"
+            app:trackThickness="@dimen/progressCard_trackThickness"
+            app:trackCornerRadius="@dimen/progressCard_trackRadius"
+            app:trackColor="@color/lightGrey"
+
+
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/classesProgressText"
+            android:textSize="13sp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="80dp"
+            android:textColor="@color/darkerGrey"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/levelsProgressText"
+            android:textSize="9sp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:textColor="@color/darkGrey"/>
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/video_icon"
+            android:layout_marginStart="125dp"
+            android:layout_marginTop="-10dp"/>
+
+
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+
+</RelativeLayout>
