@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button signOutButton;
     private GoogleSignInClient mGoogleSignInClient;
     private SessionManagement sessionManagement;
-    private Fragment progressFragment;
+    private Fragment progressFragment, postureFragment;
 
 
 
@@ -33,23 +33,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         init();
-        runFragments();
         configureGoogleRequest();
 
 
 
     }
 
-    private void runFragments() {
-        FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
-
-        transaction.add(R.id.container,progressFragment);
-        transaction.addToBackStack(null);
-
-        transaction.commit();
-
-    }
+//    private void runFragments() {
+//        FragmentManager manager = getSupportFragmentManager();
+//        FragmentTransaction transaction = manager.beginTransaction();
+//
+//        transaction.add(R.id.container,progressFragment );
+//        transaction.add(R.id.container,postureFragment );
+//
+//        transaction.addToBackStack(null);
+//
+//        transaction.commit();
+//
+//    }
 
     @Override
     public void onClick(View v) {
@@ -65,7 +66,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void init(){
         signOutButton = findViewById(R.id.signOutBtn);
-        progressFragment = new PTS_ClassProgress();
+        progressFragment = new PTS_ClassProgressFragment();
+        postureFragment = new PTS_PostureFragment();
         signOutButton.setOnClickListener(this);
         sessionManagement = new SessionManagement(MainActivity.this);
 

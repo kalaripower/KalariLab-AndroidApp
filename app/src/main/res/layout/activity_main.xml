@@ -18,15 +18,30 @@
         android:layout_height="wrap_content"
         android:text="@string/sign_out"
         android:id="@+id/signOutBtn"/>
-    <FrameLayout
-        android:layout_below="@+id/signOutBtn"
-        android:id="@+id/container"
-        android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@android:color/black"
-        android:layout_centerHorizontal="true"
-        >
-    </FrameLayout>
+        android:layout_below="@id/signOutBtn"
+        android:layout_marginTop="60dp">
+
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/progress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:name="com.example.kalarilab.PTS_ClassProgressFragment"
+            android:paddingStart="10dp"
+            android:paddingEnd="15dp"/>
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/posture"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingStart="15dp"
+            android:paddingEnd="10dp"
+            android:name="com.example.kalarilab.PTS_PostureFragment"/>
+
+
+    </LinearLayout>
+
 
 </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

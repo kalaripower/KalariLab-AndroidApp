@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".PTS_ClassProgress"
+    tools:context=".PTS_ClassProgressFragment"
     android:background="@color/KalariLabMain"
     >
 
@@ -34,6 +34,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:indicatorSize="@dimen/progressCard_indicatorSize"
+            android:layout_marginTop="15dp"
             android:layout_gravity="center"
             app:indicatorColor="@color/KalariLAbSecondary"
             app:trackThickness="@dimen/progressCard_trackThickness"
@@ -48,7 +49,7 @@
             android:id="@+id/classesProgressText"
             android:textSize="13sp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginTop="80dp"
+            android:layout_marginTop="120dp"
             android:textColor="@color/darkerGrey"/>
         <TextView
             android:layout_width="wrap_content"
@@ -56,7 +57,7 @@
             android:id="@+id/levelsProgressText"
             android:textSize="9sp"
             android:layout_gravity="center"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="20dp"
             android:textColor="@color/darkGrey"/>
 
         <ImageView

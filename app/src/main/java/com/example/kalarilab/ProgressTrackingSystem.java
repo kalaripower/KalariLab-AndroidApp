@@ -3,12 +3,12 @@ package com.example.kalarilab;
 public class ProgressTrackingSystem {
     private int levelReached;
     private int classReached;
-    private int numOfClasses;
+    private int posture;
+    private int postureLevel;
 
     public ProgressTrackingSystem(int levelReached, int classReached, int numOfClasses) {
         this.levelReached = levelReached;
         this.classReached = classReached;
-        this.numOfClasses = numOfClasses;
     }
 
     public int getLevelReached() {
@@ -19,9 +19,6 @@ public class ProgressTrackingSystem {
         return classReached;
     }
 
-    public int getNumOfClasses() {
-        return numOfClasses;
-    }
 
     public void setLevelReached(int levelReached) {
         this.levelReached = levelReached;
@@ -31,7 +28,20 @@ public class ProgressTrackingSystem {
         this.classReached = classReached;
     }
 
-    public void setNumOfClasses(int numOfClasses) {
-        this.numOfClasses = numOfClasses;
+
+    public int getPosture() {
+        return posture;
+    }
+
+    public void setPosture(int posture) {
+        this.posture = posture;
+    }
+
+    public int getPostureLevel() {
+        return postureLevel;
+    }
+
+    public void setPostureLevel(int postureLevel) {
+        this.postureLevel = postureLevel;
     }
 }

@@ -13,10 +13,10 @@ import com.google.android.material.progressindicator.CircularProgressIndicator;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link PTS_ClassProgress#newInstance} factory method to
+ * Use the {@link PTS_ClassProgressFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PTS_ClassProgress extends Fragment {
+public class PTS_ClassProgressFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -29,7 +29,7 @@ public class PTS_ClassProgress extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    public PTS_ClassProgress() {
+    public PTS_ClassProgressFragment() {
         // Required empty public constructor
     }
 
@@ -42,8 +42,8 @@ public class PTS_ClassProgress extends Fragment {
      * @return A new instance of fragment PTS_ClassProgress.
      */
     // TODO: Rename and change types and number of parameters
-    public static PTS_ClassProgress newInstance(String param1, String param2) {
-        PTS_ClassProgress fragment = new PTS_ClassProgress();
+    public static PTS_ClassProgressFragment newInstance(String param1, String param2) {
+        PTS_ClassProgressFragment fragment = new PTS_ClassProgressFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -69,7 +69,7 @@ public class PTS_ClassProgress extends Fragment {
         CircularProgressIndicator progressIndicator = (CircularProgressIndicator) view.findViewById(R.id.progressCircleDeterminate);
         TextView classesProgressText = (TextView) view.findViewById(R.id.classesProgressText);
         TextView levelsProgressText = (TextView) view.findViewById(R.id.levelsProgressText);
-        classesProgressText.setText(new StringBuilder().append(progressTrackingSystem.getClassReached()).append("/").append(getNumOfClasses()).toString());
+        classesProgressText.setText(new StringBuilder().append(getClassReached()).append("/").append(getNumOfClasses()).toString());
         levelsProgressText.setText(new StringBuilder().append("Level ").append(getLevelReached()).toString());
         progressIndicator.setMax(getNumOfClasses());
         progressIndicator.setProgress(getClassReached());
@@ -78,6 +78,7 @@ public class PTS_ClassProgress extends Fragment {
         return view;
 
     }
+    //For testing
     private int getLevelReached(){
         //Gets reached level from DB
         return 7;
