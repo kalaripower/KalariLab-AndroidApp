@@ -24,6 +24,8 @@
         <entry key="app/src/main/res/layout/fragment_p_t_s__class_progress.xml" value="0.75" />
         <entry key="app/src/main/res/layout/fragment_p_t_s_posture.xml" value="0.67" />
         <entry key="app/src/main/res/layout/fragment_profile_name.xml" value="0.26197916666666665" />
+        <entry key="app/src/main/res/layout/list_items.xml" value="0.26197916666666665" />
+        <entry key="app/src/main/res/layout/text_view.xml" value="0.26197916666666665" />
         <entry key="app/src/main/res/layout/video_recorder.xml" value="0.13333333333333333" />
         <entry key="app/src/main/res/menu/top_app_bar.xml" value="0.26197916666666665" />
       </map>

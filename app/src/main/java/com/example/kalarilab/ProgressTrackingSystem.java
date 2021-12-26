@@ -1,15 +1,25 @@
 package com.example.kalarilab;
 
+import java.util.HashMap;
+import java.util.Hashtable;
+import java.util.Map;
+
 public class ProgressTrackingSystem {
     private int levelReached;
     private int classReached;
-    private int posture;
-    private int postureLevel;
+    public Map<Integer, Integer> posturesLevels = new HashMap<Integer, Integer>();
+    public static int Success = 1;
+    public static int Failure = 0;
 
-    public ProgressTrackingSystem(int levelReached, int classReached, int numOfClasses) {
-        this.levelReached = levelReached;
-        this.classReached = classReached;
+    public ProgressTrackingSystem() {
+        // fill the hashmap up with all the postures and their levels
+        for (int i = 0 ; i < 2; i++){
+            posturesLevels.put(i, 0);
+        }
+
     }
+
+
 
     public int getLevelReached() {
         return levelReached;
@@ -29,19 +39,15 @@ public class ProgressTrackingSystem {
     }
 
 
-    public int getPosture() {
-        return posture;
+
+
+    public int updateAPosture (Integer posture, Integer level){
+        try{
+            posturesLevels.put(posture, level);
+            return Success;
+        }catch (Exception e){
+            return Failure;
+        }
     }
 
-    public void setPosture(int posture) {
-        this.posture = posture;
-    }
-
-    public int getPostureLevel() {
-        return postureLevel;
-    }
-
-    public void setPostureLevel(int postureLevel) {
-        this.postureLevel = postureLevel;
-    }
 }
