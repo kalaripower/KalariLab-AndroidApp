@@ -9,6 +9,7 @@
         <entry key="app/src/main/res/layout/activity_gmail_profile_info.xml" value="0.12864583333333332" />
         <entry key="app/src/main/res/layout/activity_log_in.xml" value="0.26197916666666665" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.26197916666666665" />
+        <entry key="app/src/main/res/layout/activity_on_boarding.xml" value="0.246875" />
         <entry key="app/src/main/res/layout/activity_postures.xml" value="0.49217221135029354" />
         <entry key="app/src/main/res/layout/activity_profile_info.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.22" />
@@ -25,6 +26,8 @@
         <entry key="app/src/main/res/layout/fragment_p_t_s_posture.xml" value="0.67" />
         <entry key="app/src/main/res/layout/fragment_profile_name.xml" value="0.26197916666666665" />
         <entry key="app/src/main/res/layout/list_items.xml" value="0.26197916666666665" />
+        <entry key="app/src/main/res/layout/slide_layout.xml" value="0.26197916666666665" />
+        <entry key="app/src/main/res/layout/slides_layout.xml" value="0.26197916666666665" />
         <entry key="app/src/main/res/layout/text_view.xml" value="0.26197916666666665" />
         <entry key="app/src/main/res/layout/video_recorder.xml" value="0.13333333333333333" />
         <entry key="app/src/main/res/menu/top_app_bar.xml" value="0.26197916666666665" />

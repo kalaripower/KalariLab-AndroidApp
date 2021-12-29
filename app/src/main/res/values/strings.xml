@@ -78,4 +78,23 @@
     <string name="sign_out">sign out</string>
     <string name="progress">Progress</string>
     <string name="posture">Postures</string>
+
+
+    <!-- Strings for On Boarding Screen -->
+
+    <!--Titles-->
+    <string name="first_slide_title">Work Seamlessly</string>
+    <string name="second_slide_title">Achieve Higher Goals</string>
+    <string name="third_slide_title">Train At Home</string>
+
+    <!--Descriptions-->
+    <string name="first_slide_desc">Kalari helps you boost your productivity on a different level </string>
+    <string name="second_slide_desc">Get your work done seamlessly without interruption</string>
+    <string name="third_slide_desc">By boosting your productivity we help you achieve higher goals</string>
+
+    <!--Buttons-->
+    <string name="skip_btn">Skip</string>
+    <string name="next_btn">Next</string>
+    <string name="let_get_started">Lets Get Started</string>
+
 </resources>

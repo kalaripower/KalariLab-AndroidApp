@@ -1,10 +1,12 @@
 package com.example.kalarilab;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Base64;
 import android.util.Log;
 import android.util.Patterns;
@@ -57,6 +59,7 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
     public SessionManagement sessionManagement;
     private CallbackManager callbackManager;
     private LoginManager loginManager;
+    private SharedPreferences onBoardingSharedPreferences;
 
 
     @Override
@@ -71,6 +74,7 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
 
 
     public void init() {
+        onBoardingSharedPreferences =  PreferenceManager.getDefaultSharedPreferences(this);
         sessionManagement = new SessionManagement(LogIn.this);
         Log.d("checkSession", sessionManagement.returnSession() + "Penis");
 
@@ -201,6 +205,11 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
     }
 
 
+    private void moveToOnBoardingActivity(){
+        Intent intent = new Intent(LogIn.this, OnBoarding.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(intent);
+    }
     private void moveToSignUpActivity() {
 
         Intent intent = new Intent(LogIn.this, Register.class);
@@ -217,8 +226,8 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
     @Override
     protected void onStart() {
         super.onStart();
+        checkFreshInstall();
         checkSession();
-
     }
     public void
     printHashKey()
@@ -399,6 +408,12 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
                     data);
         }
     }
+    public void checkFreshInstall(){
+        //Show the onBoarding screen
+       if (sessionManagement.getOnBoardingStatus() != "seen"){
+           moveToOnBoardingActivity();
+       }
 
+    }
 
 }
