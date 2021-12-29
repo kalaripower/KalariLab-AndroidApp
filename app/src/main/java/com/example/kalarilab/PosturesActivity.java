@@ -28,16 +28,15 @@ public class PosturesActivity extends AppCompatActivity {
       avatar = findViewById(R.id.avatar);
       posturesList = findViewById(R.id.list);
       user = new User();
-        Log.d("DebugList","0");
-        Log.d("DebugList","List" + user.progressTrackingSystem.posturesLevels);
+
+      user.progressTrackingSystem.getPosturesLevelsFromDB();
 
 
-        customPosturesAdapter = new CustomPosturesAdapter(this, posturesHashtableKeys(), posturesHashtableValues());
-        Log.d("DebugList","2");
+
+      customPosturesAdapter = new CustomPosturesAdapter(this, posturesHashtableKeys(), posturesHashtableValues());
+
 
       posturesList.setAdapter(customPosturesAdapter);
-      //avatar.setImageBitmap(user.getAvatar());
-      Log.d("DebugList","List" + user.progressTrackingSystem.posturesLevels.toString());
     }
 
 

@@ -12,10 +12,7 @@ public class ProgressTrackingSystem {
     public static int Failure = 0;
 
     public ProgressTrackingSystem() {
-        // fill the hashmap up with all the postures and their levels
-        for (int i = 0 ; i < 2; i++){
-            posturesLevels.put(i, 0);
-        }
+
 
     }
 
@@ -39,7 +36,11 @@ public class ProgressTrackingSystem {
     }
 
 
-
+    public void getPosturesLevelsFromDB() {
+        //get values from cloud (when finished) and store them in our map and return the map.
+       posturesLevels.put(1,0);
+       posturesLevels.put(2,1);
+    }
 
     public int updateAPosture (Integer posture, Integer level){
         try{

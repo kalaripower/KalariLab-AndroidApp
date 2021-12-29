@@ -24,7 +24,7 @@ public class User {
     }
 
     public User() {
-
+        progressTrackingSystem = new ProgressTrackingSystem();
     }
 
     public Bitmap getAvatar() {

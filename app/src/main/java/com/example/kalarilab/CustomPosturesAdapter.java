@@ -35,12 +35,12 @@ public class CustomPosturesAdapter extends ArrayAdapter<Integer> {
         title.setText(getPostureNameFromTag(posturesTags[position]));
 
         //Get image from cloud..To be done after backend is done
-        //posture.setImageResource(posturesImages[position]);
+        posture.setImageResource(getPostureImageFromTag(posturesTags[position], posturesImages[position]));
         return rowView;
     }
 
-    public String getPostureNameFromTag(int tag){
-        switch (tag){
+    public String getPostureNameFromTag(int keyTag){
+        switch (keyTag){
             case 1:
                 return "Lion Posture";
             case 2:
@@ -49,4 +49,16 @@ public class CustomPosturesAdapter extends ArrayAdapter<Integer> {
         //to be changed later
         return "0";
     }
+    public int getPostureImageFromTag(int keyTag, int valueTag){
+        switch (keyTag){
+            case 1:
+                if(valueTag == 0){
+                    return R.drawable.p10;
+                }
+            case 2:
+                return R.drawable.p21;
+        }
+       return 0;
+    }
+
 }

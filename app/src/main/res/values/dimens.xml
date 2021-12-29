@@ -59,7 +59,7 @@
     <dimen name="progressCard_trackThickness">10dp</dimen>
     <dimen name="progressCard_trackRadius">15dp</dimen>
     <dimen name="cardText_marginTop">3dp</dimen>
-    <dimen name="postureActivity_avatar_marginTop">50dp</dimen>
+    <dimen name="postureActivity_avatar_marginTopButton">50dp</dimen>
 
 
 </resources>
