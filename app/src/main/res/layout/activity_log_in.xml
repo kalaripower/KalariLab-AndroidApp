@@ -129,7 +129,7 @@
     <com.google.android.material.button.MaterialButton
 
         android:id="@+id/goToSignUp"
-        style="@style/goToSignInOrUpButtonStyle"
+        style="@style/goToActivityButtonStyle"
         android:layout_below="@id/LogIn"
         android:text="@string/sign_up"
 

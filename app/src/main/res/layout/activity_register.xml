@@ -128,7 +128,7 @@
     <com.google.android.material.button.MaterialButton
 
         android:id="@+id/goToSignIn"
-        style="@style/goToSignInOrUpButtonStyle"
+        style="@style/goToActivityButtonStyle"
         app:cornerRadius="15dp"
 
         />

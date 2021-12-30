@@ -410,7 +410,8 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
     }
     public void checkFreshInstall(){
         //Show the onBoarding screen
-       if (sessionManagement.getOnBoardingStatus() != "seen"){
+        Log.d("onBoardingSeenDebug", sessionManagement.getFRESH_INSTALLStatus());
+       if (sessionManagement.getFRESH_INSTALLStatus().equals("true")){
            moveToOnBoardingActivity();
        }
 

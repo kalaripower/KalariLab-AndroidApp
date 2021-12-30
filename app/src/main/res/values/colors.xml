@@ -17,4 +17,6 @@
     <color name="test1">#d9e5ff</color>
     <color name="darkerGrey">#2C2C2C</color>
     <color name="lightGrey">#ECEAEA</color>
+    <color name="transparent">#9A9A9A</color>
+
 </resources>

@@ -83,14 +83,14 @@
     <!-- Strings for On Boarding Screen -->
 
     <!--Titles-->
-    <string name="first_slide_title">Work Seamlessly</string>
-    <string name="second_slide_title">Achieve Higher Goals</string>
-    <string name="third_slide_title">Train At Home</string>
+    <string name="first_slide_title">Train At Home</string>
+    <string name="second_slide_title">Transform your Body</string>
+    <string name="third_slide_title">Build Absolute Focus</string>
 
     <!--Descriptions-->
-    <string name="first_slide_desc">Kalari helps you boost your productivity on a different level </string>
-    <string name="second_slide_desc">Get your work done seamlessly without interruption</string>
-    <string name="third_slide_desc">By boosting your productivity we help you achieve higher goals</string>
+    <string name="first_slide_desc">Join the most interactive Martial Arts Academy Online </string>
+    <string name="second_slide_desc">Learn exercises and techniques used for 1000s of years</string>
+    <string name="third_slide_desc">increase your physical and mental productivity</string>
 
     <!--Buttons-->
     <string name="skip_btn">Skip</string>

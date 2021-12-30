@@ -60,7 +60,8 @@
     <dimen name="progressCard_trackRadius">15dp</dimen>
     <dimen name="cardText_marginTop">3dp</dimen>
     <dimen name="postureActivity_avatar_marginTopButton">50dp</dimen>
-    <dimen name="onBoardingViewPager_MarginButtom">100dp</dimen>
+    <dimen name="onBoardingViewPager_MarginButtom">150dp</dimen>
+    <dimen name="viewPagerLayout_height">610dp</dimen>
 
 
 </resources>
