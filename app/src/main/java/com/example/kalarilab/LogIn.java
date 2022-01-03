@@ -66,6 +66,7 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
+
         init();
 
 
@@ -226,9 +227,22 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
     @Override
     protected void onStart() {
         super.onStart();
+        runSplashScreen();
         checkFreshInstall();
         checkSession();
+
+
     }
+
+    private void runSplashScreen() {
+        Thread splashScreenThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                
+            }
+        });
+    }
+
     public void
     printHashKey()
     {

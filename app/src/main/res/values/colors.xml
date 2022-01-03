@@ -9,6 +9,8 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="KalariLabMain">#101010</color>
+    <color name="KalariLab_day">#F8FAFB</color>
+    <color name="black1">#000000</color>
 
     <color name="KalariLAbSecondary">#ce262f</color>
     <color name="colorOnMain">#171717</color>

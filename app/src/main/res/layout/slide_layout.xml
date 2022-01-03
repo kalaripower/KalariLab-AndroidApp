@@ -9,18 +9,19 @@
         android:id="@+id/title_slide"
         android:textSize="40dp"
         android:text="@string/title_go_to_setting"
-        android:textColor="@color/white"
-
+        android:textColor="@color/black1"
+        android:fontFamily="@font/roboto_medium"
         android:layout_marginTop="400dp"
         android:layout_centerHorizontal="true" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="20dp"
+        android:fontFamily="@font/roboto_regular"
         android:id="@+id/desc_title"
         android:text="@string/first_slide_desc"
         android:layout_below="@+id/title_slide"
-        android:textColor="@color/lightGrey"
+        android:textColor="@color/black1"
         android:layout_marginTop="20dp"
         android:gravity="center"
         />

@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
@@ -17,15 +18,17 @@ import androidx.viewpager.widget.ViewPager;
 ;
 
 
-public class OnBoarding extends AppCompatActivity {
+public class OnBoarding extends AppCompatActivity implements View.OnClickListener {
     private FragmentManager fragmentManager;
     private LinearLayout dotsLayout;
     private ViewPager viewPager;
     private SliderAdapter sliderAdapter;
     private SessionManagement sessionManagement;
     private TextView[] dots;
-    private   Button getStartedBtn;
+    private   Button getStartedBtn, nextBtn;
     private RelativeLayout mainLayout;
+    private int mCurrentPage;
+    private VideoView videoView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +43,11 @@ public class OnBoarding extends AppCompatActivity {
         sessionManagement.onBoardingSeen();;
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        startFirstVideo();
+    }
 
     private void initHooks() {
        viewPager = findViewById(R.id.viewPager);
@@ -47,22 +55,28 @@ public class OnBoarding extends AppCompatActivity {
        sliderAdapter = new SliderAdapter(this);
         sessionManagement = new SessionManagement(this);
         mainLayout = findViewById(R.id.main);
+        videoView = findViewById(R.id.videoView);
         viewPager.setAdapter(sliderAdapter);
         getStartedBtn = findViewById(R.id.getStartedBtn);
-
+        nextBtn = findViewById(R.id.nextBtn);
+        nextBtn.setOnClickListener(this);
         addDotsIndicators(0);
         viewPager.addOnPageChangeListener(viewListener);
     }
+
 
     private void addDotsIndicators(int position) {
         dots = new TextView[3];
         dotsLayout.removeAllViews();
         getStartedBtn.setVisibility(View.GONE);
+        nextBtn.setVisibility(View.VISIBLE);
+        startFirstVideo();
+
         for(int i = 0 ; i < dots.length ; i++){
             dots[i] = new TextView(this);
             dots[i].setText(Html.fromHtml("&#8226;"));
             dots[i].setTextSize(35);
-            dots[i].setTextColor(getResources().getColor(R.color.white));
+            dots[i].setTextColor(getResources().getColor(R.color.lightGrey));
             dotsLayout.addView(dots[i]);
         }
         if(dots.length > 0){
@@ -70,6 +84,17 @@ public class OnBoarding extends AppCompatActivity {
         }
 
     }
+
+    private void startFirstVideo() {
+        try {
+            videoView.setVideoPath("android.resource://" + getPackageName() + "/" + R.raw.train_at_home);
+            videoView.start();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
     ViewPager.OnPageChangeListener viewListener = new ViewPager.OnPageChangeListener() {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -80,8 +105,11 @@ public class OnBoarding extends AppCompatActivity {
         public void onPageSelected(int position) {
             addDotsIndicators(position);
             if (position == 2) {
+                removeNextButton();
                 addGetStartedButton();
             }
+            mCurrentPage = position;
+            setVideoPath(position);
         }
 
         @Override
@@ -90,15 +118,28 @@ public class OnBoarding extends AppCompatActivity {
         }
     };
 
-    private void addGetStartedButton() {
-        getStartedBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                onBoardingAlreadySeen();
-                moveToSignInActivity();
-            }
+    private void setVideoPath(int position) {
+        switch (position){
+            case 0:
+                videoView.setVideoPath("android.resource://" + getPackageName() + "/" + R.raw.train_at_home);
+                break;
+            case 1:
+                videoView.setVideoPath("android.resource://" + getPackageName() + "/" + R.raw.transform_your_body);
+                break;
+            case 2:
+                videoView.setVideoPath("android.resource://" + getPackageName() + "/" + R.raw.build_absolute_focus);
 
-        });
+        }
+        videoView.start();
+
+    }
+
+    private void removeNextButton() {
+        nextBtn.setVisibility(View.GONE);
+    }
+
+    private void addGetStartedButton() {
+
         getStartedBtn.setVisibility(View.VISIBLE);
 
     }
@@ -110,5 +151,20 @@ public class OnBoarding extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
         finish();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+
+            case R.id.getStartedBtn:
+                onBoardingAlreadySeen();
+                moveToSignInActivity();
+                break;
+            case R.id.nextBtn:
+                viewPager.setCurrentItem(mCurrentPage + 1);
+                break;
+
+        }
     }
 }

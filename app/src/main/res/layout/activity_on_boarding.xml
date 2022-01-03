@@ -4,14 +4,23 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/KalariLabMain"
+    android:background="@color/KalariLab_day"
     android:id="@+id/main"
     tools:context=".OnBoarding">
 
   <androidx.viewpager.widget.ViewPager
+      android:id="@+id/viewPager"
       android:layout_width="match_parent"
       android:layout_height="@dimen/viewPagerLayout_height"
-      android:id="@+id/viewPager"/>
+      />
+  <VideoView
+      android:id="@+id/videoView"
+      android:layout_width="300dp"
+      android:layout_height="300dp"
+      android:layout_centerHorizontal="true"
+    android:layout_marginTop="100dp"
+
+     />
   <Button
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
@@ -23,8 +32,19 @@
      android:layout_centerHorizontal="true"
     android:layout_above="@+id/dotsLayout"
       android:layout_marginBottom="5dp"/>
+  <Button
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      style="@style/continueButtonStyle"
+      android:visibility="visible"
+      android:text="@string/next"
+      android:id="@+id/nextBtn"
+      android:textColor="@color/white"
+      android:layout_centerHorizontal="true"
+      android:layout_above="@+id/dotsLayout"
+      android:layout_marginBottom="5dp"/>
     <LinearLayout
-        android:background="@color/KalariLabMain"
+        android:background="@color/KalariLab_day"
         android:layout_width="wrap_content"
         android:layout_height="1500dp"
         android:layout_centerHorizontal="true"
