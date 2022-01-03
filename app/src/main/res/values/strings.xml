@@ -96,5 +96,10 @@
     <string name="skip_btn">Skip</string>
     <string name="next_btn">Next</string>
     <string name="let_get_started">Lets Get Started</string>
+    <string name="upgrade_to_premium">upgrade to premium</string>
+    <string name="shop_title">shop</string>
+    <string name="settings_title">settings</string>
+    <string name="user_title"><![CDATA[user/> </menu>]]></string>
+    <string name="user_title1">user</string>
 
 </resources>

@@ -2,6 +2,8 @@ package com.example.kalarilab;
 
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,15 +13,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener   {
@@ -32,6 +32,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private CircularProgressIndicator circularProgressIndicator;
     private TextView classesProgressText , levelsProgressText;
     private CardView posturesCard;
+    private BottomNavigationView bottomNavigationView;
+    private ColorStateList navigationViewColorStateList;
+
+    // FOR NAVIGATION VIEW ITEM ICON COLOR
+    int[][] states = new int[][]{
+            new int[]{-android.R.attr.state_checked},  // unchecked
+            new int[]{android.R.attr.state_checked},   // checked
+            new int[]{}                                // default
+    };
+    // Fill in color corresponding to state defined in state
+    int[] colors = new int[]{
+            Color.parseColor("#aaa8a8"),
+            Color.parseColor("#ce262f"),
+            Color.parseColor("#aaa8a8"),
+    };
+
 
 
     @Override
@@ -90,19 +106,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         classesProgressText = findViewById(R.id.classesProgressText);
         levelsProgressText = findViewById(R.id.levelsProgressText);
         posturesCard = findViewById(R.id.posturesCard);
-
-
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        navigationViewColorStateList = new ColorStateList(states, colors);
 
         posturesCard.setOnClickListener(this);
         classesProgressText.setText(new StringBuilder().append(getClassReached()).append("/").append(getNumOfClasses()).toString());
         levelsProgressText.setText(new StringBuilder().append("Level ").append(getLevelReached()).toString());
         circularProgressIndicator.setMax(getNumOfClasses());
         circularProgressIndicator.setProgress(getClassReached());
-
+        bottomNavigationView.setItemIconTintList(navigationViewColorStateList);
 
 
     }
-
 
 
     private void configureGoogleRequest(){
