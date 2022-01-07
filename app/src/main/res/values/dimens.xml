@@ -62,6 +62,7 @@
     <dimen name="postureActivity_avatar_marginTopButton">50dp</dimen>
     <dimen name="onBoardingViewPager_MarginButtom">150dp</dimen>
     <dimen name="viewPagerLayout_height">610dp</dimen>
+    <dimen name="splashScreen_image_heightAndWidth">200dp</dimen>
 
 
 </resources>

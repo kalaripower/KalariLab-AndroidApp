@@ -29,11 +29,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private GoogleSignInClient mGoogleSignInClient;
     private SessionManagement sessionManagement;
     private ProgressTrackingSystem progressTrackingSystem;
-    private CircularProgressIndicator circularProgressIndicator;
-    private TextView classesProgressText , levelsProgressText;
+    private CircularProgressIndicator circularProgressIndicatorClasses , circularProgressIndicatorPoints;
+    private TextView classesProgressText , levelsProgressText, weeklyPointsTitle, weeklyPoints;
     private CardView posturesCard;
     private BottomNavigationView bottomNavigationView;
     private ColorStateList navigationViewColorStateList;
+    private Streak streak;
 
     // FOR NAVIGATION VIEW ITEM ICON COLOR
     int[][] states = new int[][]{
@@ -102,20 +103,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         signOutButton.setOnClickListener(this);
         sessionManagement = new SessionManagement(MainActivity.this);
         progressTrackingSystem = new ProgressTrackingSystem();
-        circularProgressIndicator = findViewById(R.id.progressCircleDeterminate);
+        circularProgressIndicatorClasses = findViewById(R.id.progressCircleClasses);
         classesProgressText = findViewById(R.id.classesProgressText);
         levelsProgressText = findViewById(R.id.levelsProgressText);
         posturesCard = findViewById(R.id.posturesCard);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         navigationViewColorStateList = new ColorStateList(states, colors);
-
+        circularProgressIndicatorPoints = findViewById(R.id.progressCirclePoints);
+        weeklyPoints = findViewById(R.id.weeklyPoints);
+        streak = new Streak(progressTrackingSystem);
+        weeklyPoints.setText(progressTrackingSystem.getPoints());
+        circularProgressIndicatorClasses.setMax(7);
+        circularProgressIndicatorPoints.setProgress(streak.getWeekProgress());
         posturesCard.setOnClickListener(this);
         classesProgressText.setText(new StringBuilder().append(getClassReached()).append("/").append(getNumOfClasses()).toString());
         levelsProgressText.setText(new StringBuilder().append("Level ").append(getLevelReached()).toString());
-        circularProgressIndicator.setMax(getNumOfClasses());
-        circularProgressIndicator.setProgress(getClassReached());
+        circularProgressIndicatorClasses.setMax(getNumOfClasses());
+        circularProgressIndicatorClasses.setProgress(getClassReached());
         bottomNavigationView.setItemIconTintList(navigationViewColorStateList);
-
 
     }
 

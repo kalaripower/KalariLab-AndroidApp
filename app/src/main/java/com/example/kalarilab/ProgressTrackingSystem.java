@@ -1,21 +1,64 @@
 package com.example.kalarilab;
 
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class ProgressTrackingSystem {
     private int levelReached;
     private int classReached;
     public Map<Integer, Integer> posturesLevels = new HashMap<Integer, Integer>();
-    public static int Success = 1;
-    public static int Failure = 0;
+    public static int SUCCESS = 1;
+    public static int FAILURE = 0;
+
+
+    private AtomicInteger points = new  AtomicInteger(0);
+
 
     public ProgressTrackingSystem() {
 
 
     }
 
+    public int getPoints() {
+        return points.get();
+    }
+
+    private int addPoints(int newPoints){
+        try{
+            points.addAndGet(newPoints);
+            return SUCCESS;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return FAILURE;
+        }
+    }
+    public int addPointAfterFinishingLessons(){
+        return addPoints(10);
+    }
+    public int addPointsAfterFiveDaysStreakInAWeek(){
+        return addPoints(20);
+    }
+    public int addPointsForEveryRestDay(){
+        //rest days inside 7 days, only added if five days of these 7 days were used
+        return addPoints(10);
+    }
+    public int addPointsForSkill(){
+        int skillPoints = getSkillPoints();
+        return addPoints(skillPoints);
+    }
+
+    private int getSkillPoints() {
+        //API not finished yet
+
+        return 0;
+    }
+    private int addHalfwayBonus(){
+        return addPoints(100);
+    }
+    private int addEndOfLevelBonus(){
+        return addPoints(100);
+    }
 
 
     public int getLevelReached() {
@@ -45,9 +88,9 @@ public class ProgressTrackingSystem {
     public int updateAPosture (Integer posture, Integer level){
         try{
             posturesLevels.put(posture, level);
-            return Success;
+            return SUCCESS;
         }catch (Exception e){
-            return Failure;
+            return FAILURE;
         }
     }
 

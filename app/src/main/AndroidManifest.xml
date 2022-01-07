@@ -23,6 +23,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.KalariLab">
         <activity
+            android:name=".SplashScreenActivity"
+           android:noHistory="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".OnBoarding"
             android:exported="true" />
         <activity
@@ -45,11 +54,7 @@
         <activity
             android:name=".LogIn"
             android:noHistory="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".VideoRecorder"

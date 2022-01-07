@@ -60,6 +60,7 @@ public class OnBoarding extends AppCompatActivity implements View.OnClickListene
         getStartedBtn = findViewById(R.id.getStartedBtn);
         nextBtn = findViewById(R.id.nextBtn);
         nextBtn.setOnClickListener(this);
+        getStartedBtn.setOnClickListener(this);
         addDotsIndicators(0);
         viewPager.addOnPageChangeListener(viewListener);
     }
