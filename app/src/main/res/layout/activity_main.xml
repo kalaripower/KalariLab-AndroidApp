@@ -22,10 +22,10 @@
             android:visibility="gone" />
 
         <ImageView
-            android:layout_width="100dp"
-            android:layout_height="50dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="10dp"
+            android:layout_width="@dimen/logo_width"
+            android:layout_height="@dimen/logo_height"
+            android:layout_marginStart="@dimen/logo_marginStart"
+            android:layout_marginTop="@dimen/logo_marginTop"
             android:src="@drawable/kalari_logo" />
 
         <LinearLayout
@@ -160,6 +160,7 @@
                     android:id="@+id/progressCirclePoints"
                     style="@style/Widget.MaterialComponents.CircularProgressIndicator"
                     android:layout_height="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_centerInParent="true"
                     app:indicatorColor="@color/KalariLAbSecondary"
                     app:indicatorSize="120dp"
@@ -186,9 +187,16 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:text="100"
                         android:textColor="@color/KalariLAbSecondary" />
+
                 </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/totalPoints"
+                    android:layout_below="@id/progressCirclePoints"
+                    android:text="total points: 145"
+                    android:layout_centerHorizontal="true"/>
             </RelativeLayout>
         </com.google.android.material.card.MaterialCardView>
 

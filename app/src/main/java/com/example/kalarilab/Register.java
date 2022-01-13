@@ -18,7 +18,6 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.facebook.AccessToken;
@@ -146,7 +145,6 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
 
         private void moveToSignInActivity() {
                 Intent intent = new Intent(this, LogIn.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
         }
 

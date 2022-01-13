@@ -63,6 +63,10 @@
     <dimen name="onBoardingViewPager_MarginButtom">150dp</dimen>
     <dimen name="viewPagerLayout_height">610dp</dimen>
     <dimen name="splashScreen_image_heightAndWidth">200dp</dimen>
+    <dimen name="logo_width">150dp</dimen>
+    <dimen name="logo_height">60dp</dimen>
+    <dimen name="logo_marginStart">15dp</dimen>
+    <dimen name="logo_marginTop">10dp</dimen>
 
 
 </resources>

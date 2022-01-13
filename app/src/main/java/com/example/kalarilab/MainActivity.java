@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private SessionManagement sessionManagement;
     private ProgressTrackingSystem progressTrackingSystem;
     private CircularProgressIndicator circularProgressIndicatorClasses , circularProgressIndicatorPoints;
-    private TextView classesProgressText , levelsProgressText, weeklyPointsTitle, weeklyPoints;
+    private TextView classesProgressText , levelsProgressText,  weeklyPoints, totalPoints;
     private CardView posturesCard;
     private BottomNavigationView bottomNavigationView;
     private ColorStateList navigationViewColorStateList;
@@ -55,7 +55,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.d("debugMainActivity", "s0");
+
         init();
+        Log.d("debugMainActivity", "s1");
         configureGoogleRequest();
 
 
@@ -107,13 +110,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         classesProgressText = findViewById(R.id.classesProgressText);
         levelsProgressText = findViewById(R.id.levelsProgressText);
         posturesCard = findViewById(R.id.posturesCard);
+        totalPoints = findViewById(R.id.totalPoints);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         navigationViewColorStateList = new ColorStateList(states, colors);
         circularProgressIndicatorPoints = findViewById(R.id.progressCirclePoints);
         weeklyPoints = findViewById(R.id.weeklyPoints);
-        streak = new Streak(progressTrackingSystem);
-        weeklyPoints.setText(progressTrackingSystem.getPoints());
+        streak = new Streak(progressTrackingSystem, this);
         circularProgressIndicatorClasses.setMax(7);
+        totalPoints.setText(String.valueOf(progressTrackingSystem.getTotalPoints()));
+        weeklyPoints.setText(String.valueOf(progressTrackingSystem.getWeeklyPoints()));
         circularProgressIndicatorPoints.setProgress(streak.getWeekProgress());
         posturesCard.setOnClickListener(this);
         classesProgressText.setText(new StringBuilder().append(getClassReached()).append("/").append(getNumOfClasses()).toString());

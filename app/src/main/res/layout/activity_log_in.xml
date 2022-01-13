@@ -8,23 +8,13 @@
     android:background="@color/KalariLabMain">
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignStart="@id/editTextEmailParent"
-        android:layout_marginTop="@dimen/returnButton_marginTop"
-
-        >
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/Log_in"
-            android:textSize="40dp"
-            android:textColor="@color/white"
-            android:layout_marginLeft="10dp"
-            android:textStyle="bold"/>
-    </LinearLayout>
+    <ImageView
+        android:layout_width="@dimen/logo_width"
+        android:layout_height="@dimen/logo_height"
+        android:layout_marginStart="@dimen/logo_marginStart"
+        android:src="@drawable/kalari_logo"
+        android:layout_marginTop="@dimen/logo_marginTop"
+        />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -36,29 +26,28 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        >
+        android:layout_height="wrap_content">
+
         <ImageButton
+            android:id="@+id/signInGmail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/signInGmail"
-            android:layout_weight="0.5"
             android:layout_marginTop="@dimen/otherAuthOptionButton_marginTop"
+            android:layout_weight="0.5"
             android:background="@color/KalariLabMain"
-            android:src="@drawable/google_auth"
-            >
+            android:src="@drawable/google_auth">
 
 
         </ImageButton>
+
         <ImageButton
+            android:id="@+id/signInFacebook"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:id="@+id/signInFacebook"
             android:layout_marginTop="@dimen/otherAuthOptionButton_marginTop"
+            android:layout_weight="0.5"
             android:background="@color/KalariLabMain"
-            android:src="@drawable/facebook_auth"
-            >
+            android:src="@drawable/facebook_auth">
 
         </ImageButton>
 

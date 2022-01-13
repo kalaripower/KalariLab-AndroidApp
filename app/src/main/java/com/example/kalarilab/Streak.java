@@ -1,28 +1,41 @@
 package com.example.kalarilab;
 
+import android.content.Context;
+
 import java.util.Calendar;
 
 
 public class Streak {
-    StreakSharedPreference streakSharedPreference = new StreakSharedPreference();
+    private StreakSharedPreference streakSharedPreference;
     //This is gonna be tricky so help me god
     private ProgressTrackingSystem progressTrackingSystem;
-    Calendar c = Calendar.getInstance();
-
+    private Calendar c ;
+    private Context context;
     private  int weekProgress  ;
-    private int counter = streakSharedPreference.getCounter();
-    private static int WEEK = 7;
-    private int startDay = streakSharedPreference.getFirstDay();
-    private int currentDay = c.get(Calendar.DAY_OF_YEAR);
-    private int lastTimeTheCounterUpdated = streakSharedPreference.getLastTimeTheCounterUpdated();
+    private int counter ;
+    private static final int WEEK = 7;
+    private int startDay ;
+    private int currentDay ;
+    private int lastTimeTheCounterUpdated;
 
 
 
 
-    public Streak(ProgressTrackingSystem progressTrackingSystem) {
+    public Streak(ProgressTrackingSystem progressTrackingSystem, Context context) {
         this.progressTrackingSystem = progressTrackingSystem;
+        this.context = context;
+        initHooks();
+
     }
 
+    public void initHooks(){
+        streakSharedPreference = new StreakSharedPreference(context);
+        c = Calendar.getInstance();
+         counter = streakSharedPreference.getCounter();
+         startDay = streakSharedPreference.getFirstDay();
+         currentDay = c.get(Calendar.DAY_OF_YEAR);
+         lastTimeTheCounterUpdated  = streakSharedPreference.getLastTimeTheCounterUpdated();
+    }
 
     public void addDailyLearningReward(){
         //Called every time the user finish 60% of a lesson
@@ -38,6 +51,7 @@ public class Streak {
             weekProgress = 1;
             streakSharedPreference.setFirstDay(currentDay);
             streakSharedPreference.setCounter(0);
+            progressTrackingSystem.setWeeklyPointsZero();
 
 
         }

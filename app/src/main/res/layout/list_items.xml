@@ -28,14 +28,14 @@
         />
 
 </LinearLayout>
+
     <SeekBar
         android:layout_width="200dp"
         android:layout_height="wrap_content"
-        android:max="300"
         android:layout_below="@+id/titleAndImage"
-        android:progress="100"
-        android:thumb = "@color/lightGrey"
-        android:thumbTint="@android:color/transparent"
-        />
+        android:max="300"
+        android:id="@+id/seekBar"
+        android:thumb="@color/lightGrey"
+        android:thumbTint="@android:color/transparent" />
 
 </RelativeLayout>

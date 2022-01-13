@@ -1,6 +1,7 @@
 package com.example.kalarilab;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,8 @@ public class CustomPosturesAdapter extends ArrayAdapter<Integer> {
         this.context = context;
         this.posturesTags = posturesTags;
         this.posturesImages = posturesImages;
+        Log.d("SeekBarDebug", "3");
+
     }
 
     @NonNull
@@ -41,22 +44,126 @@ public class CustomPosturesAdapter extends ArrayAdapter<Integer> {
 
     public String getPostureNameFromTag(int keyTag){
         switch (keyTag){
-            case 1:
+            case 0:
                 return "Lion Posture";
-            case 2:
+            case 1:
                 return "Elephant Posture";
         }
         //to be changed later
         return "0";
     }
     public int getPostureImageFromTag(int keyTag, int valueTag){
+        //All the postures are not ready yet
+        PosturesActivity.setSeekBarProgress(valueTag * 100);
         switch (keyTag){
-            case 1:
-                if(valueTag == 0){
-                    return R.drawable.p10;
+            case 0:
+                if (valueTag == 0){
+
+
                 }
+                else if(valueTag == 1){
+
+                }
+                else if (valueTag == 2){
+
+                }else {
+
+                }
+
+            case 1:
+                if (valueTag == 0){
+
+                }
+                else if(valueTag == 1){
+
+                }
+                else if (valueTag == 2){
+
+                }else {
+
+                }
+                break;
             case 2:
-                return R.drawable.p21;
+                if (valueTag == 0){
+
+                }
+                else if(valueTag == 1){
+
+
+                }
+                else if (valueTag == 2){
+
+                }else {
+
+                }
+                break;
+            case 3:
+                if (valueTag == 0){
+
+                }
+                else if(valueTag == 1){
+
+
+                }
+                else if (valueTag == 2){
+
+                }else {
+
+                }
+                break;
+            case 4:
+                if (valueTag == 0){
+
+                }
+                else if(valueTag == 1){
+
+                }
+                else if (valueTag == 2){
+
+                }else {
+
+                }
+                break;
+            case 5:
+                if (valueTag == 0){
+
+                }
+                else if(valueTag == 1){
+
+
+                }
+                else if (valueTag == 2){
+
+                }else {
+
+                }
+                break;
+            case 6:
+                if (valueTag == 0){
+
+                }
+                else if(valueTag == 1){
+
+                }
+                else if (valueTag == 2){
+
+                }else {
+
+                }
+                break;
+            case 7:
+                if (valueTag == 0){
+
+                }
+                else if(valueTag == 1){
+
+                }
+                else if (valueTag == 2){
+
+                }else {
+
+                }
+                break;
         }
        return 0;
     }

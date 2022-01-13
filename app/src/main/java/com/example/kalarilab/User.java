@@ -3,15 +3,20 @@ package com.example.kalarilab;
 import android.graphics.Bitmap;
 
 public class User {
-    public String fullName, email,  username,  age, bio, gender, profileImageLink;
+    public String fullName;
+    public String email;
+    public String username;
+    public int age;
+    public String bio;
+    public String gender;
+    public String profileImageLink;
     public Bitmap avatar;
     public ProgressTrackingSystem progressTrackingSystem;
 
 
-    public User(String fullName, String email, String username, String age, String bio,String gender, Bitmap avatar) {
+    public User(String fullName, String email, int age, String bio, String gender, Bitmap avatar) {
         this.fullName = fullName;
         this.email = email;
-        this.username = '@'+username;
         this.age = age;
         this.bio = bio;
         this.gender = gender;
@@ -24,7 +29,7 @@ public class User {
     }
 
     public User() {
-        progressTrackingSystem = new ProgressTrackingSystem();
+
     }
 
     public Bitmap getAvatar() {
