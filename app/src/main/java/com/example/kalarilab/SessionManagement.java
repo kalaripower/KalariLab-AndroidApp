@@ -10,7 +10,7 @@ public class SessionManagement implements Serializable {
     private SharedPreferences.Editor editor;
     String SHARED_PREF_NAME = "session";
     String SESSION_KEY = "session_user";
-    String FRESH_INSTALL = "true" ;
+    String FRESH_INSTALL = "fresh_install" ;
 
     public SessionManagement(Context context) {
         this.sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, context.MODE_PRIVATE);
@@ -32,10 +32,11 @@ public class SessionManagement implements Serializable {
 
 
     public void onBoardingSeen(){
-        editor.putString(FRESH_INSTALL, "false").commit();
+        editor.putBoolean(FRESH_INSTALL, false).commit();
     }
-    public String getFRESH_INSTALLStatus(){
-        return sharedPreferences.getString(FRESH_INSTALL, "true");
+
+    public boolean getFRESH_INSTALLStatus(){
+        return sharedPreferences.getBoolean(FRESH_INSTALL, true);
     }
 
 }

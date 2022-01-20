@@ -210,9 +210,10 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
 
 
     private void moveToOnBoardingActivity(){
-        Intent intent = new Intent(LogIn.this, OnBoarding.class);
+        Intent intent = new Intent(this, OnBoarding.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
+        finish();
     }
     private void moveToSignUpActivity() {
 
@@ -230,11 +231,9 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
     @Override
     protected void onStart() {
         super.onStart();
-        Log.d("debugMainActivity", "s4");
 
         runSplashScreen();
         checkFreshInstall();
-        checkSession();
 
 
     }
@@ -430,11 +429,11 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
     }
     public void checkFreshInstall(){
         //Show the onBoarding screen
-        Log.d("onBoardingSeenDebug", sessionManagement.getFRESH_INSTALLStatus());
-       if (sessionManagement.getFRESH_INSTALLStatus().equals("true")){
+       if (sessionManagement.getFRESH_INSTALLStatus()){
            moveToOnBoardingActivity();
+       }else {
+           checkSession();
        }
-
     }
 
 }

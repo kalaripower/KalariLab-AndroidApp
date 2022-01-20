@@ -12,14 +12,12 @@ import android.widget.TextView;
 import android.widget.VideoView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
 ;
 
 
 public class OnBoarding extends AppCompatActivity implements View.OnClickListener {
-    private FragmentManager fragmentManager;
     private LinearLayout dotsLayout;
     private ViewPager viewPager;
     private SliderAdapter sliderAdapter;
@@ -33,9 +31,11 @@ public class OnBoarding extends AppCompatActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_on_boarding);
-        initHooks();
+        Log.d("BoardingActivityDebug", "s5");
 
-        Log.d("onBoardingSeenDebug", sessionManagement.getFRESH_INSTALLStatus());
+        initHooks();
+        Log.d("BoardingActivityDebug", "s6");
+
 
     }
 
@@ -46,7 +46,7 @@ public class OnBoarding extends AppCompatActivity implements View.OnClickListene
     @Override
     protected void onStart() {
         super.onStart();
-        startFirstVideo();
+        //startFirstVideo();
     }
 
     private void initHooks() {
