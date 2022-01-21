@@ -1,41 +1,39 @@
 package com.example.kalarilab;
 
 
-import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.GestureDetector;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
+import android.widget.RelativeLayout;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.progressindicator.CircularProgressIndicator;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener   {
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
 
-    private Button signOutButton;
-    private GoogleSignInClient mGoogleSignInClient;
-    private SessionManagement sessionManagement;
-    private ProgressTrackingSystem progressTrackingSystem;
-    private CircularProgressIndicator circularProgressIndicatorClasses , circularProgressIndicatorPoints;
-    private TextView classesProgressText , levelsProgressText,  weeklyPoints, totalPoints;
-    private CardView posturesCard;
+    // private GoogleSignInClient mGoogleSignInClient;
+    // private SessionManagement sessionManagement;
+
+
+
     private BottomNavigationView bottomNavigationView;
     private ColorStateList navigationViewColorStateList;
-    private Streak streak;
-
+    private Fragment  homeFragment, profileFragment, premiumFragment, shopFragment;
+    private RelativeLayout relativeLayout;
+    Fragment[] fragments = new Fragment[4];
+    SwipeListener swipeListener;
     // FOR NAVIGATION VIEW ITEM ICON COLOR
     int[][] states = new int[][]{
             new int[]{-android.R.attr.state_checked},  // unchecked
@@ -50,145 +48,247 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     };
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.d("debugMainActivity", "s0");
 
-        init();
-        Log.d("debugMainActivity", "s1");
-        configureGoogleRequest();
-
+        initHooks();
+        bindings();
+        fillFragmentsList();
+        runFragment(homeFragment, false);
+        // configureGoogleRequest();
 
 
     }
 
-//    private void runFragments() {
-//        FragmentManager manager = getSupportFragmentManager();
-//        FragmentTransaction transaction = manager.beginTransaction();
-//
-//        transaction.add(R.id.container,progressFragment );
-//        transaction.add(R.id.container,postureFragment );
-//
-//        transaction.addToBackStack(null);
-//
-//        transaction.commit();
-//
-//    }
+    private void fillFragmentsList() {
+        fragments[0] = homeFragment;
+        fragments[1] = premiumFragment;
+        fragments[2] = shopFragment;
+        fragments[3] = profileFragment;
+    }
+
+
+    private void initHooks() {
+
+        //sessionManagement = new SessionManagement(MainActivity.this);
+        homeFragment = new HomeFragment();
+        profileFragment = new ProfileFragment();
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
+        navigationViewColorStateList = new ColorStateList(states, colors);
+        relativeLayout = findViewById(R.id.relativeLayoutMainActivity);
+        swipeListener = new SwipeListener(relativeLayout);
+        premiumFragment = new PremiumFragment();
+        shopFragment = new ShopFragment();
+
+    }
+    private void bindings() {
+        bottomNavigationView.setItemIconTintList(navigationViewColorStateList);
+        bottomNavigationView.setOnItemSelectedListener(item -> {
+            switch (item.getItemId()){
+                case R.id.home_page:
+                    runFragment(homeFragment, false);
+                    break;
+                case R.id.profile_page:
+                    runFragment(profileFragment, false);
+                    break;
+            }
+
+            return true;
+        });
+
+
+    }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
 
-            case R.id.signOutBtn:
-                signOut();
-                break;
-            case R.id.posturesCard:
-                goToPosturesActivity();
-
-                break;
+            //case R.id.signOutBtn:
+            //signOut();
+            //  break;
+//            case R.id.posturesCard:
+//                goToPosturesActivity();
+//
+//                break;
 
         }
     }
 
-    private void goToPosturesActivity() {
-        Intent intent = new Intent(MainActivity.this, PosturesActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        startActivity(intent);
-        finish();
-
-    }
-
-    private void init(){
-        signOutButton = findViewById(R.id.signOutBtn);
-        signOutButton.setOnClickListener(this);
-        sessionManagement = new SessionManagement(MainActivity.this);
-        progressTrackingSystem = new ProgressTrackingSystem();
-        circularProgressIndicatorClasses = findViewById(R.id.progressCircleClasses);
-        classesProgressText = findViewById(R.id.classesProgressText);
-        levelsProgressText = findViewById(R.id.levelsProgressText);
-        posturesCard = findViewById(R.id.posturesCard);
-        totalPoints = findViewById(R.id.totalPoints);
-        bottomNavigationView = findViewById(R.id.bottom_navigation);
-        navigationViewColorStateList = new ColorStateList(states, colors);
-        circularProgressIndicatorPoints = findViewById(R.id.progressCirclePoints);
-        weeklyPoints = findViewById(R.id.weeklyPoints);
-        streak = new Streak(progressTrackingSystem, this);
-        circularProgressIndicatorClasses.setMax(7);
-        totalPoints.setText(String.valueOf(progressTrackingSystem.getTotalPoints()));
-        weeklyPoints.setText(String.valueOf(progressTrackingSystem.getWeeklyPoints()));
-        circularProgressIndicatorPoints.setProgress(streak.getWeekProgress());
-        posturesCard.setOnClickListener(this);
-        classesProgressText.setText(new StringBuilder().append(getClassReached()).append("/").append(getNumOfClasses()).toString());
-        levelsProgressText.setText(new StringBuilder().append("Level ").append(getLevelReached()).toString());
-        circularProgressIndicatorClasses.setMax(getNumOfClasses());
-        circularProgressIndicatorClasses.setProgress(getClassReached());
-        bottomNavigationView.setItemIconTintList(navigationViewColorStateList);
-
-    }
 
 
-    private void configureGoogleRequest(){
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail()
-                .build();
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-    }
 
-    private void moveToVideoRecorderActivity() {
-        Intent intent = new Intent(MainActivity.this, VideoRecorder.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        startActivity(intent);
-        finish();
 
-    }
 
-    private void signOut() {
-        Log.d("DebugLogout", "0 started" + sessionManagement);
+//    private void configureGoogleRequest(){
+//        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+//                .requestEmail()
+//                .build();
+//        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+//    }
 
-        mGoogleSignInClient.signOut().addOnCompleteListener(this, new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if(task.isSuccessful()) {
-                    Log.d("DebugLogout", "1" + sessionManagement.returnSession());
-                    sessionManagement.removeSession();
-                    Log.d("DebugLogout", "2" + sessionManagement.returnSession());
+//    private void moveToVideoRecorderActivity() {
+//        Intent intent = new Intent(MainActivity.this, VideoRecorder.class);
+//        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//        startActivity(intent);
+//        finish();
+//
+//    }
 
-                    startActivity(new Intent(MainActivity.this, LogIn.class));
-                    sendBroadcastToPreventAccessToAllActivities();
-                    finish();
-                }
-                else {
-                    Log.d("DebugLogout", "3  Failed" + sessionManagement.returnSession());
+//    private void signOut() {
+//        Log.d("DebugLogout", "0 started" + sessionManagement);
+//
+//        mGoogleSignInClient.signOut().addOnCompleteListener(this, new OnCompleteListener<Void>() {
+//            @Override
+//            public void onComplete(@NonNull Task<Void> task) {
+//                if(task.isSuccessful()) {
+//                    Log.d("DebugLogout", "1" + sessionManagement.returnSession());
+//                    sessionManagement.removeSession();
+//                    Log.d("DebugLogout", "2" + sessionManagement.returnSession());
+//
+//                    startActivity(new Intent(MainActivity.this, LogIn.class));
+//                    sendBroadcastToPreventAccessToAllActivities();
+//                    finish();
+//                }
+//                else {
+//                    Log.d("DebugLogout", "3  Failed" + sessionManagement.returnSession());
+//
+//                }
+//
+//            }
+//
+//        });
+//    }
 
-                }
+//    private void sendBroadcastToPreventAccessToAllActivities() {
+//        Intent broadcastIntent = new Intent();
+//        broadcastIntent.setAction("com.package.ACTION_LOGOUT");
+//        sendBroadcast(broadcastIntent);
+//    }
 
+    private void runFragment(Fragment fragment, boolean swiped) {
+
+        if (getVisibleFragment() != fragment && fragment != null) {
+            if(swiped) {
+
+                    //Add swiping animation
+                    FragmentManager manager = getSupportFragmentManager();
+                    FragmentTransaction transaction = manager.beginTransaction();
+                    transaction.replace(R.id.container, fragment);
+                    transaction.addToBackStack(null);
+                    transaction.commit();
+
+            }else{
+                FragmentManager manager = getSupportFragmentManager();
+                FragmentTransaction transaction = manager.beginTransaction();
+
+                transaction.replace(R.id.container, fragment);
+                transaction.addToBackStack(null);
+                transaction.commit();
             }
-
-        });
-    }
-
-    private void sendBroadcastToPreventAccessToAllActivities() {
-        Intent broadcastIntent = new Intent();
-        broadcastIntent.setAction("com.package.ACTION_LOGOUT");
-        sendBroadcast(broadcastIntent);
-    }
+        }
 
 
-    private int getLevelReached(){
-        //Gets reached level from DB
-        return 7;
+
     }
-    private int getClassReached(){
-        //Gets reached class from cloud
-        return 11;
-    }
-    private int getNumOfClasses() {
-        //Gets number of classes from cloud
-        return 22;
+    public Fragment getVisibleFragment(){
+        FragmentManager fragmentManager = MainActivity.this.getSupportFragmentManager();
+        List<Fragment> fragments = fragmentManager.getFragments();
+        if(fragments != null){
+            for(Fragment fragment : fragments){
+                if(fragment != null && fragment.isVisible())
+                    return fragment;
+            }
+        }
+        return null;
     }
 
+    private class SwipeListener implements View.OnTouchListener {
+        GestureDetector gestureDetector;
+
+        public SwipeListener(View view) {
+            int threshold = 100;
+            int velocity_threshold = 100;
+            GestureDetector.SimpleOnGestureListener listener =
+                    new GestureDetector.SimpleOnGestureListener(){
+                        @Override
+                        public boolean onDown(MotionEvent e) {
+                            return true;
+                        }
+
+                        @Override
+                        public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
+                            float xDiff = e2.getX() - e1.getX();
+                            float yDiff = e2.getY() - e1.getY();
+                            try {
+                                if (Math.abs(xDiff) > Math.abs(yDiff)){
+                                    if (Math.abs(xDiff) > threshold && Math.abs(velocityX) > velocity_threshold){
+                                        if (xDiff > 0){
+                                            swipeRight();
+
+                                        }else {
+                                            swipeLeft();
+
+
+
+                                        }
+                                        return true;
+                                    }
+
+                                }else {
+                                    if (Math.abs(yDiff) > threshold && Math.abs(velocityY) > velocity_threshold){
+                                        if (yDiff > 0){
+                                            //swipeDown
+                                        }
+
+                                }
+                                    return true;
+                                }
+
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                            return false;
+                        }
+                    };
+            gestureDetector = new GestureDetector(listener);
+            view.setOnTouchListener(this);
+
+        }
+
+        @Override
+        public boolean onTouch(View v, MotionEvent event) {
+            return gestureDetector.onTouchEvent(event);
+        }
+    }
+
+    private void swipeLeft() {
+        runFragment(fragments[getFragmentPosition(getVisibleFragment()) + 1], true);
+        updateNavigationBarState(getFragmentPosition(getVisibleFragment()) + 1);
+
+    }
+
+    private void swipeRight() {
+        runFragment(fragments[getFragmentPosition(getVisibleFragment()) - 1], true);
+        updateNavigationBarState(getFragmentPosition(getVisibleFragment()) - 1);
+
+    }
+
+    private int getFragmentPosition(Fragment fragment) {
+        for (int i = 0 ; i < fragments.length ; i ++){
+            if (fragments[i] == fragment){
+
+                return  i;
+            }
+        }
+       return 0;
+    }
+    private void updateNavigationBarState(int currentItem){
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem item = menu.getItem(currentItem);
+        item.setChecked(true);
+
+
+    }
 }
-

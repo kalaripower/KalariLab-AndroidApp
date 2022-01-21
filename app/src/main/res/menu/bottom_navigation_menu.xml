@@ -23,13 +23,9 @@
             android:icon="@drawable/shop"
             android:title=""/>
 
+
         <item
-            android:id="@+id/settings_page"
-            android:enabled="true"
-            android:icon="@drawable/settings_grey"
-            android:title=""/>
-        <item
-            android:id="@+id/user_page"
+            android:id="@+id/profile_page"
             android:enabled="true"
             android:icon="@drawable/user_grey"
             android:title="" />

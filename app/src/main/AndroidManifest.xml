@@ -24,7 +24,7 @@
         android:theme="@style/Theme.KalariLab">
         <activity
             android:name=".SplashScreenActivity"
-           android:noHistory="true" >
+            android:noHistory="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -53,9 +53,7 @@
             android:exported="true" />
         <activity
             android:name=".LogIn"
-            android:noHistory="true">
-
-        </activity>
+            android:noHistory="true"></activity>
         <activity
             android:name=".VideoRecorder"
             android:exported="true" />

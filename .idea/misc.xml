@@ -9,9 +9,10 @@
         <entry key="app/src/main/res/font/roboto.xml" value="0.16510416666666666" />
         <entry key="app/src/main/res/layout/activity_gmail_profile_info.xml" value="0.12864583333333332" />
         <entry key="app/src/main/res/layout/activity_log_in.xml" value="0.26197916666666665" />
-        <entry key="app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_on_boarding.xml" value="0.246875" />
         <entry key="app/src/main/res/layout/activity_postures.xml" value="0.49217221135029354" />
+        <entry key="app/src/main/res/layout/activity_profile.xml" value="0.2625" />
         <entry key="app/src/main/res/layout/activity_profile_info.xml" value="0.1" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_register2.xml" value="0.33" />
@@ -24,9 +25,13 @@
         <entry key="app/src/main/res/layout/fragment_camera1.xml" value="0.12916666666666668" />
         <entry key="app/src/main/res/layout/fragment_camera_video.xml" value="0.26197916666666665" />
         <entry key="app/src/main/res/layout/fragment_gender.xml" value="0.33" />
+        <entry key="app/src/main/res/layout/fragment_home.xml" value="0.24739583333333334" />
         <entry key="app/src/main/res/layout/fragment_p_t_s__class_progress.xml" value="0.75" />
         <entry key="app/src/main/res/layout/fragment_p_t_s_posture.xml" value="0.67" />
+        <entry key="app/src/main/res/layout/fragment_premium.xml" value="0.2625" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.2625" />
         <entry key="app/src/main/res/layout/fragment_profile_name.xml" value="0.26197916666666665" />
+        <entry key="app/src/main/res/layout/fragment_shop.xml" value="0.24739583333333334" />
         <entry key="app/src/main/res/layout/list_items.xml" value="0.26197916666666665" />
         <entry key="app/src/main/res/layout/slide_layout.xml" value="0.26197916666666665" />
         <entry key="app/src/main/res/layout/slides_layout.xml" value="0.26197916666666665" />
