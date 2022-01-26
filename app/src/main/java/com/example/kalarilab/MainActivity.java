@@ -9,12 +9,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -27,13 +29,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     // private SessionManagement sessionManagement;
 
 
+    private ViewPager viewPager;
+    private FragmentsAdapter fragmentsAdapter;
+    private static final int NUM_PAGES = 4;
 
     private BottomNavigationView bottomNavigationView;
     private ColorStateList navigationViewColorStateList;
     private Fragment  homeFragment, profileFragment, premiumFragment, shopFragment;
     private RelativeLayout relativeLayout;
-    Fragment[] fragments = new Fragment[4];
     SwipeListener swipeListener;
+    private FrameLayout frameLayout;
+    Fragment[] fragments = new Fragment[4];
+
     // FOR NAVIGATION VIEW ITEM ICON COLOR
     int[][] states = new int[][]{
             new int[]{-android.R.attr.state_checked},  // unchecked
@@ -56,7 +63,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initHooks();
         bindings();
         fillFragmentsList();
-        runFragment(homeFragment, false);
+        runFragment(homeFragment, false, 'n');
         // configureGoogleRequest();
 
 
@@ -73,25 +80,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void initHooks() {
 
         //sessionManagement = new SessionManagement(MainActivity.this);
+
+        frameLayout = findViewById(R.id.container);
         homeFragment = new HomeFragment();
         profileFragment = new ProfileFragment();
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         navigationViewColorStateList = new ColorStateList(states, colors);
         relativeLayout = findViewById(R.id.relativeLayoutMainActivity);
-        swipeListener = new SwipeListener(relativeLayout);
         premiumFragment = new PremiumFragment();
         shopFragment = new ShopFragment();
+        swipeListener = new SwipeListener(relativeLayout);
 
     }
     private void bindings() {
         bottomNavigationView.setItemIconTintList(navigationViewColorStateList);
+
+
+
         bottomNavigationView.setOnItemSelectedListener(item -> {
             switch (item.getItemId()){
                 case R.id.home_page:
-                    runFragment(homeFragment, false);
+
+                    runFragment(homeFragment, false, 'n');
+
                     break;
                 case R.id.profile_page:
-                    runFragment(profileFragment, false);
+
+                    runFragment(profileFragment, false, 'n');
+                    break;
+                case R.id.premium_page:
+
+                    runFragment(premiumFragment, false, 'n');
+                    break;
+                case R.id.shop_page:
+
+                    runFragment(shopFragment, false, 'n');
                     break;
             }
 
@@ -167,31 +190,32 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 //        sendBroadcast(broadcastIntent);
 //    }
 
-    private void runFragment(Fragment fragment, boolean swiped) {
+    private void runFragment(Fragment fragment,boolean swiped,  char direction) {
 
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
         if (getVisibleFragment() != fragment && fragment != null) {
-            if(swiped) {
+            if (swiped) {
+                if (direction == 'l') {
 
-                    //Add swiping animation
-                    FragmentManager manager = getSupportFragmentManager();
-                    FragmentTransaction transaction = manager.beginTransaction();
-                    transaction.replace(R.id.container, fragment);
-                    transaction.addToBackStack(null);
-                    transaction.commit();
+                    transaction.setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left,
+                            R.anim.slide_in_left, R.anim.slide_out_right);
 
-            }else{
-                FragmentManager manager = getSupportFragmentManager();
-                FragmentTransaction transaction = manager.beginTransaction();
+                } else{
+                    transaction.setCustomAnimations(R.anim.slide_in_left, R.anim.slide_out_right,
+                            R.anim.slide_in_right, R.anim.slide_out_left);
 
-                transaction.replace(R.id.container, fragment);
-                transaction.addToBackStack(null);
-                transaction.commit();
+                }
             }
+            transaction.replace(R.id.container, fragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
         }
 
 
 
-    }
+
+        }
     public Fragment getVisibleFragment(){
         FragmentManager fragmentManager = MainActivity.this.getSupportFragmentManager();
         List<Fragment> fragments = fragmentManager.getFragments();
@@ -202,6 +226,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
         return null;
+    }
+
+
+    private int getFragmentPosition(Fragment fragment) {
+        for (int i = 0 ; i < fragments.length ; i ++){
+            if (fragments[i] == fragment){
+
+                return  i;
+            }
+        }
+       return 0;
+    }
+
+
+    private void updateNavigationBarState(int currentItem){
+        Menu menu = bottomNavigationView.getMenu();
+        MenuItem item = menu.getItem(currentItem);
+        item.setChecked(true);
+
+
     }
 
     private class SwipeListener implements View.OnTouchListener {
@@ -242,7 +286,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                             //swipeDown
                                         }
 
-                                }
+                                    }
                                     return true;
                                 }
 
@@ -264,31 +308,19 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void swipeLeft() {
-        runFragment(fragments[getFragmentPosition(getVisibleFragment()) + 1], true);
+        runFragment(fragments[getFragmentPosition(getVisibleFragment()) + 1], true ,'l');
         updateNavigationBarState(getFragmentPosition(getVisibleFragment()) + 1);
 
     }
 
     private void swipeRight() {
-        runFragment(fragments[getFragmentPosition(getVisibleFragment()) - 1], true);
+        runFragment(fragments[getFragmentPosition(getVisibleFragment()) - 1], true, 'r');
         updateNavigationBarState(getFragmentPosition(getVisibleFragment()) - 1);
 
     }
 
-    private int getFragmentPosition(Fragment fragment) {
-        for (int i = 0 ; i < fragments.length ; i ++){
-            if (fragments[i] == fragment){
-
-                return  i;
-            }
-        }
-       return 0;
-    }
-    private void updateNavigationBarState(int currentItem){
-        Menu menu = bottomNavigationView.getMenu();
-        MenuItem item = menu.getItem(currentItem);
-        item.setChecked(true);
 
 
-    }
+
+
 }

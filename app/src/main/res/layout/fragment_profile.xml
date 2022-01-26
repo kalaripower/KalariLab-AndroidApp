@@ -1,15 +1,110 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".ProfileFragment"
     android:background="@color/KalariLabMain">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+  <androidx.cardview.widget.CardView
+      android:layout_width="match_parent"
+      android:layout_height="650dp"
+      android:layout_marginTop="-50dp"
+      app:cardBackgroundColor="@color/KalariLAbSecondary"
+      app:cardCornerRadius="60dp">
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
 
-</FrameLayout>
+        >
+
+      <TextView
+          android:id="@+id/profileHeader"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_centerHorizontal="true"
+          android:layout_marginTop="60dp"
+          android:fontFamily="@font/roboto_regular"
+          android:text="@string/profile"
+          android:textColor="@color/white"
+          android:textSize="25sp" />
+
+
+      <de.hdodenhof.circleimageview.CircleImageView
+          android:id="@+id/profile_image"
+          android:layout_width="130dp"
+          android:layout_height="130dp"
+          android:layout_below="@id/profileHeader"
+          android:layout_centerHorizontal="true"
+
+          android:layout_marginTop="40dp"
+          android:src="@drawable/profile"
+          app:civ_border_color="@color/darkerGrey"
+          app:civ_border_width="2dp" />
+
+
+      <TextView
+          android:id="@+id/name"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/profile_image"
+          android:layout_centerInParent="true"
+          android:layout_marginTop="20dp"
+          android:text="Ahmed Al-maliki, 22"
+          android:textColor="@color/white"
+          android:textSize="30sp" />
+
+      <TextView
+          android:id="@+id/bio"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_below="@id/name"
+          android:layout_centerHorizontal="true"
+          android:layout_gravity="center"
+          android:layout_marginStart="5dp"
+          android:layout_marginEnd="5dp"
+          android:gravity="center"
+          android:maxLength="100"
+          android:layout_marginTop="20dp"
+          android:text="kiljdg drkjgb kgrdkg krgh irdg kdrgh jkrg drhg kdrghghdkhg"
+          android:textColor="@color/lightGrey"
+          android:textSize="20sp" />
+      <LinearLayout
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_alignStart="@+id/name"
+          android:layout_below="@+id/bio"
+          android:orientation="horizontal"
+          android:layout_alignEnd="@+id/name"
+          android:weightSum="1">
+
+      <ImageButton
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_below="@+id/bio"
+          android:layout_marginTop="70dp"
+          android:background="@color/KalariLAbSecondary"
+          android:src="@drawable/settings_grey"
+          android:layout_weight="0.5"/>
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/edit_info"
+            android:background="@color/KalariLAbSecondary"
+            android:layout_weight="0.5"
+            android:layout_marginTop="70dp"
+
+            />
+
+
+
+
+
+      </LinearLayout>
+
+    </RelativeLayout>
+  </androidx.cardview.widget.CardView>
+
+
+</RelativeLayout>

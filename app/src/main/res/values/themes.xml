@@ -44,6 +44,7 @@
         <item name="android:text">@string/register</item>
 ]        <item name="android:textSize">@dimen/button_textSize</item>
 
+
     </style>
     <style name="goToActivityButtonStyle" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="android:layout_width">wrap_content</item>
@@ -76,4 +77,12 @@
 
 </style>
 
+
+
+<style name="CustomActivityAnimation" parent="@android:style/Animation.Activity">
+<item name="android:activityOpenEnterAnimation">@anim/slide_in_right</item>
+<item name="android:activityOpenExitAnimation">@anim/slide_out_left</item>
+<item name="android:activityCloseEnterAnimation">@anim/slide_in_left</item>
+<item name="android:activityCloseExitAnimation">@anim/slide_out_right</item>
+</style>
 </resources>

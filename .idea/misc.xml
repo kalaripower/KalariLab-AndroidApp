@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.27708333333333335" />
+        <entry key="app/src/main/res/drawable/card_view_background_color.xml" value="0.17" />
         <entry key="app/src/main/res/drawable/gendet_btn_background_color.xml" value="0.27384615384615385" />
         <entry key="app/src/main/res/drawable/my_button_bg.xml" value="0.24166666666666667" />
         <entry key="app/src/main/res/font/roboto.xml" value="0.16510416666666666" />
@@ -32,6 +33,7 @@
         <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.2625" />
         <entry key="app/src/main/res/layout/fragment_profile_name.xml" value="0.26197916666666665" />
         <entry key="app/src/main/res/layout/fragment_shop.xml" value="0.24739583333333334" />
+        <entry key="app/src/main/res/layout/fragments_screen_slide_page.xml" value="0.2625" />
         <entry key="app/src/main/res/layout/list_items.xml" value="0.26197916666666665" />
         <entry key="app/src/main/res/layout/slide_layout.xml" value="0.26197916666666665" />
         <entry key="app/src/main/res/layout/slides_layout.xml" value="0.26197916666666665" />

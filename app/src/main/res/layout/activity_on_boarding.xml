@@ -44,7 +44,7 @@
       android:layout_above="@+id/dotsLayout"
       android:layout_marginBottom="5dp"/>
     <LinearLayout
-        android:background="@color/KalariLab_day"
+        android:background="@color/KalariLabMain"
         android:layout_width="wrap_content"
         android:layout_height="1500dp"
         android:layout_centerHorizontal="true"

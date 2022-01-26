@@ -66,6 +66,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        postponeEnterTransition();
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
         Button signOutButton = (Button) view.findViewById(R.id.signOutBtn);
         signOutButton.setOnClickListener(this);
@@ -90,6 +91,7 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
 
         CardView posturesCard = (CardView) view.findViewById(R.id.posturesCard);
         posturesCard.setOnClickListener(this);
+        startPostponedEnterTransition();
 
         return view;
     }

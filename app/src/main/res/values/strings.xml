@@ -102,5 +102,6 @@
     <string name="user_title"><![CDATA[user/> </menu>]]></string>
     <string name="user_title1">user</string>
     <string name="weekly_points">Weekly Points</string>
+    <string name="profile">Profile</string>
 
 </resources>
