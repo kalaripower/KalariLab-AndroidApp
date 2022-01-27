@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/KalariLabMain"
+    tools:context=".EditInfoActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/header"
+        android:orientation="horizontal"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="10dp"
+        android:weightSum="3">
+        <ImageButton
+            android:id="@+id/backButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.2"
+            android:background="@color/KalariLabMain"
+            android:src="@drawable/ic_baseline_arrow_back_ios_24" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/personal_information"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/fullNameTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/header"
+        android:layout_alignStart="@+id/editTextNameParent"
+        android:layout_marginTop="50dp"
+        android:text="@string/full_name"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/editTextNameParent"
+        style="@style/personalInfoStyle"
+        android:layout_below="@+id/fullNameTitle"
+
+        android:layout_marginTop="5dp"
+        android:digits="@string/ASCII"
+        android:importantForAutofill="no">
+
+        <com.google.android.material.textfield.TextInputEditText
+            style="@style/personalInfoStyle"
+            android:layout_width="match_parent"
+            android:id="@+id/editTextName"
+            android:maxLength="20"
+            android:layout_height="match_parent"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/aboutMe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_below="@+id/editTextNameParent"
+        android:layout_marginTop="30dp"
+        android:textColor="@color/white"
+        android:layout_alignStart="@id/editTextNameParent"
+        android:text="@string/about_me"/>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/editTextBioParent"
+        style="@style/personalInfoStyle"
+        android:layout_below="@+id/aboutMe"
+        android:layout_marginTop="5dp"
+        android:digits="@string/ASCII"
+        android:importantForAutofill="no"
+        app:counterEnabled="true"
+        app:counterMaxLength="100"
+        app:counterTextColor="@color/KalariLAbSecondary">
+
+        <com.google.android.material.textfield.TextInputEditText
+            style="@style/personalInfoStyle"
+            android:layout_width="match_parent"
+            android:id="@+id/editTextBio"
+            android:maxLength="100"
+
+            android:layout_height="wrap_content"
+            />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <TextView
+        android:id="@+id/age"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_below="@+id/editTextBioParent"
+        android:layout_marginTop="30dp"
+        android:textColor="@color/white"
+        android:layout_alignStart="@id/editTextNameParent"
+        android:text="@string/age"/>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/editTextAgeParent"
+        style="@style/personalInfoStyle"
+        android:layout_below="@+id/age"
+        android:layout_marginTop="5dp"
+        android:digits="@string/ASCII"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        app:counterMaxLength="3">
+
+        <com.google.android.material.textfield.TextInputEditText
+            style="@style/personalInfoStyle"
+            android:layout_width="match_parent"
+            android:id="@+id/editAge"
+            android:maxLength="3"
+            android:inputType="number"
+            android:layout_height="wrap_content"
+
+            />
+
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/gender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:layout_below="@+id/editTextAgeParent"
+        android:layout_marginTop="30dp"
+        android:textColor="@color/white"
+        android:layout_alignStart="@id/editTextNameParent"
+        android:text="@string/Gender"/>
+
+    <Spinner
+        android:id="@+id/genderSpinner"
+        android:layout_width="380dp"
+        android:layout_height="50dp"
+        android:layout_below="@id/gender"
+        android:layout_centerHorizontal="true"
+        android:backgroundTint="@color/KalariLAbSecondary"
+        android:layout_marginTop="5dp"
+        android:entries="@array/genders"
+
+        />
+
+
+
+</RelativeLayout>

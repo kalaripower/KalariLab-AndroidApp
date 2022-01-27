@@ -23,6 +23,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.KalariLab">
         <activity
+            android:name=".EditInfoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".SettingsActivity"
+            android:exported="false" />
+        <activity
             android:name=".SplashScreenActivity"
             android:noHistory="true">
             <intent-filter>
@@ -53,7 +59,7 @@
             android:exported="true" />
         <activity
             android:name=".LogIn"
-            android:noHistory="true"></activity>
+            android:noHistory="true" />
         <activity
             android:name=".VideoRecorder"
             android:exported="true" />

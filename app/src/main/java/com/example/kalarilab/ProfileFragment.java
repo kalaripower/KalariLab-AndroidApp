@@ -1,10 +1,13 @@
 package com.example.kalarilab;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -13,7 +16,7 @@ import androidx.fragment.app.Fragment;
  * Use the {@link ProfileFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ProfileFragment extends Fragment {
+public class ProfileFragment extends Fragment implements View.OnClickListener {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -61,8 +64,26 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_profile, container, false);
         ImageView profileImage = (ImageView)  view.findViewById(R.id.profile_image);
-
-
+        TextView fullName = (TextView) view.findViewById(R.id.name);
+        TextView bio = (TextView) view.findViewById(R.id.bio);
+        ImageButton settings = (ImageButton) view.findViewById(R.id.settings);
+        ImageButton edit_info = (ImageButton) view.findViewById(R.id.editInfo);
+        edit_info.setOnClickListener(this);
         return view;
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.editInfo:
+                moveToEditInfoActivity();
+                break;
+        }
+    }
+
+    private void moveToEditInfoActivity() {
+        Intent intent = new Intent(getActivity(), EditInfoActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(intent);
     }
 }

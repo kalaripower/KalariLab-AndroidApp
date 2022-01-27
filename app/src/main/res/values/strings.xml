@@ -54,7 +54,7 @@
     <string name="Log_in">Log in</string>
     <string name="forgot_password">Forgot password?</string>
     <string name="register">Create Account</string>
-    <string name="full_name">Name</string>
+    <string name="full_name">Full Name</string>
     <string name="sign_up">Sign Up</string>
     <string name="student">Student</string>
     <string name="teacher">Teacher</string>
@@ -98,10 +98,30 @@
     <string name="let_get_started">Lets Get Started</string>
     <string name="upgrade_to_premium">upgrade to premium</string>
     <string name="shop_title">shop</string>
-    <string name="settings_title">settings</string>
+    <string name="settings_title">Settings</string>
     <string name="user_title"><![CDATA[user/> </menu>]]></string>
     <string name="user_title1">user</string>
     <string name="weekly_points">Weekly Points</string>
     <string name="profile">Profile</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="personal_information">Personal Information</string>
+    <string name="about_me">About Me</string>
+    <string name="age">Age</string>
+    <string name="Gender">Gender</string>
 
 </resources>

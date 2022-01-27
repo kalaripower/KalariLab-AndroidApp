@@ -80,6 +80,7 @@
           android:weightSum="1">
 
       <ImageButton
+          android:id="@+id/settings"
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:layout_below="@+id/bio"
@@ -87,7 +88,10 @@
           android:background="@color/KalariLAbSecondary"
           android:src="@drawable/settings_grey"
           android:layout_weight="0.5"/>
+
+
         <ImageButton
+            android:id="@+id/editInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/edit_info"

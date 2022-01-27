@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/profileInfo_fragment_height"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/KalariLabMain"
     tools:context=".AgeFragment">
 
@@ -11,18 +12,19 @@
         android:id="@+id/headLine"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
         android:layout_alignStart="@id/editTextAgeParent"
+        android:layout_marginTop="5dp"
         android:text="@string/whereWereYouBorn"
         android:textColor="@color/white"
+        android:layout_alignEnd="@+id/editTextAgeParent"
         android:textSize="@dimen/FragmentHeadline_textSize" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/editTextAgeParent"
         style="@style/LoggingTextInputLayoutStyle"
-        android:digits="@string/ASCII"
-        android:hint="@string/dateOfBirth"
-        android:inputType="textEmailAddress"
+        android:hint="@string/age"
+        android:inputType="number"
+        app:counterMaxLength="3"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="300dp"
         >
@@ -30,8 +32,9 @@
         <com.google.android.material.textfield.TextInputEditText
             style="@style/LoggingTextInputLayoutStyle"
             android:layout_width="match_parent"
-            android:id="@+id/editTextfullName"
+            android:id="@+id/editTextAge"
             android:layout_height="match_parent"
+            android:maxLength="3"
             android:maxLines="1"/>
 
     </com.google.android.material.textfield.TextInputLayout>
