@@ -1,11 +1,5 @@
 package com.example.kalarilab;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,12 +7,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 public class ProfileInfoActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button continueBtn;
    private androidx.appcompat.widget.Toolbar toolbar;
     private LinkedList list;
     private Node currentNode ;
+    private KalariLabServices kalariLabServices;
 
     private Fragment profileNameFragment, ageFragment, genderFragment, avatarFragment;
     @Override
@@ -43,6 +44,7 @@ public class ProfileInfoActivity extends AppCompatActivity implements View.OnCli
         genderFragment = new GenderFragment();
         avatarFragment = new AvatarFragment();
         toolbar = findViewById(R.id.topAppBar);
+        kalariLabServices = new KalariLabServices(this);
 
 
 
@@ -115,14 +117,34 @@ public class ProfileInfoActivity extends AppCompatActivity implements View.OnCli
         if (currentNode.getNext() != null) {
             currentNode = currentNode.getNext();
             runFragment(currentNode);
-            Log.d("continueDebug","s1");
 
         }
         else
         {
-            moveToMainActivity();
+            Log.d("ApiDebug", "continue");
+
+            if(signUp()){
+                moveToMainActivity();
+            }else {
+                Log.d("ApiDebug", "fail");
+            }
         }
     }
+
+    private boolean signUp() {
+        String email = Register.user.getEmail();
+        String password = Register.user.getPassword();
+        String firstName =  Register.user.getFirstName();
+        String lastName = Register.user.getLastName();
+
+        return kalariLabServices.signUp(email, password, firstName, lastName);
+
+
+
+
+
+    }
+
     private void moveToMainActivity() {
         Intent intent = new Intent(ProfileInfoActivity.this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);

@@ -285,7 +285,7 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
         if(sessionManagement.returnSession() != "") {
 
             startActivity(new Intent(LogIn.this, MainActivity.class));
-            Log.d("debugMainActivity", "s5");
+            Log.d("debugMainActivity", sessionManagement.returnSession());
 
         }else {
             // Machen sie nicht bitte

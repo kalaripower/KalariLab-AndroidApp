@@ -123,5 +123,7 @@
     <string name="about_me">About Me</string>
     <string name="age">Age</string>
     <string name="Gender">Gender</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
 
 </resources>

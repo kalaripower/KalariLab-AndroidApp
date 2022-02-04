@@ -58,42 +58,27 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         public SessionManagement sessionManagement;
         private CallbackManager callbackManager;
         private LoginManager loginManager;
+        public static User user;
         private final static int RC_SIGN_IN = 123;
+
 
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
                 super.onCreate(savedInstanceState);
                 setContentView(R.layout.activity_register);
-                init();
+                initHooks();
+                bindings();
 
 
         }
 
-        private void init() {
-
-                registerBtn = findViewById(R.id.register);
-                goToSignInBtn = findViewById(R.id.goToSignIn);
-                emailEntry = findViewById(R.id.editTextEmail);
-                passwordEntry = findViewById(R.id.editTextPassword);
-                progressBar = findViewById(R.id.progressBar);
-                emailEntryParent = findViewById(R.id.editTextEmailParent);
-                passwordEntryParent = findViewById(R.id.editTextPasswordParent);
-                signInGmailBtn = findViewById(R.id.signInGmail);
-                signInFacebookBtn = findViewById(R.id.signInFacebook);
-                sessionManagement = new SessionManagement(Register.this);
+        private void bindings() {
                 FacebookSdk.sdkInitialize(Register.this);
-                callbackManager = CallbackManager.Factory.create();
-
                 goToSignInBtn.setOnClickListener(this);
                 signInGmailBtn.setOnClickListener(this);
                 signInFacebookBtn.setOnClickListener(this);
                 registerBtn.setOnClickListener(this);
-                configureGoogleRequest();
-                finishAfterRegistrationCompletion();
-                printHashKey();
-                facebookLogin();
-
 
                 emailEntryParent.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                         @Override
@@ -117,6 +102,31 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                         }
 
                 });
+
+        }
+
+        private void initHooks() {
+
+                registerBtn = findViewById(R.id.register);
+                goToSignInBtn = findViewById(R.id.goToSignIn);
+                emailEntry = findViewById(R.id.editTextEmail);
+                passwordEntry = findViewById(R.id.editTextPassword);
+                progressBar = findViewById(R.id.progressBar);
+                emailEntryParent = findViewById(R.id.editTextEmailParent);
+                passwordEntryParent = findViewById(R.id.editTextPasswordParent);
+                signInGmailBtn = findViewById(R.id.signInGmail);
+                signInFacebookBtn = findViewById(R.id.signInFacebook);
+                sessionManagement = new SessionManagement(Register.this);
+                callbackManager = CallbackManager.Factory.create();
+                user = new User();
+
+                configureGoogleRequest();
+                finishAfterRegistrationCompletion();
+                printHashKey();
+                facebookLogin();
+
+
+
         }
 
 
@@ -149,17 +159,17 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         }
 
         private void moveToProfileInfoActivity() {
+                progressBar.setVisibility(View.GONE);
+                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 Intent intent = new Intent(Register.this, ProfileInfoActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
+                finish();
         }
 
         private void checkInfo() {
                 final String email = this.emailEntry.getText().toString().trim();
                 final String password = this.passwordEntry.getText().toString().trim();
-
-
-
 
                 if (email.isEmpty()) {
                         emailEntryParent.setBoxStrokeColor(getResources().getColor(R.color.red));
@@ -184,21 +194,20 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                 getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                         WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 progressBar.setVisibility(View.VISIBLE);
-                checkIfValid(email, password);
+                addInfoToUserObject(email, password);
 
-        }
-
-
-        private void checkIfValid(final String email, final String password
-                                  ) {
-                progressBar.setVisibility(View.GONE);
-                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                //createSession();
                 moveToProfileInfoActivity();
-                finish();
 
 
         }
+
+        private void addInfoToUserObject(String email, String password) {
+                user.setEmail(email);
+                user.setPassword(password);
+        }
+
+
+
 
     private void moveToMainActivity() {
         Intent intent = new Intent(Register.this, MainActivity.class);

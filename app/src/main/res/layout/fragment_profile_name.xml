@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/profileInfo_fragment_height"
+    android:layout_height="wrap_content"
     android:background="@color/KalariLabMain"
     tools:context=".ProfileNameFragment">
 
@@ -11,7 +11,7 @@
         android:id="@+id/headLine"
         android:layout_width="396dp"
         android:layout_height="82dp"
-        android:layout_alignStart="@+id/editTextfullNameParent"
+        android:layout_alignStart="@+id/editTextLastNameParent"
         android:layout_marginStart="0dp"
         android:layout_marginTop="5dp"
         android:text="@string/what_is_your_name"
@@ -22,16 +22,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/headLine"
-        android:layout_alignStart="@id/editTextfullNameParent"
+        android:layout_alignStart="@id/editTextLastNameParent"
         android:text="@string/so_that_we_know_how_to_call_you"
         android:textColor="@color/darkGrey"
         android:textSize="@dimen/profileNameFragmentSecondHeadline_textSize"/>
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editTextfullNameParent"
+        android:id="@+id/editTextFirstNameParent"
         style="@style/LoggingTextInputLayoutStyle"
         android:digits="@string/ASCII"
-        android:hint="@string/full_name"
+        android:hint="@string/first_name"
         android:importantForAutofill="no"
         android:inputType="textEmailAddress"
         android:layout_centerHorizontal="true"
@@ -42,7 +42,29 @@
         <com.google.android.material.textfield.TextInputEditText
             style="@style/LoggingTextInputLayoutStyle"
             android:layout_width="match_parent"
-            android:id="@+id/editTextfullName"
+            android:id="@+id/editTextFirstName"
+            android:layout_height="match_parent"
+            android:maxLines="1"/>
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/editTextLastNameParent"
+        style="@style/LoggingTextInputLayoutStyle"
+        android:digits="@string/ASCII"
+        android:hint="@string/last_name"
+        android:importantForAutofill="no"
+        android:inputType="textEmailAddress"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:layout_below="@id/editTextFirstNameParent"
+
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            style="@style/LoggingTextInputLayoutStyle"
+            android:layout_width="match_parent"
+            android:id="@+id/editTextFLastName"
             android:layout_height="match_parent"
             android:maxLines="1"/>
 

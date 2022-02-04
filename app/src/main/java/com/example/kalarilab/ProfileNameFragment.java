@@ -1,12 +1,14 @@
 package com.example.kalarilab;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+
+import androidx.fragment.app.Fragment;
+
+import com.google.android.material.textfield.TextInputLayout;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -14,6 +16,11 @@ import android.view.ViewGroup;
  * create an instance of this fragment.
  */
 public class ProfileNameFragment extends Fragment {
+    EditText firstNameEntry;
+    EditText lastNameEntry;
+    TextInputLayout firstNameEntryParent;
+    TextInputLayout lastNameEntryParent;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,6 +66,26 @@ public class ProfileNameFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile_name, container, false);
+        View view = inflater.inflate(R.layout.fragment_profile_name, container, false);
+        initHooks(view);
+
+
+        return view;
+    }
+
+    private void initHooks(View view) {
+         firstNameEntry = (EditText) view.findViewById(R.id.editTextFirstName);
+         lastNameEntry  = (EditText) view.findViewById(R.id.editTextFLastName);
+         firstNameEntryParent = (TextInputLayout) view.findViewById(R.id.editTextFirstNameParent);
+         lastNameEntryParent = (TextInputLayout)  view.findViewById(R.id.editTextLastNameParent);
+
+    }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+        Register.user.setFirstName(firstNameEntry.getText().toString());
+        Register.user.setLastName(lastNameEntry.getText().toString());
+
     }
 }

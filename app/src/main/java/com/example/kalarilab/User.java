@@ -1,38 +1,51 @@
 package com.example.kalarilab;
 
-import android.graphics.Bitmap;
-
 public class User {
-    public String fullName;
-    public String email;
-    public String username;
-    public int age;
-    public String bio;
-    public String gender;
-    public String profileImageLink;
-    public Bitmap avatar;
-    public ProgressTrackingSystem progressTrackingSystem;
 
+    private String email;
+    private String password;
+    private String firstName;
+    private String lastName;
 
-    public User(String fullName, String email, int age, String bio, String gender, Bitmap avatar) {
-        this.fullName = fullName;
+    public User(String email, String password, String firstName, String lastName) {
         this.email = email;
-        this.age = age;
-        this.bio = bio;
-        this.gender = gender;
-        this.avatar = avatar;
-        progressTrackingSystem = new ProgressTrackingSystem();
-    }
-
-    public void setProfileImageLink(String profileImageLink) {
-        this.profileImageLink = profileImageLink;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
     }
 
     public User() {
-
     }
 
-    public Bitmap getAvatar() {
-        return avatar;
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 }
