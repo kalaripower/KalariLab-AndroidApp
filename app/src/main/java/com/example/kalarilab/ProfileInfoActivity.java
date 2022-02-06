@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -20,6 +21,8 @@ public class ProfileInfoActivity extends AppCompatActivity implements View.OnCli
     private LinkedList list;
     private Node currentNode ;
     private KalariLabServices kalariLabServices;
+    private UserInfoRegisterSync userInfoRegisterSync = new UserInfoRegisterSync();
+    private ProgressBar progressBar;
 
     private Fragment profileNameFragment, ageFragment, genderFragment, avatarFragment;
     @Override
@@ -44,7 +47,8 @@ public class ProfileInfoActivity extends AppCompatActivity implements View.OnCli
         genderFragment = new GenderFragment();
         avatarFragment = new AvatarFragment();
         toolbar = findViewById(R.id.topAppBar);
-        kalariLabServices = new KalariLabServices(this);
+        kalariLabServices = new KalariLabServices(this, userInfoRegisterSync);
+        progressBar = findViewById(R.id.progressBar);
 
 
 
@@ -122,12 +126,14 @@ public class ProfileInfoActivity extends AppCompatActivity implements View.OnCli
         else
         {
             Log.d("ApiDebug", "continue");
+            if (signUp()){
+                progressBar.setVisibility(View.GONE);
 
-            if(signUp()){
-                moveToMainActivity();
             }else {
-                Log.d("ApiDebug", "fail");
+                Log.d("ApiDebug", "Fail");
             }
+
+
         }
     }
 
@@ -137,9 +143,18 @@ public class ProfileInfoActivity extends AppCompatActivity implements View.OnCli
         String firstName =  Register.user.getFirstName();
         String lastName = Register.user.getLastName();
 
-        return kalariLabServices.signUp(email, password, firstName, lastName);
-
-
+        kalariLabServices.signUp(email, password, firstName, lastName);
+        while (!userInfoRegisterSync.changed()){
+            synchronized (userInfoRegisterSync){
+                try {
+                    progressBar.setVisibility(View.VISIBLE);
+                    userInfoRegisterSync.wait();
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return userInfoRegisterSync.changed();
 
 
 

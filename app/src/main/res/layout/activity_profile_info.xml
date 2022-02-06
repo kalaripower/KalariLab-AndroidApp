@@ -40,12 +40,19 @@
             android:layout_centerHorizontal="true"
             >
         </FrameLayout>
+
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:visibility="gone"/>
         <com.google.android.material.button.MaterialButton
 
             android:id="@+id/continueBtn"
             style="@style/continueButtonStyle"
-            android:text="@string/continueS"
             android:layout_below="@id/container"
+            android:text="@string/continueS"
             app:cornerRadius="15dp" />
     </RelativeLayout>
 
