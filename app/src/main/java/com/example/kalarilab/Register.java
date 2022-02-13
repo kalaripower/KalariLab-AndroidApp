@@ -44,6 +44,7 @@ import org.json.JSONObject;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.util.Locale;
 
 public class Register extends AppCompatActivity implements View.OnClickListener {
 
@@ -60,7 +61,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         private LoginManager loginManager;
         public static User user;
         private final static int RC_SIGN_IN = 123;
-
+        private KalariLabServices kalariLabServices;
 
 
         @Override
@@ -119,6 +120,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                 sessionManagement = new SessionManagement(Register.this);
                 callbackManager = CallbackManager.Factory.create();
                 user = new User();
+                kalariLabServices = new KalariLabServices(this);
 
                 configureGoogleRequest();
                 finishAfterRegistrationCompletion();
@@ -137,7 +139,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                                 moveToSignInActivity();
                                 break;
                         case R.id.register:
-                                checkInfo();
+                                checkInfo(this.emailEntry.getText().toString(), this.passwordEntry.getText().toString());
                                 break;
                         case R.id.signInGmail:
                                 signUpViaGmail();
@@ -164,29 +166,29 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                 Intent intent = new Intent(Register.this, ProfileInfoActivity.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                 startActivity(intent);
-                finish();
+
         }
 
-        private void checkInfo() {
-                final String email = this.emailEntry.getText().toString().trim();
-                final String password = this.passwordEntry.getText().toString().trim();
+        private void checkInfo(String email, String password) {
+                final String finalEmail = email.toLowerCase(Locale.ROOT).trim();
+                final String finalPassword = password.toLowerCase(Locale.ROOT).trim();
 
-                if (email.isEmpty()) {
+                if (finalEmail.isEmpty()) {
                         emailEntryParent.setBoxStrokeColor(getResources().getColor(R.color.red));
 
                         return;
                 }
-                if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                if (!Patterns.EMAIL_ADDRESS.matcher(finalEmail).matches()) {
                         emailEntryParent.setBoxStrokeColor(getResources().getColor(R.color.red));
 
                         return;
                 }
-                if (password.isEmpty()) {
+                if (finalPassword.isEmpty()) {
                         passwordEntryParent.setBoxStrokeColor(getResources().getColor(R.color.red));
 
                         return;
                 }
-                if (password.length() < 6) {
+                if (finalPassword.length() < 6) {
                         passwordEntryParent.setBoxStrokeColor(getResources().getColor(R.color.red));
                         return;
                 }
@@ -194,9 +196,13 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                 getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                         WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 progressBar.setVisibility(View.VISIBLE);
-                addInfoToUserObject(email, password);
+                Log.d("ApiDebug", "1: "+finalEmail);
+                Log.d("ApiDebug", "1: "+finalPassword);
+
+                addInfoToUserObject(finalEmail, finalPassword);
 
                 moveToProfileInfoActivity();
+                progressBar.setVisibility(View.GONE);
 
 
         }
@@ -270,11 +276,12 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                 try {
                         GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
-                        // Signed in successfully, show authenticated UI.
-                        progressBar.setVisibility(View.GONE);
-                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                        createSession();
-                        moveToMainActivity();
+                        // Signed in successfully
+                        String email = account.getEmail();
+                        String password = "/";
+
+                        checkInfo(email, password);
+
 
                 } catch (ApiException e) {
                         // The ApiException status code indicates the detailed failure reason.

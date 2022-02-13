@@ -87,6 +87,9 @@
         android:importantForAutofill="no"
         android:digits="@string/ASCII"
         style="@style/LoggingTextInputLayoutStyle"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/KalariLAbSecondary"
+
         >
 
         <com.google.android.material.textfield.TextInputEditText
@@ -94,6 +97,7 @@
             android:layout_height="match_parent"
             android:id="@+id/editTextPassword"
             android:maxLines="1"
+            android:inputType="textPassword"
             style="@style/LoggingTextInputLayoutStyle"/>
 
     </com.google.android.material.textfield.TextInputLayout>

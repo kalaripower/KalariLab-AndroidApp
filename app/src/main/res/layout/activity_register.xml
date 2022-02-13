@@ -87,12 +87,16 @@
         android:importantForAutofill="no"
         android:digits="@string/ASCII"
         style="@style/LoggingTextInputLayoutStyle"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/KalariLAbSecondary"
+
         >
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:maxLines="1"
+            android:inputType="textPassword"
             android:id="@+id/editTextPassword"
             style="@style/LoggingTextInputLayoutStyle"/>
 

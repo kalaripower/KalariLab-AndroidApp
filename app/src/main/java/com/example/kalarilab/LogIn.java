@@ -66,10 +66,7 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
-        Log.d("debugMainActivity", "s2");
-
         init();
-        Log.d("debugMainActivity", "s3");
 
 
     }
@@ -79,7 +76,6 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
     public void init() {
         onBoardingSharedPreferences =  PreferenceManager.getDefaultSharedPreferences(this);
         sessionManagement = new SessionManagement(LogIn.this);
-        Log.d("checkSession", sessionManagement.returnSession() + "Penis");
 
         logInButt = findViewById(R.id.LogIn);
         goToSignUpButton = findViewById(R.id.goToSignUp);
@@ -218,7 +214,6 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
     private void moveToSignUpActivity() {
 
         Intent intent = new Intent(LogIn.this, Register.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
 
     }

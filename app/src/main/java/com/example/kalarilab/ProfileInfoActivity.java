@@ -21,9 +21,7 @@ public class ProfileInfoActivity extends AppCompatActivity implements View.OnCli
     private LinkedList list;
     private Node currentNode ;
     private KalariLabServices kalariLabServices;
-    private UserInfoRegisterSync userInfoRegisterSync = new UserInfoRegisterSync();
     private ProgressBar progressBar;
-
     private Fragment profileNameFragment, ageFragment, genderFragment, avatarFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +29,7 @@ public class ProfileInfoActivity extends AppCompatActivity implements View.OnCli
         setContentView(R.layout.activity_profile_info);
         init();
         runFragment(currentNode);
+
 
 
 
@@ -47,7 +46,7 @@ public class ProfileInfoActivity extends AppCompatActivity implements View.OnCli
         genderFragment = new GenderFragment();
         avatarFragment = new AvatarFragment();
         toolbar = findViewById(R.id.topAppBar);
-        kalariLabServices = new KalariLabServices(this, userInfoRegisterSync);
+        kalariLabServices = new KalariLabServices(this);
         progressBar = findViewById(R.id.progressBar);
 
 
@@ -76,6 +75,7 @@ public class ProfileInfoActivity extends AppCompatActivity implements View.OnCli
         Intent intent = new Intent(ProfileInfoActivity.this, Register.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
+        finish();
 
     }
 
@@ -122,48 +122,27 @@ public class ProfileInfoActivity extends AppCompatActivity implements View.OnCli
             currentNode = currentNode.getNext();
             runFragment(currentNode);
 
-        }
-        else
-        {
-            Log.d("ApiDebug", "continue");
-            if (signUp()){
-                progressBar.setVisibility(View.GONE);
+        } else {
 
-            }else {
-                Log.d("ApiDebug", "Fail");
-            }
-
-
+            progressBar.setVisibility(View.GONE);
+            signUp();
         }
     }
 
-    private boolean signUp() {
+    private void signUp() {
         String email = Register.user.getEmail();
         String password = Register.user.getPassword();
-        String firstName =  Register.user.getFirstName();
+        String firstName = Register.user.getFirstName();
         String lastName = Register.user.getLastName();
-
+        Log.d("ApiDebug", email +password +firstName +lastName);
         kalariLabServices.signUp(email, password, firstName, lastName);
-        while (!userInfoRegisterSync.changed()){
-            synchronized (userInfoRegisterSync){
-                try {
-                    progressBar.setVisibility(View.VISIBLE);
-                    userInfoRegisterSync.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return userInfoRegisterSync.changed();
-
 
 
     }
 
-    private void moveToMainActivity() {
-        Intent intent = new Intent(ProfileInfoActivity.this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-        startActivity(intent);
-    }
+
+
+
+
 
 }
