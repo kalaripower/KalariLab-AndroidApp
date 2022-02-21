@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Base64;
 import android.util.Log;
-import android.util.Patterns;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -60,45 +59,24 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
     private CallbackManager callbackManager;
     private LoginManager loginManager;
     private SharedPreferences onBoardingSharedPreferences;
+    private KalariLabServices kalariLabServices;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_in);
-        init();
-
+        initHooks();
+        bindings();
 
     }
 
-
-
-    public void init() {
-        onBoardingSharedPreferences =  PreferenceManager.getDefaultSharedPreferences(this);
-        sessionManagement = new SessionManagement(LogIn.this);
-
-        logInButt = findViewById(R.id.LogIn);
-        goToSignUpButton = findViewById(R.id.goToSignUp);
-        signInGmail = findViewById(R.id.signInGmail);
-        signInFacebook = findViewById(R.id.signInFacebook);
-        emailEntry = findViewById(R.id.editTextEmail);
-        passwordEntry = findViewById(R.id.editTextPassword);
-        emailEntryParent = findViewById(R.id.editTextEmailParent);
-        passwordEntryParent = findViewById(R.id.editTextPasswordParent);
-        progressBar = findViewById(R.id.progressBar);
-        sessionManagement = new SessionManagement(LogIn.this);
-        FacebookSdk.sdkInitialize(LogIn.this);
-        callbackManager = CallbackManager.Factory.create();
-
-        configureGoogleRequest();
-
+    private void bindings() {
 
         logInButt.setOnClickListener(this);
         goToSignUpButton.setOnClickListener(this);
         signInGmail.setOnClickListener(this);
         signInFacebook.setOnClickListener(this);
-        printHashKey();
-        facebookLogin();
 
         emailEntryParent.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -121,13 +99,43 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
             }
 
         });
+
+    }
+
+
+    public void initHooks() {
+        onBoardingSharedPreferences =  PreferenceManager.getDefaultSharedPreferences(this);
+        sessionManagement = new SessionManagement(LogIn.this);
+
+        logInButt = findViewById(R.id.LogIn);
+        goToSignUpButton = findViewById(R.id.goToSignUp);
+        signInGmail = findViewById(R.id.signInGmail);
+        signInFacebook = findViewById(R.id.signInFacebook);
+        emailEntry = findViewById(R.id.editTextEmail);
+        passwordEntry = findViewById(R.id.editTextPassword);
+        emailEntryParent = findViewById(R.id.editTextEmailParent);
+        passwordEntryParent = findViewById(R.id.editTextPasswordParent);
+        progressBar = findViewById(R.id.progressBar);
+        sessionManagement = new SessionManagement(LogIn.this);
+        FacebookSdk.sdkInitialize(LogIn.this);
+        callbackManager = CallbackManager.Factory.create();
+        kalariLabServices = new KalariLabServices(this);
+        configureGoogleRequest();
+
+
+
+        printHashKey();
+        facebookLogin();
+
+
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.LogIn:
-                checkEnteredInfo();
+                checkEnteredInfo(this.emailEntry.getText().toString(),
+                        this.passwordEntry.getText().toString());
 
                 break;
             case R.id.goToSignUp:
@@ -158,9 +166,9 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
     }
 
-    private void checkEnteredInfo() {
-        final String email = this.emailEntry.getText().toString().trim().toLowerCase(Locale.ROOT);
-        final String password = this.passwordEntry.getText().toString().trim().toLowerCase(Locale.ROOT);
+    private void checkEnteredInfo(String finalEmail, String finalPassword) {
+        final String email = finalEmail.trim().toLowerCase(Locale.ROOT);
+        final String password = finalPassword.trim().toLowerCase(Locale.ROOT);
 
 
         if (email.isEmpty()){
@@ -168,11 +176,11 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
 
             return;
         }
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
-            this.emailEntryParent.setBoxStrokeColor(getResources().getColor(R.color.red));
+       // if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+         //   this.emailEntryParent.setBoxStrokeColor(getResources().getColor(R.color.red));
 
-            return;
-        }
+           // return;
+        //}
         if (password.isEmpty()){
             this.passwordEntryParent.setBoxStrokeColor(getResources().getColor(R.color.red));
 
@@ -185,10 +193,11 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void logIn(String email, String password) {
+        kalariLabServices.signIn(email, password);
         progressBar.setVisibility(View.GONE);
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-        createSession();
-        moveToMainActivity();
+
+
     }
 
     private void moveToMainActivity() {

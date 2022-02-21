@@ -67,6 +67,7 @@
     <dimen name="logo_height">60dp</dimen>
     <dimen name="logo_marginStart">15dp</dimen>
     <dimen name="logo_marginTop">10dp</dimen>
+    <dimen name="settings_card_height">60dp</dimen>
 
 
 </resources>

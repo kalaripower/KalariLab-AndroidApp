@@ -35,11 +35,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private BottomNavigationView bottomNavigationView;
     private ColorStateList navigationViewColorStateList;
-    private Fragment  homeFragment, profileFragment, premiumFragment, shopFragment;
+    private Fragment  homeFragment, profileFragment, premiumFragment, shopFragment, classesFragment;
     private RelativeLayout relativeLayout;
     SwipeListener swipeListener;
     private FrameLayout frameLayout;
-    Fragment[] fragments = new Fragment[4];
+    Fragment[] fragments = new Fragment[5];
 
     // FOR NAVIGATION VIEW ITEM ICON COLOR
     int[][] states = new int[][]{
@@ -71,9 +71,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     private void fillFragmentsList() {
         fragments[0] = homeFragment;
-        fragments[1] = premiumFragment;
-        fragments[2] = shopFragment;
-        fragments[3] = profileFragment;
+        fragments[1] = classesFragment;
+        fragments[2] = premiumFragment;
+        fragments[3] = shopFragment;
+        fragments[4] = profileFragment;
+
+
     }
 
 
@@ -90,6 +93,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         premiumFragment = new PremiumFragment();
         shopFragment = new ShopFragment();
         swipeListener = new SwipeListener(relativeLayout);
+        classesFragment = new ClassesFragment();
 
     }
     private void bindings() {
@@ -116,6 +120,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                     runFragment(shopFragment, false, 'n');
                     break;
+                case R.id.classes_page:
+                    runFragment(classesFragment, false, 'n');
             }
 
             return true;

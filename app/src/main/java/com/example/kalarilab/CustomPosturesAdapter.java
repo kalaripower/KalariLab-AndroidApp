@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,6 +17,7 @@ public class CustomPosturesAdapter extends ArrayAdapter<Integer> {
     private Integer[] posturesTags;
     private Integer[] posturesImages;
     private Activity context;
+    private SeekBar seekBar;
 
 
     public CustomPosturesAdapter(Activity context, Integer[] posturesTags, Integer[] posturesImages) {
@@ -32,6 +34,7 @@ public class CustomPosturesAdapter extends ArrayAdapter<Integer> {
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
         View rowView = inflater.inflate(R.layout.list_items, null, true);
+        seekBar = (SeekBar) rowView.findViewById(R.id.seekBar);
         TextView title = rowView.findViewById(R.id.textViewTitle);
         ImageView posture = rowView.findViewById(R.id.imageViewPosture);
 
@@ -54,7 +57,7 @@ public class CustomPosturesAdapter extends ArrayAdapter<Integer> {
     }
     public int getPostureImageFromTag(int keyTag, int valueTag){
         //All the postures are not ready yet
-        PosturesActivity.setSeekBarProgress(valueTag * 100);
+        seekBar.setProgress(valueTag * 100);
         switch (keyTag){
             case 0:
                 if (valueTag == 0){

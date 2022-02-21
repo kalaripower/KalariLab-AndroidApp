@@ -125,5 +125,10 @@
     <string name="Gender">Gender</string>
     <string name="first_name">First Name</string>
     <string name="last_name">Last Name</string>
+    <string name="account">Account</string>
+    <string name="change_your_password">Change Your Password</string>
+    <string name="reset_password">Reset Password</string>
+    <string name="current_password">Current Password</string>
+    <string name="new_password">New Password</string>
 
 </resources>

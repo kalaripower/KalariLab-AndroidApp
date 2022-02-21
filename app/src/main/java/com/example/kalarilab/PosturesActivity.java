@@ -1,55 +1,50 @@
 package com.example.kalarilab;
 
 import android.os.Bundle;
-import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.SeekBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class PosturesActivity extends AppCompatActivity {
-    ImageView avatar;
-    ListView posturesList;
-
-    CustomPosturesAdapter customPosturesAdapter;
-    private static SeekBar seekBar;
-    ProgressTrackingSystem progressTrackingSystem;
-
+public class PosturesActivity extends AppCompatActivity implements View.OnClickListener {
+    private  ImageView avatar;
+    private ListView posturesList;
+    private CustomPosturesAdapter customPosturesAdapter;
+    private ProgressTrackingSystem progressTrackingSystem;
+    private ImageButton backBtn;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_postures);
-        Log.d("SeekBarDebug","2");
 
-        init();
+        initHooks();
+        bindings();
 
 
 
     }
 
-
-    private void init(){
-      avatar = findViewById(R.id.avatar);
-      posturesList = findViewById(R.id.list);
-      seekBar = (SeekBar) findViewById(R.id.seekBar);
-      progressTrackingSystem = new ProgressTrackingSystem();
-
-      progressTrackingSystem.getPosturesLevelsFromDB();
-
-
-
-        Log.d("SeekBarDebug", "10");
-
-      customPosturesAdapter = new CustomPosturesAdapter(this, posturesHashtableKeys(), posturesHashtableValues());
-
+    private void bindings() {
 
         posturesList.setAdapter(customPosturesAdapter);
+        progressTrackingSystem.getPosturesLevelsFromDB();
+        backBtn.setOnClickListener(this);
+
     }
 
-    public static void setSeekBarProgress(int progress){
-        seekBar.setProgress(progress );
+
+    private void initHooks(){
+      avatar = findViewById(R.id.avatar);
+      posturesList = findViewById(R.id.list);
+      progressTrackingSystem = new ProgressTrackingSystem();
+      customPosturesAdapter = new CustomPosturesAdapter(this, posturesHashtableKeys(), posturesHashtableValues());
+      backBtn = findViewById(R.id.backButton);
+
     }
+
+
 
 
     private Integer[] posturesHashtableKeys(){
@@ -64,4 +59,12 @@ public class PosturesActivity extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.backButton:
+                finish();
+                break;
+        }
+    }
 }

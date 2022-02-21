@@ -69,6 +69,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         ImageButton settings = (ImageButton) view.findViewById(R.id.settings);
         ImageButton edit_info = (ImageButton) view.findViewById(R.id.editInfo);
         edit_info.setOnClickListener(this);
+        settings.setOnClickListener(this);
         return view;
     }
 
@@ -78,11 +79,19 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             case R.id.editInfo:
                 moveToEditInfoActivity();
                 break;
+            case R.id.settings:
+                moveToSettingsActivity();
+
         }
     }
 
     private void moveToEditInfoActivity() {
         Intent intent = new Intent(getActivity(), EditInfoActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(intent);
+    }
+    private void moveToSettingsActivity() {
+        Intent intent = new Intent(getActivity(), SettingsActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
     }

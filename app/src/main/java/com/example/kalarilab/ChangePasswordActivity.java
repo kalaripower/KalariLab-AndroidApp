@@ -6,28 +6,25 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 
-public class SettingsActivity extends AppCompatActivity implements View.OnClickListener {
-    private CardView changePasswordCardView;
+public class ChangePasswordActivity extends AppCompatActivity implements View.OnClickListener {
     private ImageButton backBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
+        setContentView(R.layout.activity_change_password);
         initHooks();
         bindings();
     }
 
     private void bindings() {
-        changePasswordCardView.setOnClickListener(this);
         backBtn.setOnClickListener(this);
+
     }
 
     private void initHooks() {
-        changePasswordCardView = findViewById(R.id.changePasswordCard);
         backBtn = findViewById(R.id.backButton);
-
     }
     private void moveToMainActivity() {
         Intent intent = new Intent(this, MainActivity.class);
@@ -38,15 +35,9 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     @Override
     public void onClick(View v) {
         switch (v.getId()){
-            case R.id.changePasswordCard:
-                Intent intent = new Intent(this, ChangePasswordActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(intent);
-                break;
             case R.id.backButton:
                 moveToMainActivity();
-                break;
-
+                finish();
         }
     }
 }

@@ -13,19 +13,25 @@
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/avatar"
         android:layout_marginTop="@dimen/postureActivity_avatar_marginTopButton"
         android:layout_marginBottom="@dimen/postureActivity_avatar_marginTopButton"
-        />
+        android:src="@drawable/avatar" />
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginStart="10dp"
+        android:background="@color/KalariLabMain"
+        android:src="@drawable/ic_baseline_arrow_back_ios_24" />
 
 
     <ListView
+        android:id="@+id/list"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:divider="@color/white"
-        android:id="@+id/list"
         android:layout_below="@+id/avatar"
-        />
+        android:divider="@color/white" />
 
 
 

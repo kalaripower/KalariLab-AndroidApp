@@ -8,9 +8,11 @@
             android:icon="@drawable/home_grey"
             android:title=""/>
 
-
-
-
+        <item
+                android:id="@+id/classes_page"
+                android:enabled="true"
+                android:icon="@drawable/video_icon"
+                android:title=""/>
 
         <item
             android:id="@+id/premium_page"
