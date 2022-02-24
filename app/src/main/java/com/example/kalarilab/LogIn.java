@@ -204,7 +204,6 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
         Intent intent = new Intent(LogIn.this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
-        Log.d("debugMainActivity", "5");
     }
 
 

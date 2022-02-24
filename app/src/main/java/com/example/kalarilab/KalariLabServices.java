@@ -1,8 +1,10 @@
 package com.example.kalarilab;
 
-import android.content.Context;
+import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
@@ -22,7 +24,7 @@ import java.util.Map;
 
 public class KalariLabServices {
     private final static String BASE_URL = "http://192.168.31.89:8000/";
-    private Context context;
+    private Activity context;
     private Map<String, String> postRequestParam = new HashMap<String, String>();
 
     public SessionManagement sessionManagement;
@@ -31,8 +33,9 @@ public class KalariLabServices {
 
 
 
-    public KalariLabServices(Context context) {
+    public KalariLabServices(Activity context) {
         this.context = context;
+
     }
 
 
@@ -41,8 +44,6 @@ public class KalariLabServices {
     public void signUp(final String email, final String password,final String firstName,final String lastName){
 
         addPostRequestParamsSignUp(email, password, firstName, lastName);
-
-
 
         JSONObject jsonObj = new JSONObject(postRequestParam);
         String url = BASE_URL+"auth/users/";
@@ -68,10 +69,15 @@ public class KalariLabServices {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d("ApiDebug", error.toString());
+                        LayoutInflater inflater = context.getLayoutInflater();
+                        View registerView = inflater.inflate(R.layout.activity_register, null, true);
 
-                String message = null;
+
+
+                        String message = null;
                 if (error instanceof NetworkError) {
                     message = "Cannot connect to Internet...Please check your connection!";
+
                 } else if (error instanceof ServerError) {
                     message = "The server could not be found. Please try again after some time!!";
                 } else if (error instanceof AuthFailureError) {

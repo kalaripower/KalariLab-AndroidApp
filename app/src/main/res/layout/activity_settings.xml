@@ -47,13 +47,13 @@
         android:textSize="25sp" />
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/changePasswordCard"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/settings_card_height"
         android:layout_below="@+id/accountSettingsTitle"
         android:layout_alignStart="@+id/accountSettingsTitle"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="15dp"
-        android:id="@+id/changePasswordCard"
         android:layout_marginEnd="20dp"
         app:cardBackgroundColor="@color/darkGrey">
 
@@ -73,12 +73,48 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:text="@string/change_your_password"
+                android:text="@string/reset_password"
                 android:textColor="@color/white"
                 android:textSize="20sp" />
 
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
-   
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/logOutCard"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/settings_card_height"
+        android:layout_below="@+id/changePasswordCard"
+        android:layout_alignStart="@+id/accountSettingsTitle"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="20dp"
+        app:cardBackgroundColor="@color/darkGrey">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/logOut"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="15dp"
+                android:src="@drawable/log_out" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:text="@string/log_out"
+                android:textColor="@color/white"
+                android:layout_marginTop="3dp"
+                android:textSize="20sp" />
+
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+
+
 </RelativeLayout>

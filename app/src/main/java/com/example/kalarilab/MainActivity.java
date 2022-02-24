@@ -25,8 +25,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
 
-    // private GoogleSignInClient mGoogleSignInClient;
-    // private SessionManagement sessionManagement;
+
 
 
     private ViewPager viewPager;
@@ -128,6 +127,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         });
 
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        //Tun sie nichts
     }
 
     @Override

@@ -35,7 +35,8 @@
             android:id="@+id/editTextAge"
             android:layout_height="match_parent"
             android:maxLength="3"
-            android:maxLines="1"/>
+            android:digits="0123456789"
+            android:singleLine="true"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 

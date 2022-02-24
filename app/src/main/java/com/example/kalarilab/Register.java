@@ -17,7 +17,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.facebook.AccessToken;
@@ -59,10 +61,11 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
         public SessionManagement sessionManagement;
         private CallbackManager callbackManager;
         private LoginManager loginManager;
+        private TextView warningTextEmail, warningTextPassword;
         public static User user;
         private final static int RC_SIGN_IN = 123;
         private KalariLabServices kalariLabServices;
-
+        AlertDialog.Builder alertDialogBuilder;
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -80,17 +83,26 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                 signInGmailBtn.setOnClickListener(this);
                 signInFacebookBtn.setOnClickListener(this);
                 registerBtn.setOnClickListener(this);
-
+                
                 emailEntryParent.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                         @Override
                         public void onFocusChange(View v, boolean hasFocus) {
-                                if (hasFocus)
-                                        emailEntryParent.setBoxStrokeColor(getResources().getColor(R.color.KalariLAbSecondary));
+                                if (hasFocus) {
+                                    emailEntryParent.setBoxStrokeColor(getResources().getColor(R.color.KalariLAbSecondary));
+                                }
                                 else {
                                         emailEntryParent.setBoxStrokeColor(getResources().getColor(R.color.darkGrey));
                                 }
                         }
 
+                });
+                emailEntry.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                        @Override
+                        public void onFocusChange(View v, boolean hasFocus) {
+                                if(hasFocus){
+                                        warningTextEmail.setText("");
+                                }
+                        }
                 });
                 passwordEntryParent.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                         @Override
@@ -103,6 +115,9 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                         }
 
                 });
+
+          passwordEntry.setOnClickListener(this);
+          emailEntry.setOnClickListener(this);
 
         }
 
@@ -119,9 +134,11 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                 signInFacebookBtn = findViewById(R.id.signInFacebook);
                 sessionManagement = new SessionManagement(Register.this);
                 callbackManager = CallbackManager.Factory.create();
+                warningTextEmail = findViewById(R.id.warningTextEmail);
                 user = new User();
                 kalariLabServices = new KalariLabServices(this);
-
+                warningTextPassword = findViewById(R.id.warningTextPassword);
+                 alertDialogBuilder = new AlertDialog.Builder(this);
                 configureGoogleRequest();
                 finishAfterRegistrationCompletion();
                 printHashKey();
@@ -152,6 +169,12 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                                                 "public_profile",
                                                 "user_birthday"));
                                 break;
+                    case R.id.editTextEmail:
+                        warningTextEmail.setText("");
+                        break;
+                    case R.id.editTextPassword:
+                        warningTextPassword.setText("");
+                        break;
                 }
         }
 
@@ -174,22 +197,20 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                 final String finalPassword = password.toLowerCase(Locale.ROOT).trim();
 
                 if (finalEmail.isEmpty()) {
-                        emailEntryParent.setBoxStrokeColor(getResources().getColor(R.color.red));
-
+                        warningTextEmail.setText(R.string.empty_email_field);
                         return;
                 }
                 if (!Patterns.EMAIL_ADDRESS.matcher(finalEmail).matches()) {
-                        emailEntryParent.setBoxStrokeColor(getResources().getColor(R.color.red));
+                        warningTextEmail.setText(R.string.invalid_email);
 
                         return;
                 }
                 if (finalPassword.isEmpty()) {
-                        passwordEntryParent.setBoxStrokeColor(getResources().getColor(R.color.red));
-
+                        warningTextPassword.setText(R.string.empty_password);
                         return;
                 }
                 if (finalPassword.length() < 6) {
-                        passwordEntryParent.setBoxStrokeColor(getResources().getColor(R.color.red));
+                        warningTextPassword.setText(R.string.short_password);
                         return;
                 }
 

@@ -22,8 +22,8 @@
 
         android:id="@+id/male"
         style="@style/genderBoxStyle"
-        android:layout_marginTop="40dp"
         android:layout_below="@+id/headLine"
+        android:layout_marginTop="40dp"
         android:text="@string/male"
         app:icon="@drawable/male"
         app:iconPadding="@dimen/genderBox_iconPadding" />

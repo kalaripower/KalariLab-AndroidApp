@@ -1,21 +1,22 @@
 package com.example.kalarilab;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import androidx.fragment.app.Fragment;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link GenderFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class GenderFragment extends Fragment {
+public class GenderFragment extends Fragment implements View.OnClickListener {
+    Button maleBtn;
+    Button femaleBtn;
+    Button otherBtn;
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -68,15 +69,41 @@ public class GenderFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_gender, container, false);
-        Button male = (Button) view.findViewById(R.id.male);
-        Button female = (Button) view.findViewById(R.id.female);
-        Button other =  (Button) view.findViewById(R.id.other);
-
-
+        maleBtn = (Button) view.findViewById(R.id.male);
+        femaleBtn = (Button) view.findViewById(R.id.female);
+        otherBtn=  (Button) view.findViewById(R.id.other);
+        maleBtn.setOnClickListener(this);
+        femaleBtn.setOnClickListener(this);
+        otherBtn.setOnClickListener(this);
 
 
         return view;
     }
 
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.male:
+                femaleBtn.setBackgroundColor(getResources().getColor(R.color.KalariLabMain));
+                otherBtn.setBackgroundColor(getResources().getColor(R.color.KalariLabMain));
+
+                maleBtn.setBackgroundColor(getResources().getColor(R.color.KalariLAbSecondary));
+                break;
+            case R.id.female:
+                maleBtn.setBackgroundColor(getResources().getColor(R.color.KalariLabMain));
+                otherBtn.setBackgroundColor(getResources().getColor(R.color.KalariLabMain));
+
+                femaleBtn.setBackgroundColor(getResources().getColor(R.color.KalariLAbSecondary));
+
+                break;
+            case R.id.other:
+                maleBtn.setBackgroundColor(getResources().getColor(R.color.KalariLabMain));
+                femaleBtn.setBackgroundColor(getResources().getColor(R.color.KalariLabMain));
+
+                otherBtn.setBackgroundColor(getResources().getColor(R.color.KalariLAbSecondary));
+
+                break;
+        }
+    }
 }

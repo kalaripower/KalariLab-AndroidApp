@@ -55,9 +55,6 @@
     </LinearLayout>
 
 
-
-
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/editTextEmailParent"
         style="@style/LoggingTextInputLayoutStyle"
@@ -65,23 +62,34 @@
         android:digits="@string/ASCII"
         android:hint="@string/email_field"
         android:importantForAutofill="no"
-        android:inputType="textEmailAddress"
-        >
+        android:inputType="textEmailAddress">
 
         <com.google.android.material.textfield.TextInputEditText
-            style="@style/LoggingTextInputLayoutStyle"
             android:id="@+id/editTextEmail"
-            android:maxLines="1"
+            style="@style/LoggingTextInputLayoutStyle"
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:singleLine="true" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
+    <TextView
+        android:id="@+id/warningTextEmail"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextEmailParent"
+        android:layout_alignStart="@id/editTextEmailParent"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        android:text=""
+        android:textColor="@color/white"
+        android:textSize="12sp" />
 
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/editTextPasswordParent"
         android:layout_below="@+id/editTextEmailParent"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="27dp"
         android:hint="@string/password_field"
         android:inputType="textPassword"
         android:importantForAutofill="no"
@@ -95,13 +103,23 @@
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:maxLines="1"
+            android:singleLine="true"
             android:inputType="textPassword"
             android:id="@+id/editTextPassword"
             style="@style/LoggingTextInputLayoutStyle"/>
 
     </com.google.android.material.textfield.TextInputLayout>
-
+    <TextView
+        android:id="@+id/warningTextPassword"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextPasswordParent"
+        android:layout_alignStart="@id/editTextPasswordParent"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        android:text=""
+        android:textColor="@color/white"
+        android:textSize="12sp" />
 
     <com.google.android.material.button.MaterialButton
 

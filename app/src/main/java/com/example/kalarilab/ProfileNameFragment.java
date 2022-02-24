@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -15,11 +16,12 @@ import com.google.android.material.textfield.TextInputLayout;
  * Use the {@link ProfileNameFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ProfileNameFragment extends Fragment {
+public class ProfileNameFragment extends Fragment  {
     EditText firstNameEntry;
     EditText lastNameEntry;
     TextInputLayout firstNameEntryParent;
     TextInputLayout lastNameEntryParent;
+    TextView firstNameWarning;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -68,9 +70,20 @@ public class ProfileNameFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile_name, container, false);
         initHooks(view);
-
+        bindings();
 
         return view;
+    }
+
+    private void bindings() {
+        firstNameWarning.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus){
+                    firstNameWarning.setText("");
+                }
+            }
+        });
     }
 
     private void initHooks(View view) {
@@ -78,14 +91,17 @@ public class ProfileNameFragment extends Fragment {
          lastNameEntry  = (EditText) view.findViewById(R.id.editTextFLastName);
          firstNameEntryParent = (TextInputLayout) view.findViewById(R.id.editTextFirstNameParent);
          lastNameEntryParent = (TextInputLayout)  view.findViewById(R.id.editTextLastNameParent);
-
+        firstNameWarning = (TextView) view.findViewById(R.id.warningTextFirstName);
     }
 
     @Override
     public void onStop() {
         super.onStop();
+
         Register.user.setFirstName(firstNameEntry.getText().toString());
         Register.user.setLastName(lastNameEntry.getText().toString());
 
     }
+
+
 }

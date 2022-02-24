@@ -72,7 +72,7 @@
             style="@style/LoggingTextInputLayoutStyle"
             android:layout_width="match_parent"
             android:id="@+id/editTextEmail"
-            android:maxLines="1"
+            android:singleLine="true"
             android:layout_height="match_parent" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -81,7 +81,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/editTextPasswordParent"
         android:layout_below="@+id/editTextEmailParent"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="27dp"
         android:hint="@string/password_field"
         android:inputType="textPassword"
         android:importantForAutofill="no"
@@ -96,7 +96,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/editTextPassword"
-            android:maxLines="1"
+            android:singleLine="true"
             android:inputType="textPassword"
             style="@style/LoggingTextInputLayoutStyle"/>
 

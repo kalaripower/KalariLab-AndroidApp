@@ -43,10 +43,23 @@
             style="@style/LoggingTextInputLayoutStyle"
             android:layout_width="match_parent"
             android:id="@+id/editTextFirstName"
+            android:digits="qwertyuioplkjhgfd sazxcvbnm-_`.'|"
             android:layout_height="match_parent"
-            android:maxLines="1"/>
+            android:singleLine="true"/>
 
     </com.google.android.material.textfield.TextInputLayout>
+    <TextView
+        android:id="@+id/warningTextFirstName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editTextFirstNameParent"
+        android:layout_alignStart="@id/editTextFirstNameParent"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="5dp"
+        android:text=""
+        android:textColor="@color/white"
+        android:textSize="12sp" />
+
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/editTextLastNameParent"
@@ -56,7 +69,7 @@
         android:importantForAutofill="no"
         android:inputType="textEmailAddress"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="17dp"
         android:layout_below="@id/editTextFirstNameParent"
 
         >
@@ -66,7 +79,8 @@
             android:layout_width="match_parent"
             android:id="@+id/editTextFLastName"
             android:layout_height="match_parent"
-            android:maxLines="1"/>
+            android:digits="qwertyuioplkjhgf dsazxcvbnm-_`.'|"
+            android:singleLine="true"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 

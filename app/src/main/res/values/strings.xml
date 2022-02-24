@@ -48,7 +48,12 @@
         <item>Female</item>
         <item>Other</item>
     </string-array>
+    <string name="empty_email_field">E-mail field can not be empty.</string>
+    <string name="invalid_email">Invalid E-mail.</string>
     <string name="already_have_account">Already have an account?</string>
+    <string name="empty_password">Password field can not be empty.</string>
+    <string name="short_password">Password is too short.</string>
+
     <string name="email_field">Email</string>
     <string name="password_field">Password</string>
     <string name="Log_in">Log in</string>
@@ -64,7 +69,7 @@
     <string name="register_fail">Failed to register! please try again!</string>
     <string name="ok">OK.</string>
     <string name="username">Username</string>
-    <string name="ASCII" translatable="false"> !"#$%\'()*+,-./0123456789:;=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~</string>
+    <string name="ASCII" translatable="false">!"#$%\'()*+-./0123456789:;=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~</string>
     <string name="next">Next</string>
     <string name="otherOptionsForSignUp">Sign up with one of the following options.</string>
     <string name="otherOptionsForLogIn">Log In with one of the following options.</string>
@@ -130,5 +135,6 @@
     <string name="reset_password">Reset Password</string>
     <string name="current_password">Current Password</string>
     <string name="new_password">New Password</string>
+    <string name="log_out">Log Out</string>
 
 </resources>
