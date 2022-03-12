@@ -10,9 +10,9 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
@@ -35,7 +35,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private BottomNavigationView bottomNavigationView;
     private ColorStateList navigationViewColorStateList;
     private Fragment  homeFragment, profileFragment, premiumFragment, shopFragment, classesFragment;
-    private RelativeLayout relativeLayout;
+    private ConstraintLayout constraintLayout;
     SwipeListener swipeListener;
     private FrameLayout frameLayout;
     Fragment[] fragments = new Fragment[5];
@@ -88,10 +88,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         profileFragment = new ProfileFragment();
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         navigationViewColorStateList = new ColorStateList(states, colors);
-        relativeLayout = findViewById(R.id.relativeLayoutMainActivity);
+        constraintLayout = findViewById(R.id.relativeLayoutMainActivity);
         premiumFragment = new PremiumFragment();
         shopFragment = new ShopFragment();
-        swipeListener = new SwipeListener(relativeLayout);
+        swipeListener = new SwipeListener(constraintLayout);
         classesFragment = new ClassesFragment();
 
     }

@@ -1,18 +1,96 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".PremiumFragment"
     android:background="@color/KalariLabMain">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="premium"
-        android:id="@+id/ptext"
-        android:textColor="@color/white"
-        android:textSize="30sp"/>
+    <ImageButton
+        android:id="@+id/backButton"
+        app:layout_constraintStart_toStartOf="@id/gl_general_v"
+        app:layout_constraintTop_toBottomOf="@id/gl_upperBorder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/KalariLabMain"
+        android:src="@drawable/ic_baseline_arrow_back_ios_24" />
 
-</FrameLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/premium_plans"
+        android:textColor="@color/white"
+        android:textSize="25sp"
+        app:layout_constraintTop_toBottomOf="@id/gl_upperBorder"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_general_v"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.04" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_upperBorder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.02" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_general_v1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.96" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_cardViewsUpperBorder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.35" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_monthlyCardViewsUpperBorder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/monthly"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="@id/gl_general_v"
+        app:layout_constraintEnd_toEndOf="@id/gl_general_v1"
+        app:layout_constraintTop_toTopOf="@id/gl_cardViewsUpperBorder"
+        app:layout_constraintBottom_toTopOf="@id/gl_monthlyCardViewsUpperBorder"
+        android:backgroundTint="@color/KalariLAbSecondary"
+        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/monthly_subscription"
+            android:textSize="25sp"
+            android:elevation="3dp"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toTopOf="@id/monthly"
+            app:layout_constraintStart_toStartOf="@id/gl_general_v"
+            android:layout_margin="10dp"/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:elevation="3dp"
+        android:backgroundTint="@color/darkerGrey"
+        app:layout_constraintTop_toTopOf="@id/monthly"
+        app:layout_constraintEnd_toEndOf= "@id/monthly"
+        android:layout_margin="10dp"/>
+
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

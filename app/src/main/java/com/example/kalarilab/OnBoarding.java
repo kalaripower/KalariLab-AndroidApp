@@ -6,11 +6,11 @@ import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.VideoView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.viewpager.widget.ViewPager;
 
 ;
@@ -23,7 +23,7 @@ public class OnBoarding extends AppCompatActivity implements View.OnClickListene
     private SessionManagement sessionManagement;
     private TextView[] dots;
     private   Button getStartedBtn, nextBtn;
-    private RelativeLayout mainLayout;
+    private ConstraintLayout mainLayout;
     private int mCurrentPage;
     private VideoView videoView;
     @Override

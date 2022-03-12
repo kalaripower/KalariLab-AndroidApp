@@ -13,7 +13,6 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -49,9 +48,9 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
 
 
     private Button logInButt, goToSignUpButton;
-    private ImageButton signInGmail, signInFacebook;
-    private EditText emailEntry, passwordEntry;
-    private TextInputLayout emailEntryParent, passwordEntryParent;
+    private Button signInGmail, signInFacebook;
+    private EditText userNameEntry, passwordEntry;
+    private TextInputLayout userNameParent, passwordEntryParent;
     private ProgressBar progressBar;
     private GoogleSignInClient mGoogleSignInClient;
     private final static int  RC_SIGN_IN = 123;
@@ -78,12 +77,12 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
         signInGmail.setOnClickListener(this);
         signInFacebook.setOnClickListener(this);
 
-        emailEntryParent.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        userNameParent.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus) emailEntryParent.setBoxStrokeColor(getResources().getColor(R.color.KalariLAbSecondary));
+                if(hasFocus) userNameParent.setBoxStrokeColor(getResources().getColor(R.color.KalariLAbSecondary));
                 else {
-                    emailEntryParent.setBoxStrokeColor(getResources().getColor(R.color.darkGrey));
+                    userNameParent.setBoxStrokeColor(getResources().getColor(R.color.darkGrey));
                 }
             }
 
@@ -92,9 +91,9 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
         passwordEntryParent.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
-                if(hasFocus) emailEntryParent.setBoxStrokeColor(getResources().getColor(R.color.KalariLAbSecondary));
+                if(hasFocus) userNameParent.setBoxStrokeColor(getResources().getColor(R.color.KalariLAbSecondary));
                 else {
-                    emailEntryParent.setBoxStrokeColor(getResources().getColor(R.color.darkGrey));
+                    userNameParent.setBoxStrokeColor(getResources().getColor(R.color.darkGrey));
                 }
             }
 
@@ -109,11 +108,11 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
 
         logInButt = findViewById(R.id.LogIn);
         goToSignUpButton = findViewById(R.id.goToSignUp);
-        signInGmail = findViewById(R.id.signInGmail);
-        signInFacebook = findViewById(R.id.signInFacebook);
-        emailEntry = findViewById(R.id.editTextEmail);
+        signInGmail = findViewById(R.id.signUpGmail);
+        signInFacebook = findViewById(R.id.signUpFacebook);
+        userNameEntry = findViewById(R.id.editTextUserName);
         passwordEntry = findViewById(R.id.editTextPassword);
-        emailEntryParent = findViewById(R.id.editTextEmailParent);
+        userNameParent = findViewById(R.id.editTextUserNameParent);
         passwordEntryParent = findViewById(R.id.editTextPasswordParent);
         progressBar = findViewById(R.id.progressBar);
         sessionManagement = new SessionManagement(LogIn.this);
@@ -134,19 +133,19 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.LogIn:
-                checkEnteredInfo(this.emailEntry.getText().toString(),
+                checkEnteredInfo(this.userNameEntry.getText().toString(),
                         this.passwordEntry.getText().toString());
 
                 break;
             case R.id.goToSignUp:
                 moveToSignUpActivity();
                 break;
-            case R.id.signInGmail:
+            case R.id.signUpGmail:
                 signInViaGmail();
 
                 break;
 
-            case R.id.signInFacebook:
+            case R.id.signUpFacebook:
                 loginManager.logInWithReadPermissions(
                         LogIn.this,
                         Arrays.asList(
@@ -166,17 +165,16 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
     }
 
-    private void checkEnteredInfo(String finalEmail, String finalPassword) {
-        final String email = finalEmail.trim().toLowerCase(Locale.ROOT);
+    private void checkEnteredInfo(String finalUserName, String finalPassword) {
+        final String userName = finalUserName.trim().toLowerCase(Locale.ROOT);
         final String password = finalPassword.trim().toLowerCase(Locale.ROOT);
 
 
-        if (email.isEmpty()){
-            this.emailEntryParent.setBoxStrokeColor(getResources().getColor(R.color.red));
-
+        if (userName.isEmpty()){
+            this.userNameParent.setBoxStrokeColor(getResources().getColor(R.color.red));
             return;
         }
-       // if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
+       // if (!Patterns.EMAIL_ADDRESS.matcher(userName).matches()){
          //   this.emailEntryParent.setBoxStrokeColor(getResources().getColor(R.color.red));
 
            // return;
@@ -189,12 +187,12 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
         progressBar.setVisibility(View.VISIBLE);
-        logIn(email, password);
+        logIn(userName, password);
     }
 
-    private void logIn(String email, String password) {
-        kalariLabServices.signIn(email, password);
-        progressBar.setVisibility(View.GONE);
+    private void logIn(String userName, String password) {
+        kalariLabServices.signIn(userName, password);
+        progressBar.setVisibility(View.VISIBLE);
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
 

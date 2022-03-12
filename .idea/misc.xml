@@ -17,13 +17,14 @@
         <entry key="app/src/main/res/layout/activity_on_boarding.xml" value="0.246875" />
         <entry key="app/src/main/res/layout/activity_postures.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.2625" />
-        <entry key="app/src/main/res/layout/activity_profile_info.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/activity_profile_info.xml" value="0.2" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.22" />
         <entry key="app/src/main/res/layout/activity_register2.xml" value="0.33" />
         <entry key="app/src/main/res/layout/activity_settings.xml" value="0.2625" />
         <entry key="app/src/main/res/layout/activity_splash_screen.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_video_recorder.xml" value="0.14375" />
         <entry key="app/src/main/res/layout/camera_fragment.xml" value="0.13489583333333333" />
+        <entry key="app/src/main/res/layout/color_spinner_layout.xml" value="0.30656934306569344" />
         <entry key="app/src/main/res/layout/fragment_age.xml" value="0.26197916666666665" />
         <entry key="app/src/main/res/layout/fragment_avatar.xml" value="0.26197916666666665" />
         <entry key="app/src/main/res/layout/fragment_camera.xml" value="0.1526268115942029" />
@@ -44,6 +45,7 @@
         <entry key="app/src/main/res/layout/slides_layout.xml" value="0.26197916666666665" />
         <entry key="app/src/main/res/layout/spiner_item.xml" value="0.2625" />
         <entry key="app/src/main/res/layout/spinner_dropdown_item.xml" value="0.2625" />
+        <entry key="app/src/main/res/layout/spinner_dropdown_layout.xml" value="0.2625" />
         <entry key="app/src/main/res/layout/text_view.xml" value="0.26197916666666665" />
         <entry key="app/src/main/res/layout/video_recorder.xml" value="0.13333333333333333" />
         <entry key="app/src/main/res/menu/bottom_navigation_menu.xml" value="0.26197916666666665" />

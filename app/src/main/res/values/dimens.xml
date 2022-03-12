@@ -4,7 +4,6 @@
     <dimen name="logging_inputBox_width">380dp</dimen>
 
 
-    <dimen name="LoggingEmail_inputBox_marginTop">330dp</dimen>
 
 
 
@@ -47,7 +46,7 @@
 
     <dimen name="genderBox_height">150dp</dimen>
     <dimen name="genderBox_width">150dp</dimen>
-    <dimen name="genderBox_textSize">23dp</dimen>
+    <dimen name="genderBox_textSize">20dp</dimen>
     <dimen name="genderBox_iconSize">35dp</dimen>
     <dimen name="genderBox_iconPadding">5dp</dimen>
     <dimen name="progressCard_height">250dp</dimen>

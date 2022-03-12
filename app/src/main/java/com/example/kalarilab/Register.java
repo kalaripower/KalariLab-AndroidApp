@@ -12,10 +12,8 @@ import android.util.Base64;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -53,19 +51,20 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
 
         private static final String TAG = "authDebug";
         private Button goToSignInBtn, registerBtn;
-        private EditText  emailEntry, passwordEntry;
+        private EditText  emailEntry, passwordEntry, fullNameEntry, userNameEntry;
         private ProgressBar progressBar;
-        private TextInputLayout emailEntryParent, passwordEntryParent;
-        private ImageButton signInGmailBtn, signInFacebookBtn;
+        private TextInputLayout emailEntryParent, passwordEntryParent, fullNameEntryParent, userNameEntryParent;
+        private Button signInGmailBtn, signInFacebookBtn;
         private GoogleSignInClient mGoogleSignInClient;
         public SessionManagement sessionManagement;
         private CallbackManager callbackManager;
         private LoginManager loginManager;
-        private TextView warningTextEmail, warningTextPassword;
+        private TextView warningTextEmail, warningTextPassword, warningTextUserName;
         public static User user;
         private final static int RC_SIGN_IN = 123;
         private KalariLabServices kalariLabServices;
         AlertDialog.Builder alertDialogBuilder;
+
 
         @Override
         protected void onCreate(Bundle savedInstanceState) {
@@ -116,8 +115,20 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
 
                 });
 
+            userNameEntry.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if(hasFocus){
+                        warningTextUserName.setText("");
+                    }
+                }
+            });
+
+
           passwordEntry.setOnClickListener(this);
           emailEntry.setOnClickListener(this);
+          userNameEntry.setOnClickListener(this);
+
 
         }
 
@@ -130,8 +141,8 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                 progressBar = findViewById(R.id.progressBar);
                 emailEntryParent = findViewById(R.id.editTextEmailParent);
                 passwordEntryParent = findViewById(R.id.editTextPasswordParent);
-                signInGmailBtn = findViewById(R.id.signInGmail);
-                signInFacebookBtn = findViewById(R.id.signInFacebook);
+                signInGmailBtn = findViewById(R.id.signUpGmail);
+                signInFacebookBtn = findViewById(R.id.signUpFacebook);
                 sessionManagement = new SessionManagement(Register.this);
                 callbackManager = CallbackManager.Factory.create();
                 warningTextEmail = findViewById(R.id.warningTextEmail);
@@ -139,6 +150,11 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                 kalariLabServices = new KalariLabServices(this);
                 warningTextPassword = findViewById(R.id.warningTextPassword);
                  alertDialogBuilder = new AlertDialog.Builder(this);
+                 fullNameEntryParent  = findViewById(R.id.editTextFullNameParent);
+                 fullNameEntry = findViewById(R.id.editTextFullName);
+                 userNameEntryParent = findViewById(R.id.editTextUserNameParent);
+                 userNameEntry = findViewById(R.id.editTextUserName);
+                 warningTextUserName = findViewById(R.id.warningTextUserName);
                 configureGoogleRequest();
                 finishAfterRegistrationCompletion();
                 printHashKey();
@@ -156,12 +172,13 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                                 moveToSignInActivity();
                                 break;
                         case R.id.register:
-                                checkInfo(this.emailEntry.getText().toString(), this.passwordEntry.getText().toString());
+                                checkInfo(this.emailEntry.getText().toString(), this.passwordEntry.getText().toString(),
+                                        this.fullNameEntry.getText().toString(), this.userNameEntry.getText().toString());
                                 break;
-                        case R.id.signInGmail:
+                        case R.id.signUpGmail:
                                 signUpViaGmail();
                                 break;
-                        case R.id.signInFacebook:
+                        case R.id.signUpFacebook:
                                 loginManager.logInWithReadPermissions(
                                         Register.this,
                                         Arrays.asList(
@@ -175,6 +192,9 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                     case R.id.editTextPassword:
                         warningTextPassword.setText("");
                         break;
+                    case R.id.editTextUserName:
+                        warningTextUserName.setText("");
+                        break;
                 }
         }
 
@@ -183,18 +203,20 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                 startActivity(intent);
         }
 
-        private void moveToProfileInfoActivity() {
-                progressBar.setVisibility(View.GONE);
-                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                Intent intent = new Intent(Register.this, ProfileInfoActivity.class);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-                startActivity(intent);
+//        private void moveToProfileInfoActivity() {
+//                progressBar.setVisibility(View.GONE);
+//                getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+//                Intent intent = new Intent(Register.this, ProfileInfoActivity.class);
+//                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//                startActivity(intent);
+//
+//        }
 
-        }
-
-        private void checkInfo(String email, String password) {
+        private void checkInfo(String email, String password, String fullName, String userName) {
                 final String finalEmail = email.toLowerCase(Locale.ROOT).trim();
                 final String finalPassword = password.toLowerCase(Locale.ROOT).trim();
+                final String finalFullName = fullName.toLowerCase(Locale.ROOT).trim();
+                final String finalUserName = userName.toLowerCase(Locale.ROOT).trim();
 
                 if (finalEmail.isEmpty()) {
                         warningTextEmail.setText(R.string.empty_email_field);
@@ -213,24 +235,39 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                         warningTextPassword.setText(R.string.short_password);
                         return;
                 }
+            if (userName.isEmpty()) {
+               warningTextUserName.setText(R.string.empty_email_field);
+                return;
+            }
 
-                getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                        WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                 progressBar.setVisibility(View.VISIBLE);
-                Log.d("ApiDebug", "1: "+finalEmail);
-                Log.d("ApiDebug", "1: "+finalPassword);
-
-                addInfoToUserObject(finalEmail, finalPassword);
-
-                moveToProfileInfoActivity();
+                addInfoToUserObject(finalEmail, finalPassword, finalFullName, finalUserName);
+                register();
                 progressBar.setVisibility(View.GONE);
 
 
         }
 
-        private void addInfoToUserObject(String email, String password) {
+        private void register() {
+            progressBar.setVisibility(View.VISIBLE);
+                kalariLabServices.signUp(user.getEmail(), user.getPassword(), user.getFirstName(), user.getLastName(), user.getUserName());
+
+        }
+
+        private void addInfoToUserObject(String email, String password, String fullName, String userName) {
                 user.setEmail(email);
                 user.setPassword(password);
+                user.setUserName(userName);
+                try {
+                        String[] fullNameSplit = fullName.split("\\s+");
+                        user.setFirstName(fullNameSplit[0]);
+                        user.setLastName(fullNameSplit[1]);
+                } catch (Exception e){
+                        user.setFirstName(fullName);
+                }
+
+
+
         }
 
 
@@ -300,8 +337,11 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                         // Signed in successfully
                         String email = account.getEmail();
                         String password = "/";
+                        String fullName = account.getGivenName() + " "+ account.getFamilyName();
+                        String userName = "/";
 
-                        checkInfo(email, password);
+
+                        checkInfo(email, password, fullName, userName );
 
 
                 } catch (ApiException e) {

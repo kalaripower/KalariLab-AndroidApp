@@ -2,33 +2,35 @@ package com.example.kalarilab;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ProgressBar;
+import android.widget.EditText;
+import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
+
+import com.google.android.material.textfield.TextInputLayout;
 
 public class ProfileInfoActivity extends AppCompatActivity implements View.OnClickListener {
 
     private Button continueBtn;
    private androidx.appcompat.widget.Toolbar toolbar;
-    private LinkedList list;
-    private Node currentNode ;
     private KalariLabServices kalariLabServices;
-    private ProgressBar progressBar;
-    private Fragment profileNameFragment, ageFragment, genderFragment, avatarFragment;
+    private TextInputLayout editTextAgeParent;
+    private EditText editTextAge;
+    private Spinner genderSpinner;
+    private ArrayAdapter arrayAdapter;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile_info);
-        init();
-        runFragment(currentNode);
+        initHooks();
+        bindings();
 
 
 
@@ -38,36 +40,40 @@ public class ProfileInfoActivity extends AppCompatActivity implements View.OnCli
     }
 
 
-    private void init() {
-        list = new LinkedList();
-        profileNameFragment = new ProfileNameFragment();
-        ageFragment = new AgeFragment();
+
+
+    private void initHooks() {
         continueBtn = findViewById(R.id.continueBtn);
-        genderFragment = new GenderFragment();
-        avatarFragment = new AvatarFragment();
+
         toolbar = findViewById(R.id.topAppBar);
         kalariLabServices = new KalariLabServices(this);
-        progressBar = findViewById(R.id.progressBar);
+        editTextAgeParent = findViewById(R.id.editTextAgeParent);
+        editTextAge = findViewById(R.id.editTextAge);
+        genderSpinner = findViewById(R.id.genderSpinner);
+        arrayAdapter = ArrayAdapter.createFromResource(this,
+                R.array.genders, R.layout.spinner_item);
 
+    }
 
-
-        fragmentsLinking();
-
-
-        continueBtn.setOnClickListener(ProfileInfoActivity.this);
+    private void bindings() {
+        continueBtn.setOnClickListener(this);
+        arrayAdapter.setDropDownViewResource(R.layout.spinner_dropdown_item);
+        genderSpinner.setAdapter(arrayAdapter);
 
         toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 switch (item.getItemId()){
                     case R.id.back:
-                        moveToSignUpActivity();
+                        moveToMainActivity();
                         break;
                 }
 
-              return false;
+                return false;
             }
         });
+
+
 
     }
 
@@ -79,66 +85,38 @@ public class ProfileInfoActivity extends AppCompatActivity implements View.OnCli
 
     }
 
-    private void runFragment(Node node) {
-        FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
-
-        transaction.replace(R.id.container, node.getValue());
-        transaction.addToBackStack(null);
-
-        transaction.commit();
 
 
-
-
-    }
-//    private void closeCurrentFragment() {
-//
-//        this.getSupportFragmentManager().popBackStackImmediate();
-//    }
-
-    private void fragmentsLinking() {
-        list.insert(new Node(avatarFragment));
-        list.insert(new Node(genderFragment));
-        list.insert(new Node(ageFragment));
-        list.insert(new Node(profileNameFragment));
-
-        currentNode = list.getHead();
-    }
 
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.continueBtn:
-                goToNextFragment();
-
+                saveInput();
+                sendInputInfo();
+                moveToMainActivity();
                 break;
         }
     }
 
-    private void goToNextFragment() {
-        if (currentNode.getNext() != null) {
-            currentNode = currentNode.getNext();
-            runFragment(currentNode);
-
-        } else {
-
-            progressBar.setVisibility(View.GONE);
-            signUp();
-        }
-    }
-
-    private void signUp() {
-        String email = Register.user.getEmail();
-        String password = Register.user.getPassword();
-        String firstName = Register.user.getFirstName();
-        String lastName = Register.user.getLastName();
-        Log.d("ApiDebug", email +password +firstName +lastName);
-        kalariLabServices.signUp(email, password, firstName, lastName);
-
+    private void sendInputInfo() {
+     //   kalariLabServices.updateInfo();
 
     }
+
+    private void saveInput() {
+        Register.user.setAge(editTextAge.getText().toString());
+        Register.user.setGender(genderSpinner.getSelectedItemPosition());
+    }
+    private void moveToMainActivity() {
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        startActivity(intent);
+    }
+
+
+
 
 
 

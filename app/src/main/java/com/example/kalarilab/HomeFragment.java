@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
@@ -68,8 +67,6 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         // Inflate the layout for this fragment
         postponeEnterTransition();
         View view =  inflater.inflate(R.layout.fragment_home, container, false);
-        Button signOutButton = (Button) view.findViewById(R.id.signOutBtn);
-        signOutButton.setOnClickListener(this);
         progressTrackingSystem = new ProgressTrackingSystem();
         streak = new Streak(progressTrackingSystem, getActivity());
         TextView classesProgressText = (TextView) view.findViewById(R.id.classesProgressText);

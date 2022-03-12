@@ -7,7 +7,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/title_slide"
-        android:textSize="40dp"
+        android:textSize="35dp"
         android:text="@string/title_go_to_setting"
         android:textColor="@color/white"
         android:fontFamily="@font/roboto_medium"

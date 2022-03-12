@@ -136,5 +136,9 @@
     <string name="current_password">Current Password</string>
     <string name="new_password">New Password</string>
     <string name="log_out">Log Out</string>
+    <string name="premium_plans">Premium Plans</string>
+    <string name="monthly_subscription">Monthly Subscription</string>
+    <string name="how_old_are_you">How old are you?</string>
+    <string name="letters">qwertyuASDFGHJKLPOIUYTREWQZXCVBNMQWERTYUIOPioplkjhgfd sazxcvbnm-_`.\'|</string>
 
 </resources>

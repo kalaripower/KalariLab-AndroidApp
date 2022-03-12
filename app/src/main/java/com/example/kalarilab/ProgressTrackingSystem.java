@@ -18,7 +18,6 @@ public class ProgressTrackingSystem {
 
     public ProgressTrackingSystem() {
         addUnopenedPosturesToDB();
-
     }
 
     private void addUnopenedPosturesToDB() {

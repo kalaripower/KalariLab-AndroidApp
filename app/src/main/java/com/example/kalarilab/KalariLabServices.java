@@ -5,6 +5,9 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.ProgressBar;
+
+import androidx.appcompat.app.AlertDialog;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.NetworkError;
@@ -23,9 +26,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class KalariLabServices {
-    private final static String BASE_URL = "http://192.168.31.89:8000/";
+    private final static String BASE_URL = "http://192.168.0.116:8000/";
     private Activity context;
-    private Map<String, String> postRequestParam = new HashMap<String, String>();
+    private Map<String, String> postRequestParams = new HashMap<String, String>();
+    private Map<String, String> putRequestParams = new HashMap<String, String>();
+    private static String JWT_PERFIX = "JWT ";
+
 
     public SessionManagement sessionManagement;
 
@@ -41,25 +47,25 @@ public class KalariLabServices {
 
 
 
-    public void signUp(final String email, final String password,final String firstName,final String lastName){
+    public void signUp(final String email, final String password,final String firstName,final String lastName, final String userName){
 
-        addPostRequestParamsSignUp(email, password, firstName, lastName);
-
-        JSONObject jsonObj = new JSONObject(postRequestParam);
+        addPostRequestParamsSignUp(email, password, firstName, lastName, userName);
+        JSONObject jsonObj = new JSONObject(postRequestParams);
         String url = BASE_URL+"auth/users/";
+
+
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST,url,jsonObj,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         try {
-                            Log.d("ApiDebug",   response.toString());
-                            sessionManagement = new SessionManagement(context);
+
+                           sessionManagement = new SessionManagement(context);
                             createSession( String.valueOf(response.getInt("id")));
-                            Intent myIntent = new Intent(context, MainActivity.class);
+                            Intent myIntent = new Intent(context, ProfileInfoActivity.class);
                             context.startActivity(myIntent);
 
                         } catch (JSONException e) {
-                            Log.d("ApiDebug", "failed to fetch ID");
                             e.printStackTrace();
                         }
 
@@ -68,27 +74,22 @@ public class KalariLabServices {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("ApiDebug", error.toString());
-                        LayoutInflater inflater = context.getLayoutInflater();
-                        View registerView = inflater.inflate(R.layout.activity_register, null, true);
-
-
-
+                        hideProgressBar(R.layout.activity_register);
+                        Log.d("GetRequestDebug", error.toString());
                         String message = null;
                 if (error instanceof NetworkError) {
                     message = "Cannot connect to Internet...Please check your connection!";
-
                 } else if (error instanceof ServerError) {
                     message = "The server could not be found. Please try again after some time!!";
                 } else if (error instanceof AuthFailureError) {
-                    message = "Auth failure...you son of a bitch!";
+                    message = "Auth failure...please check your information!";
                 } else if (error instanceof ParseError) {
                     message = "Parsing error! Please try again after some time!!";
                 } else if (error instanceof TimeoutError) {
                     message = "Connection TimeOut! Please check your internet connection.";
                 }
                 error.printStackTrace();
-                Log.d("ApiDebug", message);
+                setAlertDialog(context, message);
                     }
                 }) {
             protected Map<String, String> getParams() throws AuthFailureError {
@@ -103,46 +104,54 @@ public class KalariLabServices {
 
     }
 
-    private void addPostRequestParamsSignUp(String email, String password, String firstName, String lastName) {
-        postRequestParam.put("username", firstName);
-        postRequestParam.put("password", password);
-        postRequestParam.put("email", email);
-        postRequestParam.put("first_name", firstName);
-        postRequestParam.put("last_name", lastName);
+    private void hideProgressBar(int layout) {
+        LayoutInflater inflater = context.getLayoutInflater();
+        View view = inflater.inflate( layout, null, true);
+        ProgressBar progressBar = (ProgressBar) view.findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.GONE);
+    }
+
+
+    private void addPostRequestParamsSignUp(String email, String password, String firstName, String lastName,String userName) {
+        postRequestParams.put("username", userName);
+        postRequestParams.put("password", password);
+        postRequestParams.put("email", email);
+        postRequestParams.put("first_name", firstName);
+        postRequestParams.put("last_name", lastName);
 
     }
 
-    public void signIn(String email, String password){
-        addPostRequestParamsSignIn(email, password);
+    public void signIn(String userName, String password){
+        addPostRequestParamsSignIn(userName, password);
         String url = BASE_URL+"auth/jwt/create/";
-        addPostRequestParamsSignIn(email, password);
-        JSONObject jsonObj = new JSONObject(postRequestParam);
+        addPostRequestParamsSignIn(userName, password);
+        JSONObject jsonObj = new JSONObject(postRequestParams);
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST,url,jsonObj,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-
                         sessionManagement = new SessionManagement(context);
-                        Log.d("LoginDebug", response.toString());
 
                         String refresh = null;
                         String  access = null;
                         try {
                             refresh = response.getString("refresh");
-                            access = response.getString("password");
+                            access = response.getString("access");
+
 
                         } catch (JSONException jsonException) {
                             jsonException.printStackTrace();
                         }
                             sessionManagement.saveRefreshToken(refresh);
                             sessionManagement.saveAccessToken(access);
-                            Log.d("ApiDebug", refresh+" "+ access);
 
-                            createSession("1232");
-                            Intent myIntent = new Intent(context, MainActivity.class);
-                            context.startActivity(myIntent);
-                            Log.d("ApiDebug", response.toString());
+
+                        GetId();
+                        getCostumerId();
+                        createSession(sessionManagement.returnUserId());
+                        Intent myIntent = new Intent(context, MainActivity.class);
+                        context.startActivity(myIntent);
 
 
 
@@ -152,7 +161,188 @@ public class KalariLabServices {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("ApiDebug", error.toString());
+
+                        String message = null;
+                        if (error instanceof NetworkError) {
+                            message = "Cannot connect to Internet...Please check your connection!";
+                        } else if (error instanceof ServerError) {
+                            message = "The server could not be found. Please try again after some time!!";
+                        } else if (error instanceof AuthFailureError) {
+                            message = "Auth failure...please check your information!";
+                        } else if (error instanceof ParseError) {
+                            message = "Parsing error! Please try again after some time!!";
+                        } else if (error instanceof TimeoutError) {
+                            message = "Connection TimeOut! Please check your internet connection.";
+                        }
+                        error.printStackTrace();
+                        setAlertDialog(context, message);
+
+                    }
+                }) {
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json");
+                return headers;
+            };
+
+
+        };
+
+
+        RequestQueueSinglton.getInstance(context).addToRequestQueue(request);
+
+    }
+
+
+
+    private void addPostRequestParamsSignIn(String userName, String password ) {
+        postRequestParams.put("username", userName);
+        postRequestParams.put("password", password);
+
+    }
+
+    private void createSession(String ID) {
+        sessionManagement.saveSession(ID);
+
+    }
+
+    private void setAlertDialog(Activity context, String message) {
+
+        new AlertDialog.Builder(context)
+                .setTitle("Connection Error.")
+                .setMessage(message)
+
+                // A null listener allows the button to dismiss the dialog and take no further action.
+                .setNegativeButton(android.R.string.ok, null)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .show();
+    }
+    public void GetId(){
+
+
+        String url = BASE_URL+"auth/users/me";
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,url,null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                                sessionManagement.saveUserId(response.getString("id"));
+
+                        } catch (JSONException e) {
+                           Log.d("GetRequestDebug", "failed");
+                        }
+
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        String message = null;
+                        if (error instanceof NetworkError) {
+                            message = "Cannot connect to Internet...Please check your connection!";
+                        } else if (error instanceof ServerError) {
+                            message = "The server could not be found. Please try again after some time!!";
+                        } else if (error instanceof AuthFailureError) {
+                            message = "Auth failure...you son of a bitch!";
+                        } else if (error instanceof ParseError) {
+                            message = "Parsing error! Please try again after some time!!";
+                        } else if (error instanceof TimeoutError) {
+                            message = "Connection TimeOut! Please check your internet connection.";
+                        }
+                        error.printStackTrace();
+                        setAlertDialog(context, message);
+                    }
+                }) {
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json");
+                headers.put("Authorization", JWT_PERFIX + sessionManagement.returnAccessToken());
+                return headers;
+            };
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headerMap = new HashMap<String, String>();
+                headerMap.put("Content-Type", "application/json");
+                headerMap.put("Authorization", JWT_PERFIX + sessionManagement.returnAccessToken());
+                return headerMap;
+            }
+        };
+
+
+        RequestQueueSinglton.getInstance(context).addToRequestQueue(request);
+
+    }
+    private void getCostumerId() {
+        String url = BASE_URL+"store/customers/me";
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,url,null,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            sessionManagement.saveCostumerId(response.getString("id"));
+                        } catch (JSONException e) {
+                            Log.d("GetRequestDebugCostumer", "failed");
+                        }
+
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        String message = null;
+                        if (error instanceof NetworkError) {
+                            message = "Cannot connect to Internet...Please check your connection!";
+                        } else if (error instanceof ServerError) {
+                            message = "The server could not be found. Please try again after some time!!";
+                        } else if (error instanceof AuthFailureError) {
+                            message = "Auth failure...you son of a bitch!";
+                        } else if (error instanceof ParseError) {
+                            message = "Parsing error! Please try again after some time!!";
+                        } else if (error instanceof TimeoutError) {
+                            message = "Connection TimeOut! Please check your internet connection.";
+                        }
+                        error.printStackTrace();
+                        setAlertDialog(context, message);
+                    }
+                }) {
+            protected Map<String, String> getParams() throws AuthFailureError {
+                HashMap<String, String> headers = new HashMap<String, String>();
+                headers.put("Content-Type", "application/json");
+                headers.put("Authorization", JWT_PERFIX + sessionManagement.returnAccessToken());
+                return headers;
+            };
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headerMap = new HashMap<String, String>();
+                headerMap.put("Content-Type", "application/json");
+                headerMap.put("Authorization", JWT_PERFIX + sessionManagement.returnAccessToken());
+                return headerMap;
+            }
+        };
+
+
+        RequestQueueSinglton.getInstance(context).addToRequestQueue(request);
+    }
+
+    public void updateInfo(String gender, String birthDay){
+
+        addPutRequestParams(gender, birthDay);
+
+        JSONObject jsonObj = new JSONObject(postRequestParams);
+        String url = BASE_URL+"store/customers/"+sessionManagement.returnCostumerId();
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT,url,jsonObj,
+                new Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Log.d("PutRequestDebug", response.toString());
+
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
 
                         String message = null;
                         if (error instanceof NetworkError) {
@@ -167,33 +357,34 @@ public class KalariLabServices {
                             message = "Connection TimeOut! Please check your internet connection.";
                         }
                         error.printStackTrace();
-                        Log.d("ApiDebug", message);
+                        setAlertDialog(context, message);
                     }
                 }) {
             protected Map<String, String> getParams() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<String, String>();
                 headers.put("Content-Type", "application/json");
+                headers.put("Authorization", JWT_PERFIX + sessionManagement.ACCESS_TOKEN);
                 return headers;
             };
 
-
+            @Override
+            public Map<String, String> getHeaders() throws AuthFailureError {
+                Map<String, String> headerMap = new HashMap<String, String>();
+                headerMap.put("Content-Type", "application/json");
+                headerMap.put("Authorization", JWT_PERFIX + sessionManagement.returnAccessToken());
+                return headerMap;
+            }
         };
 
 
         RequestQueueSinglton.getInstance(context).addToRequestQueue(request);
 
     }
-    private void addPostRequestParamsSignIn(String email, String password ) {
-        postRequestParam.put("username", email);
-        postRequestParam.put("password", password);
 
+    private void addPutRequestParams(String gender, String birthDay) {
+        putRequestParams.put("gender", gender);
+        putRequestParams.put("birth_date", birthDay);
     }
-
-    private void createSession(String ID) {
-        sessionManagement.saveSession(ID);
-
-    }
-
 
 
 }

@@ -13,6 +13,8 @@ public class SessionManagement implements Serializable {
     String FRESH_INSTALL = "fresh_install" ;
     String REFRESH_TOKEN = "refresh_token" ;
     String ACCESS_TOKEN = "access_token";
+    String USER_ID = "user_id";
+    String COSTUMER_ID = "costumer_id";
 
     public SessionManagement(Context context) {
         this.sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, context.MODE_PRIVATE);
@@ -53,4 +55,19 @@ public class SessionManagement implements Serializable {
     public void saveAccessToken(String access_token){
         editor.putString(ACCESS_TOKEN, access_token).commit();
     }
+    public void saveUserId(String user_id){
+        editor.putString(USER_ID, user_id).commit();
+    }
+    public void saveCostumerId(String costumer_id){
+        editor.putString(COSTUMER_ID, costumer_id).commit();
+    }
+    public String returnUserId(){
+        return sharedPreferences.getString(USER_ID, "");
+
+    }
+    public String returnCostumerId(){
+        return sharedPreferences.getString(COSTUMER_ID, "");
+
+    }
+
 }
