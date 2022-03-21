@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,35 +7,61 @@
     tools:context=".PosturesActivity"
     android:background="@color/KalariLabMain">
 
-
-    <ImageView
-        android:id="@+id/avatar"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="@dimen/postureActivity_avatar_marginTopButton"
-        android:layout_marginBottom="@dimen/postureActivity_avatar_marginTopButton"
-        android:src="@drawable/avatar" />
-    <ImageButton
-        android:id="@+id/backButton"
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_general_v"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:layout_marginStart="10dp"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.04" />
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_general_v1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.96" />
+
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:id="@+id/topAppBarParent">
+
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
+            app:title="Postures"
+            app:titleCentered="true"
+            app:titleTextAppearance="@style/TitleTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:menu="@menu/top_app_bar"
+            android:layoutDirection="rtl"
+            android:elevation="4dp"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"
+            />
+
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:background="@color/KalariLabMain"
-        android:src="@drawable/ic_baseline_arrow_back_ios_24" />
+        app:layout_constraintTop_toBottomOf="@id/topAppBarParent"
+        app:layout_constraintStart_toStartOf="@id/gl_general_v"
+        app:layout_constraintEnd_toEndOf="@id/gl_general_v1"
+        app:layout_constraintBottom_toBottomOf="parent">
 
-
-    <ListView
-        android:id="@+id/list"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/avatar"
-        android:divider="@color/white" />
+    </FrameLayout>
 
 
 
 
 
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -8,6 +8,10 @@ public class User {
     private String lastName;
     private String age;
     private String userName;
+
+
+
+    private String bio;
     private int gender;
 
     public User(String email, String password, String firstName, String lastName, String userName) {
@@ -75,5 +79,12 @@ public class User {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+    public String getBio() {
+        return bio;
+    }
+
+    public void setBio(String bio) {
+        this.bio = bio;
     }
 }

@@ -191,7 +191,7 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void logIn(String userName, String password) {
-        kalariLabServices.signIn(userName, password);
+        kalariLabServices.signIn(userName, password, false);
         progressBar.setVisibility(View.VISIBLE);
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
@@ -206,7 +206,7 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
 
 
     private void createSession() {
-        sessionManagement.saveSession("#TestTest");
+        sessionManagement.saveSession(sessionManagement.returnUserId());
 
     }
 

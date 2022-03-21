@@ -1,7 +1,6 @@
 package com.example.kalarilab;
 
 import android.app.Activity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,11 +20,10 @@ public class CustomPosturesAdapter extends ArrayAdapter<Integer> {
 
 
     public CustomPosturesAdapter(Activity context, Integer[] posturesTags, Integer[] posturesImages) {
-        super(context, R.layout.list_items, posturesTags);
+        super(context, R.layout.fragment_posture, posturesTags);
         this.context = context;
         this.posturesTags = posturesTags;
         this.posturesImages = posturesImages;
-        Log.d("SeekBarDebug", "3");
 
     }
 
@@ -33,10 +31,11 @@ public class CustomPosturesAdapter extends ArrayAdapter<Integer> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         LayoutInflater inflater = context.getLayoutInflater();
-        View rowView = inflater.inflate(R.layout.list_items, null, true);
+        View rowView = inflater.inflate(R.layout.fragment_posture, null, true);
         seekBar = (SeekBar) rowView.findViewById(R.id.seekBar);
-        TextView title = rowView.findViewById(R.id.textViewTitle);
-        ImageView posture = rowView.findViewById(R.id.imageViewPosture);
+        TextView title = rowView.findViewById(R.id.PostureTitle);
+        ImageView posture = rowView.findViewById(R.id.PostureImage);
+        ImageView description = rowView.findViewById(R.id.description);
 
         title.setText(getPostureNameFromTag(posturesTags[position]));
 

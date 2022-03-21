@@ -169,7 +169,6 @@
         android:inputType="textEmailAddress"
         app:layout_constraintStart_toEndOf="@id/gl_general_v"
         app:layout_constraintEnd_toStartOf="@id/gl_general_v1"
-
         >
 
         <com.google.android.material.textfield.TextInputEditText

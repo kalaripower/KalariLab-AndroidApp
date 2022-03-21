@@ -1,65 +1,81 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/KalariLabMain"
     tools:context=".EditInfoActivity">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/header"
-        android:orientation="horizontal"
-        android:layout_marginTop="15dp"
-        android:layout_marginStart="10dp"
-        android:weightSum="3">
-        <ImageButton
-            android:id="@+id/backButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.2"
-            android:background="@color/KalariLabMain"
-            android:src="@drawable/ic_baseline_arrow_back_ios_24" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:fontFamily="@font/roboto_medium"
-            android:text="@string/personal_information"
-            android:textColor="@color/white"
-            android:textSize="25sp"
-            android:layout_gravity="center"
-            android:gravity="center"/>
 
-    </LinearLayout>
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/topAppBarParent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/topAppBar"
+            style="@style/Widget.MaterialComponents.Toolbar.Primary"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:elevation="4dp"
+            android:layoutDirection="rtl"
+            app:menu="@menu/top_app_bar"
+            app:title="@string/edit_profile"
+            app:titleCentered="true"
+            app:titleTextAppearance="@style/TitleTextStyle" />
+
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_general_v"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.04" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_general_v1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.96" />
 
     <TextView
         android:id="@+id/fullNameTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/header"
-        android:layout_alignStart="@+id/editTextNameParent"
-        android:layout_marginTop="50dp"
         android:text="@string/full_name"
         android:textColor="@color/white"
-        android:textSize="20sp" />
+
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@id/gl_general_v"
+        app:layout_constraintTop_toBottomOf="@+id/editTexts_UpperBoarder" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/editTextNameParent"
         style="@style/personalInfoStyle"
-        android:layout_below="@+id/fullNameTitle"
-
+        app:layout_constraintTop_toBottomOf="@id/fullNameTitle"
+        app:layout_constraintStart_toStartOf="@id/gl_general_v"
+        app:layout_constraintEnd_toEndOf="@id/gl_general_v1"
+        android:inputType="text"
+        android:focusableInTouchMode="true"
+        android:focusable="true"
         android:layout_marginTop="5dp"
         android:digits="@string/ASCII"
         android:importantForAutofill="no">
 
         <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextName"
             style="@style/personalInfoStyle"
             android:layout_width="match_parent"
-            android:id="@+id/editTextName"
-            android:maxLength="20"
             android:layout_height="match_parent"
-            />
+            android:maxLength="20"
+            android:singleLine="true"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -67,18 +83,20 @@
         android:id="@+id/aboutMe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:layout_below="@+id/editTextNameParent"
+        app:layout_constraintTop_toBottomOf="@id/editTextNameParent"
+        app:layout_constraintStart_toStartOf="@id/gl_general_v"
         android:layout_marginTop="30dp"
+        android:text="@string/about_me"
         android:textColor="@color/white"
-        android:layout_alignStart="@id/editTextNameParent"
-        android:text="@string/about_me"/>
+        android:textSize="20sp" />
 
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/editTextBioParent"
         style="@style/personalInfoStyle"
-        android:layout_below="@+id/aboutMe"
+        app:layout_constraintTop_toBottomOf="@id/aboutMe"
+        app:layout_constraintStart_toStartOf="@id/gl_general_v"
+        app:layout_constraintEnd_toEndOf="@id/gl_general_v1"
         android:layout_marginTop="5dp"
         android:digits="@string/ASCII"
         android:importantForAutofill="no"
@@ -87,75 +105,61 @@
         app:counterTextColor="@color/KalariLAbSecondary">
 
         <com.google.android.material.textfield.TextInputEditText
-            style="@style/personalInfoStyle"
-            android:layout_width="match_parent"
             android:id="@+id/editTextBio"
-            android:maxLength="100"
-
-            android:layout_height="wrap_content"
-            />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-
-    <TextView
-        android:id="@+id/age"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:layout_below="@+id/editTextBioParent"
-        android:layout_marginTop="30dp"
-        android:textColor="@color/white"
-        android:layout_alignStart="@id/editTextNameParent"
-        android:text="@string/age"/>
-
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editTextAgeParent"
-        style="@style/personalInfoStyle"
-        android:layout_below="@+id/age"
-        android:layout_marginTop="5dp"
-        android:digits="@string/ASCII"
-        android:importantForAutofill="no"
-        android:inputType="number"
-        app:counterMaxLength="3">
-
-        <com.google.android.material.textfield.TextInputEditText
             style="@style/personalInfoStyle"
             android:layout_width="match_parent"
-            android:id="@+id/editAge"
-            android:maxLength="3"
-            android:inputType="number"
             android:layout_height="wrap_content"
-
-            />
-
+            android:maxLength="100" />
 
     </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+    <com.google.android.material.button.MaterialButton
+
+        android:id="@+id/birthDateButton"
+        android:fontFamily="@font/roboto_medium"
+        android:text="@string/birth_date"
+        android:backgroundTint="@color/darkerGrey"
+        app:layout_constraintEnd_toStartOf="@id/gl_general_v1"
+        app:layout_constraintStart_toStartOf="@id/gl_general_v"
+        app:layout_constraintTop_toBottomOf="@id/editTextBioParent"
+        style="@style/registerButtonStyle"
+        android:onClick="openDatePicker"
+        app:cornerRadius="15dp" />
 
     <TextView
         android:id="@+id/gender"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20sp"
-        android:layout_below="@+id/editTextAgeParent"
+      app:layout_constraintTop_toBottomOf="@id/birthDateButton"
+        app:layout_constraintStart_toStartOf="@id/gl_general_v"
+
         android:layout_marginTop="30dp"
+        android:text="@string/Gender"
         android:textColor="@color/white"
-        android:layout_alignStart="@id/editTextNameParent"
-        android:text="@string/Gender"/>
+        android:textSize="20sp" />
 
     <Spinner
         android:id="@+id/genderSpinner"
-        android:layout_width="380dp"
+        android:layout_width="0dp"
         android:layout_height="50dp"
-        android:layout_below="@id/gender"
-        android:layout_centerHorizontal="true"
+        app:layout_constraintStart_toStartOf="@id/gl_general_v"
+        app:layout_constraintEnd_toEndOf="@id/gl_general_v1"
+        app:layout_constraintTop_toBottomOf="@id/gender"
         android:layout_marginTop="5dp"
         android:backgroundTint="@color/KalariLAbSecondary"
         android:entries="@array/genders"
 
         />
 
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/editTexts_UpperBoarder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.12" />
 
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

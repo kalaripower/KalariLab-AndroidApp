@@ -22,7 +22,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity  {
 
 
 
@@ -132,74 +132,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        //Tun sie nichts
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-
-            //case R.id.signOutBtn:
-            //signOut();
-            //  break;
-//            case R.id.posturesCard:
-//                goToPosturesActivity();
-//
-//                break;
-
-        }
+        moveTaskToBack(false);
     }
 
 
 
-
-
-
-//    private void configureGoogleRequest(){
-//        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-//                .requestEmail()
-//                .build();
-//        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
-//    }
-
-//    private void moveToVideoRecorderActivity() {
-//        Intent intent = new Intent(MainActivity.this, VideoRecorder.class);
-//        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-//        startActivity(intent);
-//        finish();
-//
-//    }
-
-//    private void signOut() {
-//        Log.d("DebugLogout", "0 started" + sessionManagement);
-//
-//        mGoogleSignInClient.signOut().addOnCompleteListener(this, new OnCompleteListener<Void>() {
-//            @Override
-//            public void onComplete(@NonNull Task<Void> task) {
-//                if(task.isSuccessful()) {
-//                    Log.d("DebugLogout", "1" + sessionManagement.returnSession());
-//                    sessionManagement.removeSession();
-//                    Log.d("DebugLogout", "2" + sessionManagement.returnSession());
-//
-//                    startActivity(new Intent(MainActivity.this, LogIn.class));
-//                    sendBroadcastToPreventAccessToAllActivities();
-//                    finish();
-//                }
-//                else {
-//                    Log.d("DebugLogout", "3  Failed" + sessionManagement.returnSession());
-//
-//                }
-//
-//            }
-//
-//        });
-//    }
-
-//    private void sendBroadcastToPreventAccessToAllActivities() {
-//        Intent broadcastIntent = new Intent();
-//        broadcastIntent.setAction("com.package.ACTION_LOGOUT");
-//        sendBroadcast(broadcastIntent);
-//    }
 
     private void runFragment(Fragment fragment,boolean swiped,  char direction) {
 
@@ -329,6 +266,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         updateNavigationBarState(getFragmentPosition(getVisibleFragment()) - 1);
 
     }
+
 
 
 

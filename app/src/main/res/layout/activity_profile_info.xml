@@ -51,37 +51,24 @@
         android:layout_marginTop="20dp"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/how_old_are_you"
+        android:text="@string/when_you_were_born"
         android:textColor="@color/white"
         app:layout_constraintStart_toEndOf="@id/gl_general_v"
         android:textSize="35sp"
         app:layout_constraintTop_toBottomOf="@id/topAppBarParent"/>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editTextAgeParent"
-        style="@style/LoggingTextInputLayoutStyle"
-        android:hint="@string/age"
-        android:inputType="number"
-        app:counterMaxLength="3"
-        android:layout_marginTop="20dp"
-        app:layout_constraintStart_toEndOf="@id/gl_general_v"
-        app:layout_constraintEnd_toStartOf="@id/gl_general_v1"
-        app:layout_constraintTop_toBottomOf="@+id/headLine1"
+    <com.google.android.material.button.MaterialButton
+
+        android:id="@+id/birthDateButton"
         android:fontFamily="@font/roboto_medium"
-
-        >
-
-        <com.google.android.material.textfield.TextInputEditText
-            style="@style/LoggingTextInputLayoutStyle"
-            android:layout_width="match_parent"
-            android:id="@+id/editTextAge"
-            android:fontFamily="@font/roboto_medium"
-            android:layout_height="match_parent"
-            android:maxLength="3"
-            android:digits="0123456789"
-            android:singleLine="true"/>
-
-    </com.google.android.material.textfield.TextInputLayout>
+        android:text="@string/birth_date"
+        android:backgroundTint="@color/darkerGrey"
+        app:layout_constraintEnd_toStartOf="@id/gl_general_v1"
+        app:layout_constraintStart_toStartOf="@id/gl_general_v"
+        app:layout_constraintTop_toBottomOf="@+id/headLine1"
+        style="@style/registerButtonStyle"
+        android:onClick="openDatePicker"
+        app:cornerRadius="15dp" />
 
     <TextView
         android:id="@+id/headLine2"
@@ -93,7 +80,7 @@
         android:textColor="@color/white"
         app:layout_constraintStart_toEndOf="@id/gl_general_v"
         android:textSize="35sp"
-        app:layout_constraintTop_toBottomOf="@id/editTextAgeParent"/>
+        app:layout_constraintTop_toBottomOf="@id/birthDateButton"/>
 
 
 

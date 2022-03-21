@@ -280,10 +280,7 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
     }
 
 
-        private void createSession() {
-                sessionManagement.saveSession("#TestTest");
 
-        }
 
         public void
         printHashKey()
@@ -476,5 +473,11 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                                 data);
                 }
         }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        finish();
+    }
 
 }

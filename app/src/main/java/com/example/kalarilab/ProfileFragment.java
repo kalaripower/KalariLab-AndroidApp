@@ -2,14 +2,17 @@ package com.example.kalarilab;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,6 +20,15 @@ import androidx.fragment.app.Fragment;
  * create an instance of this fragment.
  */
 public class ProfileFragment extends Fragment implements View.OnClickListener {
+    private KalariLabServices kalariLabServices;
+    TextView fullName;
+    TextView bio;
+    Map<String, String> map = new HashMap<>();
+    VolleyCallbackMap volleyCallbackMap;
+    KalariLabUtils kalariLabUtils = new KalariLabUtils();
+    SessionManagement sessionManagement ;
+
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -56,6 +68,13 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        kalariLabServices = new KalariLabServices(getActivity());
+        volleyCallbackMap = new VolleyCallbackMap();
+        sessionManagement = new SessionManagement(getActivity());
+
+        updateInfo();
+
+
     }
 
     @Override
@@ -63,9 +82,8 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_profile, container, false);
-        ImageView profileImage = (ImageView)  view.findViewById(R.id.profile_image);
-        TextView fullName = (TextView) view.findViewById(R.id.name);
-        TextView bio = (TextView) view.findViewById(R.id.bio);
+         fullName = (TextView) view.findViewById(R.id.name);
+         bio = (TextView) view.findViewById(R.id.bio);
         ImageButton settings = (ImageButton) view.findViewById(R.id.settings);
         ImageButton edit_info = (ImageButton) view.findViewById(R.id.editInfo);
         edit_info.setOnClickListener(this);
@@ -94,5 +112,59 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         Intent intent = new Intent(getActivity(), SettingsActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
         startActivity(intent);
+    }
+    private void getInfoFromDB(){
+     kalariLabServices.getProfileInfo(new VolleyCallbacks(this, volleyCallbackMap ));
+
+    }
+    public void updateInfo(){
+
+        if (infoHasChangedOrEmpty()){
+            getInfoFromDB();
+
+
+
+        }else {
+
+            Log.d("SessionDebug", "SecondCall");
+
+            try {
+                setViewsContent();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+
+
+    }
+
+    public void setViewsContent() {
+        fullName.setText(new StringBuilder().append(sessionManagement.returnUser_Name()).append(", ").append(kalariLabUtils.ageCalculator(sessionManagement.returnUser_birthDate())).toString());
+        bio.setText(sessionManagement.returnUser_Bio());
+
+    }
+
+    public void storeInfoInSharedPreference() {
+        sessionManagement.saveUser_Name("Ahmed Al-maliki");
+        sessionManagement.saveUser_birthDate(map.get("birth_date"));
+        sessionManagement.saveUser_Bio(map.get("bio"));
+        sessionManagement.saveUser_Gender(kalariLabUtils.getGenderFromChar(map.get("gender")));
+
+    }
+
+    private boolean infoHasChangedOrEmpty() {
+        if (sessionManagement.returnUser_Name().equals("") || sessionManagement.returnUser_birthDate().equals("")
+        || sessionManagement.returnUser_Bio().equals("")) return true;
+        else return !map.containsValue(sessionManagement.returnUser_birthDate()) && !map.containsValue(sessionManagement.returnUser_Bio());
+    }
+    public void setFragmentMap(){
+        map.putAll(volleyCallbackMap.getMap());
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updateInfo();
     }
 }

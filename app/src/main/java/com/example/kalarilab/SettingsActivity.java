@@ -54,7 +54,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                     sessionManagement.removeSession();
                     startActivity(new Intent(SettingsActivity.this, LogIn.class));
                     sendBroadcastToPreventAccessToAllActivities();
-                    finish();
+
                 }
             }
 
@@ -98,5 +98,11 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                 break;
 
         }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        finish();
     }
 }

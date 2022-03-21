@@ -15,6 +15,14 @@ public class SessionManagement implements Serializable {
     String ACCESS_TOKEN = "access_token";
     String USER_ID = "user_id";
     String COSTUMER_ID = "costumer_id";
+    String USER_NAME = "user_name";
+    String USER_GENDER = "user_gender";
+    String USER_BIO = "user_bio";
+    String USER_AGE = "user_age";
+
+
+
+
 
     public SessionManagement(Context context) {
         this.sharedPreferences = context.getSharedPreferences(SHARED_PREF_NAME, context.MODE_PRIVATE);
@@ -67,6 +75,36 @@ public class SessionManagement implements Serializable {
     }
     public String returnCostumerId(){
         return sharedPreferences.getString(COSTUMER_ID, "");
+
+    }
+    //Profile Info storage
+    public void saveUser_Name(String user_name){
+        editor.putString(USER_NAME, user_name).commit();
+    }
+    public void saveUser_birthDate(String user_age ){
+        editor.putString(USER_AGE, user_age).commit();
+    }
+    public void saveUser_Gender(String user_gender){
+        editor.putString(USER_GENDER, user_gender).commit();
+    }
+    public void saveUser_Bio(String user_bio){
+        editor.putString(USER_BIO, user_bio).commit();
+    }
+
+    public String returnUser_Name(){
+        return sharedPreferences.getString(USER_NAME, "");
+
+    }
+    public String returnUser_birthDate(){
+        return sharedPreferences.getString(USER_AGE, "");
+
+    }
+    public String returnUser_Gender(){
+        return sharedPreferences.getString(USER_GENDER, "");
+
+    }
+    public String returnUser_Bio(){
+        return sharedPreferences.getString(USER_BIO, "");
 
     }
 

@@ -36,8 +36,7 @@ public class PosturesActivity extends AppCompatActivity implements View.OnClickL
 
 
     private void initHooks(){
-      avatar = findViewById(R.id.avatar);
-      posturesList = findViewById(R.id.list);
+
       progressTrackingSystem = new ProgressTrackingSystem();
       customPosturesAdapter = new CustomPosturesAdapter(this, posturesHashtableKeys(), posturesHashtableValues());
       backBtn = findViewById(R.id.backButton);

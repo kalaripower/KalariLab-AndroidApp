@@ -140,5 +140,8 @@
     <string name="monthly_subscription">Monthly Subscription</string>
     <string name="how_old_are_you">How old are you?</string>
     <string name="letters">qwertyuASDFGHJKLPOIUYTREWQZXCVBNMQWERTYUIOPioplkjhgfd sazxcvbnm-_`.\'|</string>
+    <string name="when_you_were_born">When you were born?</string>
+    <string name="birth_date">Birth Date</string>
+    <string name="edit_profile">Edit Profile</string>
 
 </resources>
