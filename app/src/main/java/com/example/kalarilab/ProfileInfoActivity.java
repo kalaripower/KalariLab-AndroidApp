@@ -135,7 +135,8 @@ public class ProfileInfoActivity extends AppCompatActivity implements View.OnCli
 
 
     private void sendInputInfo() {
-        kalariLabServices.updateInfo(kalariLabUtils.getGenderFromInt(Register.user.getGender()), birthdate, "Ahmed Almaliki");
+
+        kalariLabServices.updateInfo(null,kalariLabUtils.getGenderFromInt(Register.user.getGender()), birthdate, "");
 
     }
 

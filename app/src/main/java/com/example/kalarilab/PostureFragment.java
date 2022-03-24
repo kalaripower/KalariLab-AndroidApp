@@ -4,6 +4,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.SeekBar;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -13,6 +16,11 @@ import androidx.fragment.app.Fragment;
  * create an instance of this fragment.
  */
 public class PostureFragment extends Fragment {
+    private ImageView postureImage;
+    private SeekBar seekBar;
+    private TextView postureTitle;
+    private TextView postureDescription;
+
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -58,6 +66,11 @@ public class PostureFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_posture, container, false);
+        View view = inflater.inflate(R.layout.fragment_posture, container, false);
+        postureImage = (ImageView) view.findViewById(R.id.PostureImage);
+        postureTitle = (TextView) view.findViewById(R.id.PostureTitle);
+        postureDescription = (TextView) view.findViewById(R.id.description);
+        seekBar = (SeekBar) view.findViewById(R.id.seekBar);
+        return view;
     }
 }

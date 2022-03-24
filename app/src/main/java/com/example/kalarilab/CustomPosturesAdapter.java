@@ -39,7 +39,6 @@ public class CustomPosturesAdapter extends ArrayAdapter<Integer> {
 
         title.setText(getPostureNameFromTag(posturesTags[position]));
 
-        //Get image from cloud..To be done after backend is done
         posture.setImageResource(getPostureImageFromTag(posturesTags[position], posturesImages[position]));
         return rowView;
     }

@@ -1,6 +1,7 @@
 package com.example.kalarilab;
 
 
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -22,10 +23,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity  {
-
-
-
+public class MainActivity extends AppCompatActivity {
 
 
     private ViewPager viewPager;
@@ -34,7 +32,7 @@ public class MainActivity extends AppCompatActivity  {
 
     private BottomNavigationView bottomNavigationView;
     private ColorStateList navigationViewColorStateList;
-    private Fragment  homeFragment, profileFragment, premiumFragment, shopFragment, classesFragment;
+    private Fragment homeFragment, profileFragment, premiumFragment, shopFragment, classesFragment;
     private ConstraintLayout constraintLayout;
     SwipeListener swipeListener;
     private FrameLayout frameLayout;
@@ -62,11 +60,39 @@ public class MainActivity extends AppCompatActivity  {
         initHooks();
         bindings();
         fillFragmentsList();
-        runFragment(homeFragment, false, 'n');
+
+        runFragment(fragmentToRun(), false, 'n');
         // configureGoogleRequest();
 
 
     }
+
+    private Fragment fragmentToRun() {
+        Intent intent = getIntent();
+        if (intent.hasExtra("frgToLoad")) {
+
+
+            String intentFragment = getIntent().getExtras().getString("frgToLoad");
+
+            switch (intentFragment) {
+                case "PROFILE_FRAGMENT":
+                    updateNavigationBarState(4);
+
+                    return profileFragment;
+                default:
+                    return homeFragment;
+
+            }
+
+
+        } else {
+
+            return homeFragment;
+        }
+
+
+    }
+
 
     private void fillFragmentsList() {
         fragments[0] = homeFragment;

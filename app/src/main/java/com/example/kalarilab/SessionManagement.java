@@ -78,7 +78,7 @@ public class SessionManagement implements Serializable {
 
     }
     //Profile Info storage
-    public void saveUser_Name(String user_name){
+    public void saveUser_FullName(String user_name){
         editor.putString(USER_NAME, user_name).commit();
     }
     public void saveUser_birthDate(String user_age ){

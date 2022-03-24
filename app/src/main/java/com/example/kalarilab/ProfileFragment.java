@@ -72,9 +72,13 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         volleyCallbackMap = new VolleyCallbackMap();
         sessionManagement = new SessionManagement(getActivity());
 
-        updateInfo();
+        ShowInfo();
+        checkIfInfoHasChanged();
 
+    }
 
+    private void checkIfInfoHasChanged() {
+        getInfoFromDB();
     }
 
     @Override
@@ -88,6 +92,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
         ImageButton edit_info = (ImageButton) view.findViewById(R.id.editInfo);
         edit_info.setOnClickListener(this);
         settings.setOnClickListener(this);
+        checkIfInfoHasChanged();
         return view;
     }
 
@@ -117,22 +122,11 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
      kalariLabServices.getProfileInfo(new VolleyCallbacks(this, volleyCallbackMap ));
 
     }
-    public void updateInfo(){
-
-        if (infoHasChangedOrEmpty()){
-            getInfoFromDB();
-
-
-
-        }else {
-
-            Log.d("SessionDebug", "SecondCall");
-
-            try {
-                setViewsContent();
-            }catch (Exception e){
-                e.printStackTrace();
-            }
+    public void ShowInfo(){
+        try {
+            setViewsContent();
+        }catch (Exception e){
+            e.printStackTrace();
         }
 
 
@@ -145,18 +139,13 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     }
 
     public void storeInfoInSharedPreference() {
-        sessionManagement.saveUser_Name("Ahmed Al-maliki");
+        sessionManagement.saveUser_FullName("Ahmed Al-maliki");
         sessionManagement.saveUser_birthDate(map.get("birth_date"));
         sessionManagement.saveUser_Bio(map.get("bio"));
         sessionManagement.saveUser_Gender(kalariLabUtils.getGenderFromChar(map.get("gender")));
 
     }
 
-    private boolean infoHasChangedOrEmpty() {
-        if (sessionManagement.returnUser_Name().equals("") || sessionManagement.returnUser_birthDate().equals("")
-        || sessionManagement.returnUser_Bio().equals("")) return true;
-        else return !map.containsValue(sessionManagement.returnUser_birthDate()) && !map.containsValue(sessionManagement.returnUser_Bio());
-    }
     public void setFragmentMap(){
         map.putAll(volleyCallbackMap.getMap());
 
@@ -165,6 +154,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     @Override
     public void onResume() {
         super.onResume();
-        updateInfo();
+        ShowInfo();
     }
+
 }

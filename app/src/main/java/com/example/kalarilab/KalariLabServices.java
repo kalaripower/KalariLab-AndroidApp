@@ -30,7 +30,6 @@ public class KalariLabServices {
     private Activity context;
     private Map<String, String> postRequestParams = new HashMap<String, String>();
     private Map<String, Object> putRequestParams = new HashMap<String, Object>();
-
     private static String JWT_PERFIX = "JWT ";
     private String accessToken = "";
     private String refreshToken = "";
@@ -283,7 +282,7 @@ public class KalariLabServices {
                     public void onResponse(JSONObject response) {
                         try {
                             sessionManagement.saveCostumerId(response.getString("id"));
-                            //Log.d("PutRequestDebug", sessionManagement.returnAccessToken());
+                            Log.d("PutRequestDebug", sessionManagement.returnAccessToken());
 
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -331,7 +330,7 @@ public class KalariLabServices {
         RequestQueueSinglton.getInstance(context).addToRequestQueue(request);
     }
 
-    public void updateInfo(String gender, String birthDay, String bio){
+    public void updateInfo(VolleyCallbacks volleyCallbacks,String gender, String birthDay, String bio){
         sessionManagement = new SessionManagement(context);
 
         addPutRequestParams(gender, birthDay, bio);
@@ -342,6 +341,13 @@ public class KalariLabServices {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
+                        try {
+                            Log.d("SessionDebug", response.toString());
+                            volleyCallbacks.onSuccess_EditInfoActivity(response);
+
+                        }catch (Exception e) {
+                            e.printStackTrace();
+                        }
 
                     }
                 },
@@ -361,7 +367,6 @@ public class KalariLabServices {
                             message = "Connection TimeOut! Please check your internet connection.";
                         }
                         error.printStackTrace();
-                        setAlertDialog(context, message);
                     }
                 }) {
 
@@ -381,6 +386,7 @@ public class KalariLabServices {
     }
 
     private void addPutRequestParams(String gender, String birthDay, String bio) {
+
         putRequestParams.put("id", Integer.parseInt(sessionManagement.returnCostumerId()));
         putRequestParams.put("user_id", Integer.parseInt(sessionManagement.returnUserId()));
         putRequestParams.put("phone", "0");
@@ -399,8 +405,8 @@ public class KalariLabServices {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d("PutRequestDebug", response.toString());
-                        volleyCallbacks.onSuccess(response);
+                        volleyCallbacks.onSuccess_ProfileFragment(response);
+
 
 
                     }

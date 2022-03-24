@@ -11,31 +11,38 @@ import java.util.Map;
 public class VolleyCallbacks {
     private final VolleyCallbackMap volleyCallbackMap;
     private JSONObject response;
-    private final ProfileFragment fragment;
+    private  ProfileFragment fragment;
+    private  EditInfoActivity context;
+    private SessionManagement sessionManagement ;
 
     public VolleyCallbacks(ProfileFragment fragment, VolleyCallbackMap volleyCallbackMap) {
 
         this.volleyCallbackMap = volleyCallbackMap;
         this.fragment = fragment;
     }
+    public VolleyCallbacks(EditInfoActivity context, VolleyCallbackMap volleyCallbackMap, SessionManagement sessionManagement) {
 
-    public void onSuccess(JSONObject r) {
+        this.volleyCallbackMap = volleyCallbackMap;
+        this.context = context;
+        this.sessionManagement = sessionManagement;
+    }
+
+    public void onSuccess_ProfileFragment(JSONObject r) {
 
         response = r;
 
 
-        extractInfoFromResponse();
+        extractInfoFromResponse_ProfileFragment();
     }
 
     public static Map<String, String> ConvertJsonObject(JSONObject jsonObj) {
         return  new Gson().fromJson(jsonObj.toString(),  Map.class);
     }
 
-    private void extractInfoFromResponse() {
+    private void extractInfoFromResponse_ProfileFragment() {
         volleyCallbackMap.setMap(ConvertJsonObject(response));
         this.fragment.setFragmentMap();
         try {
-            Log.d("SessionDebug", "FirstCall");
 
             this.fragment.storeInfoInSharedPreference();
             this.fragment.setViewsContent();
@@ -43,6 +50,27 @@ public class VolleyCallbacks {
             e.printStackTrace();
         }
 
+    }
+
+    public void onSuccess_EditInfoActivity(JSONObject r) {
+
+        response = r;
+
+
+        extractInfoFromResponse_EditInfoActivity();
+    }
+
+    private void extractInfoFromResponse_EditInfoActivity() {
+        volleyCallbackMap.setMap(ConvertJsonObject(response));
+
+        try {
+            context.storeInfoInSharedPreference();
+            Log.d("backPressedDebug", sessionManagement.returnUser_Bio());
+
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
 }

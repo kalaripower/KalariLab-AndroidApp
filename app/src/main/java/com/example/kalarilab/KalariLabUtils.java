@@ -7,9 +7,12 @@ public class KalariLabUtils {
     public String ageCalculator(String dob){
         LocalDate dateOfBirth = LocalDate.parse(dob);
         LocalDate currentDate = LocalDate.now();
-        if(dob != null && currentDate != null){
+        if(dob != null && currentDate != null ){
             return String.valueOf(Period.between(dateOfBirth, currentDate).getYears());
-        }else {
+        }else if(currentDate.equals(dob)) {
+            return "Illegal";
+        }
+        else {
             return "0";
         }
     }

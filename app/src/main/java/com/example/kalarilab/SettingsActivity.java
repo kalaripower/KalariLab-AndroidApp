@@ -42,7 +42,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     }
     private void moveToMainActivity() {
         Intent intent = new Intent(this, MainActivity.class);
-        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+        intent.putExtra("frgToLoad", "PROFILE_FRAGMENT");
         startActivity(intent);
     }
     private void signOut() {
@@ -103,6 +103,11 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onStop() {
         super.onStop();
-        finish();
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        moveToMainActivity();
     }
 }
