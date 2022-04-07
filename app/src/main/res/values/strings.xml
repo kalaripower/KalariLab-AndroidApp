@@ -143,5 +143,6 @@
     <string name="when_you_were_born">When you were born?</string>
     <string name="birth_date">Birth Date</string>
     <string name="edit_profile">Edit Profile</string>
+    <string name="points">Points</string>
 
 </resources>

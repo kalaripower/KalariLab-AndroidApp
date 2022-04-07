@@ -44,6 +44,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("frgToLoad", "PROFILE_FRAGMENT");
         startActivity(intent);
+        finish();
     }
     private void signOut() {
     try {
@@ -54,6 +55,7 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                     sessionManagement.removeSession();
                     startActivity(new Intent(SettingsActivity.this, LogIn.class));
                     sendBroadcastToPreventAccessToAllActivities();
+                    finish();
 
                 }
             }
@@ -95,15 +97,12 @@ public class SettingsActivity extends AppCompatActivity implements View.OnClickL
                 break;
             case R.id.logOutCard:
                 signOut();
+
                 break;
 
         }
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-    }
 
     @Override
     public void onBackPressed() {

@@ -1,6 +1,7 @@
 package com.example.kalarilab;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,8 @@ import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 
@@ -18,7 +21,7 @@ import com.google.android.material.progressindicator.CircularProgressIndicator;
  * create an instance of this fragment.
  */
 public class HomeFragment extends Fragment implements View.OnClickListener {
-
+    private SwipeRefreshLayout swipeRefreshLayout;
     private ProgressTrackingSystem progressTrackingSystem;
     private Streak streak;
     // TODO: Rename parameter arguments, choose names that match
@@ -86,11 +89,29 @@ public class HomeFragment extends Fragment implements View.OnClickListener {
         circularProgressIndicatorClasses.setMax(getNumOfClasses());
         circularProgressIndicatorClasses.setProgress(getClassReached());
 
+        swipeRefreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefresh);
+
         CardView posturesCard = (CardView) view.findViewById(R.id.posturesCard);
         posturesCard.setOnClickListener(this);
         startPostponedEnterTransition();
 
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+              refreshPage();
+              swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
         return view;
+    }
+
+    private void refreshPage() {
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        if (Build.VERSION.SDK_INT >= 26) {
+            ft.setReorderingAllowed(false);
+        }
+        ft.detach(this).attach(this).commit();
     }
 
     @Override

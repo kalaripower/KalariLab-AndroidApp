@@ -141,8 +141,8 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                 progressBar = findViewById(R.id.progressBar);
                 emailEntryParent = findViewById(R.id.editTextEmailParent);
                 passwordEntryParent = findViewById(R.id.editTextPasswordParent);
-                signInGmailBtn = findViewById(R.id.signUpGmail);
-                signInFacebookBtn = findViewById(R.id.signUpFacebook);
+                signInGmailBtn = findViewById(R.id.signInGmail);
+                signInFacebookBtn = findViewById(R.id.signInFacebook);
                 sessionManagement = new SessionManagement(Register.this);
                 callbackManager = CallbackManager.Factory.create();
                 warningTextEmail = findViewById(R.id.warningTextEmail);
@@ -175,10 +175,10 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                                 checkInfo(this.emailEntry.getText().toString(), this.passwordEntry.getText().toString(),
                                         this.fullNameEntry.getText().toString(), this.userNameEntry.getText().toString());
                                 break;
-                        case R.id.signUpGmail:
+                        case R.id.signInGmail:
                                 signUpViaGmail();
                                 break;
-                        case R.id.signUpFacebook:
+                        case R.id.signInFacebook:
                                 loginManager.logInWithReadPermissions(
                                         Register.this,
                                         Arrays.asList(
@@ -474,10 +474,6 @@ public class Register extends AppCompatActivity implements View.OnClickListener 
                 }
         }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        finish();
-    }
+
 
 }

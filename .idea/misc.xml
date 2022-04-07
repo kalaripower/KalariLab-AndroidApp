@@ -5,6 +5,7 @@
       <map>
         <entry key="../../../../layout/custom_preview.xml" value="0.27708333333333335" />
         <entry key="app/src/main/res/drawable/card_view_background_color.xml" value="0.17" />
+        <entry key="app/src/main/res/drawable/color_cursor.xml" value="0.1675" />
         <entry key="app/src/main/res/drawable/gendet_btn_background_color.xml" value="0.27384615384615385" />
         <entry key="app/src/main/res/drawable/ic_baseline_arrow_back_ios_24.xml" value="0.17" />
         <entry key="app/src/main/res/drawable/my_button_bg.xml" value="0.24166666666666667" />
@@ -17,7 +18,9 @@
         <entry key="app/src/main/res/layout/activity_gmail_profile_info.xml" value="0.12864583333333332" />
         <entry key="app/src/main/res/layout/activity_log_in.xml" value="0.26197916666666665" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
+        <entry key="app/src/main/res/layout/activity_maps.xml" value="0.2625" />
         <entry key="app/src/main/res/layout/activity_on_boarding.xml" value="0.246875" />
+        <entry key="app/src/main/res/layout/activity_posture.xml" value="0.10104166666666667" />
         <entry key="app/src/main/res/layout/activity_postures.xml" value="0.25" />
         <entry key="app/src/main/res/layout/activity_profile.xml" value="0.2625" />
         <entry key="app/src/main/res/layout/activity_profile_info.xml" value="0.2" />

@@ -19,11 +19,6 @@
             android:enabled="true"
             android:icon="@drawable/premium_title"
             android:title=""/>
-        <item
-            android:id="@+id/shop_page"
-            android:enabled="true"
-            android:icon="@drawable/shop"
-            android:title=""/>
 
 
         <item

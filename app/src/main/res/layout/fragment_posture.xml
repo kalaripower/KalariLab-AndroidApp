@@ -35,7 +35,8 @@
         app:layout_constraintBottom_toBottomOf="@id/PostureImageLowerBorder"
         app:layout_constraintEnd_toEndOf="@id/gl_general_v1"
         app:layout_constraintStart_toStartOf="@id/gl_general_v"
-        app:layout_constraintTop_toTopOf="@id/PostureImageUpperBorder" />
+        app:layout_constraintTop_toTopOf="@id/PostureImageUpperBorder"
+        />
 
     <SeekBar
         android:id="@+id/seekBar"
@@ -75,6 +76,8 @@
         android:id="@+id/PostureTitle"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:textColor="@color/white"
+        android:textSize="20sp"
         android:layout_marginTop="15dp"
         app:layout_constraintStart_toStartOf="@id/gl_general_v"
         app:layout_constraintEnd_toEndOf="@id/gl_general_v1"
@@ -85,6 +88,7 @@
         android:id="@+id/description"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:textColor="@color/white"
         app:layout_constraintStart_toStartOf="@id/gl_general_v"
         app:layout_constraintEnd_toEndOf="@id/gl_general_v1"
         app:layout_constraintTop_toBottomOf="@id/TitleLowerBorder"

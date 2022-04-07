@@ -152,10 +152,11 @@ public class EditInfoActivity extends AppCompatActivity  {
 
     public void storeInfoInSharedPreference() {
 
-        sessionManagement.saveUser_FullName("Ahmed Al-maliki");
-        sessionManagement.saveUser_Gender(kalariLabUtils.getGenderFromChar(map.get("gender")));
-        sessionManagement.saveUser_Bio(map.get("bio"));
-        sessionManagement.saveUser_birthDate(map.get("birth_date"));
+            sessionManagement.saveUser_FullName("Ahmed Al-maliki");
+            sessionManagement.saveUser_Gender(kalariLabUtils.getGenderFromChar(map.get("gender")));
+            sessionManagement.saveUser_Bio(map.get("bio"));
+            sessionManagement.saveUser_birthDate(map.get("birth_date"));
+
 
     }
 

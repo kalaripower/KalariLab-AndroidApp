@@ -1,8 +1,8 @@
 package com.example.kalarilab;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +10,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -27,6 +29,7 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
     VolleyCallbackMap volleyCallbackMap;
     KalariLabUtils kalariLabUtils = new KalariLabUtils();
     SessionManagement sessionManagement ;
+    SwipeRefreshLayout swipeRefreshLayout;
 
 
 
@@ -90,10 +93,26 @@ public class ProfileFragment extends Fragment implements View.OnClickListener {
          bio = (TextView) view.findViewById(R.id.bio);
         ImageButton settings = (ImageButton) view.findViewById(R.id.settings);
         ImageButton edit_info = (ImageButton) view.findViewById(R.id.editInfo);
+        swipeRefreshLayout  = (SwipeRefreshLayout) view.findViewById(R.id.swipeRefresh);
         edit_info.setOnClickListener(this);
         settings.setOnClickListener(this);
         checkIfInfoHasChanged();
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                refreshPage();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
         return view;
+    }
+
+    private void refreshPage() {
+        FragmentTransaction ft = getFragmentManager().beginTransaction();
+        if (Build.VERSION.SDK_INT >= 26) {
+            ft.setReorderingAllowed(false);
+        }
+        ft.detach(this).attach(this).commit();
     }
 
     @Override

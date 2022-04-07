@@ -50,37 +50,33 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.46" />
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/gl_loginOptionsLowerBorder"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_percent="0.2" />
+
+
 
     <com.google.android.material.button.MaterialButton
 
-        android:id="@+id/signUpGmail"
+        android:id="@+id/signInGmail"
         android:layout_width="0dp"
         android:layout_height="0dp"
-
-        app:layout_constraintEnd_toStartOf="@+id/gl_gmailBtn"
-        app:layout_constraintBottom_toTopOf="@+id/gl_loginOptionsLowerBorder"
         android:layout_marginTop="30dp"
+        app:layout_constraintEnd_toStartOf="@+id/gl_gmailBtn"
+        app:layout_constraintBottom_toTopOf="@+id/gl_editTexts_upperLine"
+
         android:backgroundTint="@color/colorOnMain"
         app:layout_constraintStart_toStartOf="@id/gl_general_v"
 
+        app:layout_constraintTop_toBottomOf="@id/gl_registerOptionsUpperBorder"
         style="@style/registerButtonStyle"
         app:cornerRadius="15dp"/>
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/gmail_icon"
-        app:layout_constraintStart_toStartOf="@id/signUpGmail"
-        app:layout_constraintTop_toTopOf="@id/signUpGmail"
-        app:layout_constraintEnd_toEndOf="@id/signUpGmail"
-        app:layout_constraintBottom_toBottomOf="@id/signUpGmail"
+        app:layout_constraintStart_toStartOf="@id/signInGmail"
+        app:layout_constraintTop_toTopOf="@id/signInGmail"
+        app:layout_constraintEnd_toEndOf="@id/signInGmail"
+        app:layout_constraintBottom_toBottomOf="@id/signInGmail"
         android:translationZ="2dp"/>
-
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gl_facebookBtn"
@@ -88,31 +84,41 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         app:layout_constraintGuide_percent="0.54" />
-
-
     <com.google.android.material.button.MaterialButton
 
-        android:id="@+id/signUpFacebook"
+        android:id="@+id/signInFacebook"
         android:layout_width="0dp"
         android:layout_height="0dp"
 
         app:layout_constraintEnd_toStartOf="@+id/gl_general_v1"
-        app:layout_constraintBottom_toTopOf="@+id/gl_loginOptionsLowerBorder"
+        app:layout_constraintBottom_toTopOf="@+id/gl_editTexts_upperLine"
         android:layout_marginTop="30dp"
         android:backgroundTint="@color/colorOnMain"
         app:layout_constraintStart_toStartOf="@id/gl_facebookBtn"
 
+        app:layout_constraintTop_toBottomOf="@id/gl_registerOptionsUpperBorder"
         style="@style/registerButtonStyle"
         app:cornerRadius="15dp"/>
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/facebook_logo"
-        app:layout_constraintStart_toStartOf="@id/signUpFacebook"
-        app:layout_constraintTop_toTopOf="@id/signUpFacebook"
-        app:layout_constraintEnd_toEndOf="@id/signUpFacebook"
-        app:layout_constraintBottom_toBottomOf="@id/signUpFacebook"
+        app:layout_constraintStart_toStartOf="@id/signInFacebook"
+        app:layout_constraintTop_toTopOf="@id/signInFacebook"
+        app:layout_constraintEnd_toEndOf="@id/signInFacebook"
+        app:layout_constraintBottom_toBottomOf="@id/signInFacebook"
         android:translationZ="2dp"/>
+
+
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/gl_registerOptionsUpperBorder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.12" />
+
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/editTextUserNameParent"
         app:layout_constraintTop_toBottomOf="@id/gl_editTexts_upperLine"

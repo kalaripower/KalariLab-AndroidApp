@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class KalariLabServices {
-    private final static String BASE_URL = "http://192.168.0.116:8000/";
+    private final static String BASE_URL = "http://192.168.0.106:8000/";
     private Activity context;
     private Map<String, String> postRequestParams = new HashMap<String, String>();
     private Map<String, Object> putRequestParams = new HashMap<String, Object>();
@@ -159,7 +159,7 @@ public class KalariLabServices {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-
+                        hideProgressBar(R.layout.activity_log_in);
                         String message = null;
                         if (error instanceof NetworkError) {
                             message = "Cannot connect to Internet...Please check your connection!";
@@ -205,15 +205,16 @@ public class KalariLabServices {
     }
 
     private void setAlertDialog(Activity context, String message) {
+        if (!context.isFinishing()) {
+            new AlertDialog.Builder(context)
+                    .setTitle("Connection Error.")
+                    .setMessage(message)
 
-        new AlertDialog.Builder(context)
-                .setTitle("Connection Error.")
-                .setMessage(message)
-
-                // A null listener allows the button to dismiss the dialog and take no further action.
-                .setNegativeButton(android.R.string.ok, null)
-                .setIcon(android.R.drawable.ic_dialog_alert)
-                .show();
+                    // A null listener allows the button to dismiss the dialog and take no further action.
+                    .setNegativeButton(android.R.string.ok, null)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
+        }
     }
     public void GetId(){
 
@@ -414,9 +415,6 @@ public class KalariLabServices {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("PutRequestDebug", sessionManagement.returnAccessToken());
-
-                        Log.d("PutRequestDebug", error.toString());
                         String message = null;
                         if (error instanceof NetworkError) {
                             message = "Cannot connect to Internet...Please check your connection!";

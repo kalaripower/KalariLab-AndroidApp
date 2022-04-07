@@ -20,6 +20,7 @@ public class PostureFragment extends Fragment {
     private SeekBar seekBar;
     private TextView postureTitle;
     private TextView postureDescription;
+    private View rowView;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -34,6 +35,10 @@ public class PostureFragment extends Fragment {
     public PostureFragment() {
         // Required empty public constructor
     }
+    public PostureFragment(View rowView) {
+        // Required empty public constructor
+        this.rowView = rowView;
+    }
 
     /**
      * Use this factory method to create a new instance of
@@ -44,8 +49,8 @@ public class PostureFragment extends Fragment {
      * @return A new instance of fragment PostureFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static PostureFragment newInstance(String param1, String param2) {
-        PostureFragment fragment = new PostureFragment();
+    public static PostureFragment newInstance(String param1, String param2, View rowView) {
+        PostureFragment fragment = new PostureFragment(rowView);
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -65,12 +70,12 @@ public class PostureFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View view = inflater.inflate(R.layout.fragment_posture, container, false);
+        View view = rowView;
         postureImage = (ImageView) view.findViewById(R.id.PostureImage);
         postureTitle = (TextView) view.findViewById(R.id.PostureTitle);
         postureDescription = (TextView) view.findViewById(R.id.description);
         seekBar = (SeekBar) view.findViewById(R.id.seekBar);
+        seekBar.setEnabled(false);
         return view;
     }
 }

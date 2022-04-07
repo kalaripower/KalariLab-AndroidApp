@@ -31,6 +31,7 @@
             android:exported="false" />
         <activity
             android:name=".SettingsActivity"
+            android:noHistory="true"
             android:exported="false" />
         <activity
             android:name=".SplashScreenActivity"
@@ -43,6 +44,7 @@
         </activity>
         <activity
             android:name=".OnBoarding"
+            android:noHistory="true"
             android:exported="true" />
         <activity
             android:name=".PosturesActivity"
@@ -60,6 +62,7 @@
             tools:replace="android:configChanges" />
         <activity
             android:name=".ProfileInfoActivity"
+            android:noHistory="true"
             android:exported="true" />
         <activity
             android:name=".LogIn"
@@ -69,10 +72,13 @@
             android:exported="true" />
         <activity
             android:name=".Register"
+            android:noHistory="true"
             android:exported="true" />
         <activity
             android:name=".MainActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:noHistory="true"
+           />
     </application>
 
 </manifest>

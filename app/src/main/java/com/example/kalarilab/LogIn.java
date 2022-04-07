@@ -1,19 +1,16 @@
 package com.example.kalarilab;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -51,13 +48,12 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
     private Button signInGmail, signInFacebook;
     private EditText userNameEntry, passwordEntry;
     private TextInputLayout userNameParent, passwordEntryParent;
-    private ProgressBar progressBar;
+
     private GoogleSignInClient mGoogleSignInClient;
     private final static int  RC_SIGN_IN = 123;
     public SessionManagement sessionManagement;
     private CallbackManager callbackManager;
     private LoginManager loginManager;
-    private SharedPreferences onBoardingSharedPreferences;
     private KalariLabServices kalariLabServices;
 
 
@@ -103,18 +99,17 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
 
 
     public void initHooks() {
-        onBoardingSharedPreferences =  PreferenceManager.getDefaultSharedPreferences(this);
         sessionManagement = new SessionManagement(LogIn.this);
 
         logInButt = findViewById(R.id.LogIn);
         goToSignUpButton = findViewById(R.id.goToSignUp);
-        signInGmail = findViewById(R.id.signUpGmail);
-        signInFacebook = findViewById(R.id.signUpFacebook);
+        signInGmail = findViewById(R.id.signInGmail);
+        signInFacebook = findViewById(R.id.signInFacebook);
         userNameEntry = findViewById(R.id.editTextUserName);
         passwordEntry = findViewById(R.id.editTextPassword);
         userNameParent = findViewById(R.id.editTextUserNameParent);
         passwordEntryParent = findViewById(R.id.editTextPasswordParent);
-        progressBar = findViewById(R.id.progressBar);
+
         sessionManagement = new SessionManagement(LogIn.this);
         FacebookSdk.sdkInitialize(LogIn.this);
         callbackManager = CallbackManager.Factory.create();
@@ -140,12 +135,12 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
             case R.id.goToSignUp:
                 moveToSignUpActivity();
                 break;
-            case R.id.signUpGmail:
+            case R.id.signInGmail:
                 signInViaGmail();
 
                 break;
 
-            case R.id.signUpFacebook:
+            case R.id.signInFacebook:
                 loginManager.logInWithReadPermissions(
                         LogIn.this,
                         Arrays.asList(
@@ -174,11 +169,7 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
             this.userNameParent.setBoxStrokeColor(getResources().getColor(R.color.red));
             return;
         }
-       // if (!Patterns.EMAIL_ADDRESS.matcher(userName).matches()){
-         //   this.emailEntryParent.setBoxStrokeColor(getResources().getColor(R.color.red));
 
-           // return;
-        //}
         if (password.isEmpty()){
             this.passwordEntryParent.setBoxStrokeColor(getResources().getColor(R.color.red));
 
@@ -186,13 +177,11 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
         }
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
                 WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-        progressBar.setVisibility(View.VISIBLE);
         logIn(userName, password);
     }
 
     private void logIn(String userName, String password) {
         kalariLabServices.signIn(userName, password, false);
-        progressBar.setVisibility(View.VISIBLE);
         getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
 
@@ -305,7 +294,7 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
             GoogleSignInAccount account = completedTask.getResult(ApiException.class);
 
             // Signed in successfully, show authenticated UI.
-            progressBar.setVisibility(View.GONE);
+
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             createSession();
             moveToMainActivity();
@@ -429,12 +418,13 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
         }
     }
     public void checkFreshInstall(){
-        //Show the onBoarding screen
        if (sessionManagement.getFRESH_INSTALLStatus()){
+           //Show the onBoarding screen
            moveToOnBoardingActivity();
        }else {
            checkSession();
        }
     }
+
 
 }

@@ -73,7 +73,7 @@
 
     <com.google.android.material.button.MaterialButton
 
-        android:id="@+id/signUpGmail"
+        android:id="@+id/signInGmail"
         android:layout_width="0dp"
         android:layout_height="0dp"
 
@@ -90,10 +90,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/gmail_icon"
-        app:layout_constraintStart_toStartOf="@id/signUpGmail"
-        app:layout_constraintTop_toTopOf="@id/signUpGmail"
-        app:layout_constraintEnd_toEndOf="@id/signUpGmail"
-        app:layout_constraintBottom_toBottomOf="@id/signUpGmail"
+        app:layout_constraintStart_toStartOf="@id/signInGmail"
+        app:layout_constraintTop_toTopOf="@id/signInGmail"
+        app:layout_constraintEnd_toEndOf="@id/signInGmail"
+        app:layout_constraintBottom_toBottomOf="@id/signInGmail"
         android:translationZ="2dp"/>
 
 
@@ -107,7 +107,7 @@
 
     <com.google.android.material.button.MaterialButton
 
-        android:id="@+id/signUpFacebook"
+        android:id="@+id/signInFacebook"
         android:layout_width="0dp"
         android:layout_height="0dp"
 
@@ -124,10 +124,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/facebook_logo"
-        app:layout_constraintStart_toStartOf="@id/signUpFacebook"
-        app:layout_constraintTop_toTopOf="@id/signUpFacebook"
-        app:layout_constraintEnd_toEndOf="@id/signUpFacebook"
-        app:layout_constraintBottom_toBottomOf="@id/signUpFacebook"
+        app:layout_constraintStart_toStartOf="@id/signInFacebook"
+        app:layout_constraintTop_toTopOf="@id/signInFacebook"
+        app:layout_constraintEnd_toEndOf="@id/signInFacebook"
+        app:layout_constraintBottom_toBottomOf="@id/signInFacebook"
         android:translationZ="2dp"/>
 
 

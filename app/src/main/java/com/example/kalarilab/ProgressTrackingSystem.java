@@ -16,24 +16,7 @@ public class ProgressTrackingSystem {
     private AtomicInteger weeklyPoints = new AtomicInteger(0);
 
 
-    public ProgressTrackingSystem() {
-        addUnopenedPosturesToDB();
-    }
 
-    private void addUnopenedPosturesToDB() {
-        posturesLevels.put(0, 0);
-        posturesLevels.put(1, 0);
-        posturesLevels.put(2, 0);
-        posturesLevels.put(3, 0);
-        posturesLevels.put(4, 0);
-        posturesLevels.put(5, 0);
-        posturesLevels.put(6, 0);
-        posturesLevels.put(7, 0);
-        //Push map to DataBase, when api is done
-
-
-
-    }
 
     public int getTotalPoints() {
         return totalPoints.get();
@@ -103,8 +86,8 @@ public class ProgressTrackingSystem {
 
     public void getPosturesLevelsFromDB() {
         //get values from cloud (when finished) and store them in our map and return the map.
-       posturesLevels.put(1,1);
-       posturesLevels.put(2,2);
+       posturesLevels.put(2,3);
+       posturesLevels.put(3,2);
     }
 
     public int updateAPosture (Integer posture, Integer level){
@@ -122,5 +105,8 @@ public class ProgressTrackingSystem {
     public void setWeeklyPointsZero(){
         //called at the beginning of every week
         weeklyPoints.set(0);
+    }
+    public int getNumberOFOpenedPostures(){
+        return posturesLevels.size();
     }
 }
