@@ -4,8 +4,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
+
+import com.android.billingclient.api.BillingClient;
+import com.android.billingclient.api.BillingResult;
+import com.android.billingclient.api.Purchase;
+import com.android.billingclient.api.PurchasesUpdatedListener;
+
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -13,6 +21,7 @@ import androidx.fragment.app.Fragment;
  * create an instance of this fragment.
  */
 public class PremiumFragment extends Fragment {
+    Button monthlyActivateBtn, annualActivateBtn;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -59,9 +68,26 @@ public class PremiumFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view =  inflater.inflate(R.layout.fragment_premium, container, false);
-        //TextView text = (TextView) view.findViewById(R.id.ptext);
+        monthlyActivateBtn = (Button) view.findViewById(R.id.monthlyActivateBtn);
+        annualActivateBtn = (Button) view.findViewById(R.id.annualActivateBtn);
 
 
         return view;
     }
+
+    private PurchasesUpdatedListener purchasesUpdatedListener = new PurchasesUpdatedListener() {
+        @Override
+        public void onPurchasesUpdated(BillingResult billingResult, List<Purchase> purchases) {
+            // To be implemented in a later section.
+        }
+    };
+
+    private BillingClient billingClient = BillingClient.newBuilder(getContext())
+            .setListener(purchasesUpdatedListener)
+            .enablePendingPurchases()
+            .build();
+
+
+
+
 }

@@ -1,7 +1,5 @@
 package com.example.kalarilab;
 
-import android.util.Log;
-
 import com.google.gson.Gson;
 
 import org.json.JSONObject;
@@ -32,14 +30,14 @@ public class VolleyCallbacks {
         response = r;
 
 
-        extractInfoFromResponse_ProfileFragment();
+        extractInfoFromResponse_Fragments();
     }
 
     public static Map<String, String> ConvertJsonObject(JSONObject jsonObj) {
         return  new Gson().fromJson(jsonObj.toString(),  Map.class);
     }
 
-    private void extractInfoFromResponse_ProfileFragment() {
+    private void extractInfoFromResponse_Fragments() {
         volleyCallbackMap.setMap(ConvertJsonObject(response));
         this.fragment.setFragmentMap();
         try {
@@ -57,20 +55,27 @@ public class VolleyCallbacks {
         response = r;
 
 
-        extractInfoFromResponse_EditInfoActivity();
+        extractInfoFromResponse_Activities();
     }
 
-    private void extractInfoFromResponse_EditInfoActivity() {
+    private void extractInfoFromResponse_Activities() {
         volleyCallbackMap.setMap(ConvertJsonObject(response));
 
         try {
             context.storeInfoInSharedPreference();
-            Log.d("backPressedDebug", sessionManagement.returnUser_Bio());
 
 
         }catch (Exception e){
             e.printStackTrace();
         }
     }
+    public void onSuccess_PremiumActivity(JSONObject r) {
+
+        response = r;
+
+
+        extractInfoFromResponse_Activities();
+    }
+
 
 }

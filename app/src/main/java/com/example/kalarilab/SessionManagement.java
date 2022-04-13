@@ -19,6 +19,8 @@ public class SessionManagement implements Serializable {
     String USER_GENDER = "user_gender";
     String USER_BIO = "user_bio";
     String USER_AGE = "user_age";
+    String USER_MEMBERSHIP = "user_membership";
+
 
 
 
@@ -90,6 +92,10 @@ public class SessionManagement implements Serializable {
     public void saveUser_Bio(String user_bio){
         editor.putString(USER_BIO, user_bio).commit();
     }
+    public void saveUser_Membership(String membership){
+        editor.putString(USER_BIO, membership).commit();
+    }
+
 
     public String returnUser_Name(){
         return sharedPreferences.getString(USER_NAME, "");
@@ -105,6 +111,10 @@ public class SessionManagement implements Serializable {
     }
     public String returnUser_Bio(){
         return sharedPreferences.getString(USER_BIO, "");
+
+    }
+    public String returnUser_Membership(){
+        return sharedPreferences.getString(USER_MEMBERSHIP, "");
 
     }
 

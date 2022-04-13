@@ -144,5 +144,13 @@
     <string name="birth_date">Birth Date</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="points">Points</string>
+    <string name="monthly">Monthly</string>
+    <string name="choose_your_plan">Choose Your Plan.</string>
+    <string name="activate">Activate</string>
+    <string name="monthly_offer">One week free trail, then $ per month, cancel any time.</string>
+    <string name="annual">Annual</string>
+    <string name="annual_offer">One week free trail, then $ per year, cancel any time.</string>
+    <string name="classes">Classes</string>
+    <string name="levels">LEVELS</string>
 
 </resources>
